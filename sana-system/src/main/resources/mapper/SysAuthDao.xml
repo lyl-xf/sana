@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sana.system.dao.SysUserDao">
+
+	<select id="getLists" resultType="com.sana.system.entity.result.SysUserCopyResult">
+		SELECT us.*, GROUP_CONCAT(DISTINCT ro.role_id) AS roleIdList, GROUP_CONCAT(DISTINCT rg.org_id) AS postIdList
+		FROM sys_user us
+		LEFT JOIN sys_user_role ro ON us.id = ro.user_id
+		LEFT JOIN sys_user_org rg ON us.id = rg.user_id
+		where us.deleted = 0
+		<if test="query.name != null and query.name.trim() != ''">
+			and username like concat('%',#{query.name},'%')
+		</if>
+		<if test="query.groupId != null and query.groupId != ''">
+			and rg.org_id = #{query.groupId}
+		</if>
+		GROUP BY us.id
+	</select>
+	<select id="getUserName" resultType="com.sana.system.entity.SysUserEntity">
+		SELECT * FROM sys_user WHERE username = #{username}
+	</select>
+
+
+</mapper>

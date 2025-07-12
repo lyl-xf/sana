@@ -4,13 +4,13 @@ import cn.dev33.satoken.SaManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.net.InetAddress;
 
 @Slf4j
 @SpringBootApplication
 public class SanaServerApplication {
+
 
     public static void main(String[] args) {
         try {
