@@ -2,7 +2,7 @@ package com.sana.system.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.sana.base.framework.mybatis.entity.BaseEntity;
+import com.sana.base.mybatis.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

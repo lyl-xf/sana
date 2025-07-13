@@ -49,8 +49,8 @@ public class SysUserController {
     @Operation(summary = "分页")
     //@SaCheckPermission("sys:user:page")
     public SanaResult<SanaPage<SysUserResult>> page(@ParameterObject @Valid SysUserQuery query) {
-        SanaPage<SysUserResult> lanaPage = sysUserService.page(query);
-        return SanaResult.ok(lanaPage);
+        SanaPage<SysUserResult> sanaPage = sysUserService.page(query);
+        return SanaResult.ok(sanaPage);
     }
 
     @PostMapping("/save")

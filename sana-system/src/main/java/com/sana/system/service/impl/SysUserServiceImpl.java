@@ -1,7 +1,7 @@
 package com.sana.system.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.sana.base.framework.mybatis.service.impl.BaseServiceImpl;
+import com.sana.base.mybatis.service.impl.BaseServiceImpl;
 import com.sana.base.syshandle.page.SanaPage;
 import com.sana.system.dao.SysUserDao;
 import com.sana.system.entity.SysUserEntity;
@@ -28,8 +28,6 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntity> implements SysUserService {
-
-
     @Override
     public SanaPage<SysUserResult> page(SysUserQuery query) {
         IPage<SysUserCopyResult> page = baseMapper.getLists(getPage(query),query,true);

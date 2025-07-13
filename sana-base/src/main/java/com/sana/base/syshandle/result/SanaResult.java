@@ -28,9 +28,9 @@ public class SanaResult<T> {
     }
 
     public static <T> SanaResult<T> ok(T data) {
-        SanaResult<T> lanaResult = new SanaResult<>();
-        lanaResult.setData(data);
-        return lanaResult;
+        SanaResult<T> sanaResult = new SanaResult<>();
+        sanaResult.setData(data);
+        return sanaResult;
     }
 
     public static <T> SanaResult<T> error() {
@@ -47,9 +47,9 @@ public class SanaResult<T> {
     }
 
     public static <T> SanaResult<T> error(int code, String msg) {
-        SanaResult<T> lanaResult = new SanaResult<>();
-        lanaResult.setCode(code);
-        lanaResult.setMsg(msg);
-        return lanaResult;
+        SanaResult<T> sanaResult = new SanaResult<>();
+        sanaResult.setCode(code);
+        sanaResult.setMsg(msg);
+        return sanaResult;
     }
 }

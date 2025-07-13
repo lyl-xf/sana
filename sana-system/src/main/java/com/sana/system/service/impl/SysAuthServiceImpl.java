@@ -32,7 +32,7 @@ public class SysAuthServiceImpl implements SysAuthService {
 /*        if(captchaEnabled){
             boolean flag = sysCaptchaService.validate(login.getKey(), login.getCaptcha());
             if (!flag) {
-                throw new LanaException("验证码错误");
+                throw new SanaException("验证码错误");
             }
         }*/
         SysUserEntity user =  sysUserService.getUserName(login.getUsername());
