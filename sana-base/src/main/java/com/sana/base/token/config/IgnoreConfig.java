@@ -12,11 +12,11 @@ import java.util.List;
  * url忽略配置
  */
 @Component
-@ConfigurationProperties(prefix = "sa-token.ignore-config.path")
+@ConfigurationProperties(prefix = "sa-token.ignore-config.paths")
 public class IgnoreConfig {
-    private List<String> path = new ArrayList<>();
+    private List<String> paths = new ArrayList<>();
 
-    public List<String> getPath() {
-        return path;
+    public List<String> getPaths() {
+        return paths;
     }
 }

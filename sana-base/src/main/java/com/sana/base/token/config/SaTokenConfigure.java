@@ -18,6 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @author LON
  * @create 2025/7/12
  */
+@Slf4j
 @Configuration
 public class SaTokenConfigure implements WebMvcConfigurer {
 
@@ -28,10 +29,13 @@ public class SaTokenConfigure implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
+        log.info("Sa-Token 拦截器注册成功");
+
+        log.info("Sa-Token 拦截器信息为{}",ignoreConfig.getPaths());
         // 注册 Sa-Token 拦截器
         registry.addInterceptor(new SaInterceptor(handle -> StpUtil.checkLogin()))
                 .addPathPatterns("/**")
-                .excludePathPatterns(ignoreConfig.getPath());
+                .excludePathPatterns(ignoreConfig.getPaths());
     }
     /**
      * CORS 跨域处理策略
