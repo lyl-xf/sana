@@ -23,7 +23,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class SaTokenConfigure implements WebMvcConfigurer {
 
     @Resource
-    private IgnoreConfig ignoreConfig;
+    private SaTokenIgnoreConfig ignoreConfig;
 
     // 注册拦截器
     @Override

@@ -26,14 +26,14 @@
 
     <!--基础版本-->
     <properties>
-        <revision>1.0.0</revision>
-        <skipTests>true</skipTests>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <revision>1.0.0</revision>
+        <dynamic-datasource.version>4.2.0</dynamic-datasource.version>
+        <transmittable.thread.local.version>2.14.2</transmittable.thread.local.version>
         <java.version>17</java.version>
         <mybatisplus.version>3.5.5</mybatisplus.version>
         <mybatis.spring.version>3.0.3</mybatis.spring.version>
-        <dynamic-datasource.version>4.2.0</dynamic-datasource.version>
         <redisson.version>3.21.3</redisson.version>
         <knife4j.version>4.3.0</knife4j.version>
         <caffeine.version>3.1.8</caffeine.version>
@@ -46,7 +46,7 @@
         <minio.version>8.5.1</minio.version>
         <okio.version>3.3.0</okio.version>
         <jsoup.version>1.16.1</jsoup.version>
-        <transmittable.thread.local.version>2.14.2</transmittable.thread.local.version>
+
 
     </properties>
 
@@ -57,14 +57,7 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-processor</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -117,7 +110,16 @@
                 <artifactId>mapstruct-processor</artifactId>
                 <version>${mapstruct.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-jwt</artifactId>
+                <version>${satoken.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-alone-redis</artifactId>
+                <version>${satoken.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.taosdata.jdbc</groupId>
                 <artifactId>taos-jdbcdriver</artifactId>
@@ -165,16 +167,7 @@
                 <artifactId>sa-token-spring-boot3-starter</artifactId>
                 <version>${satoken.version}</version>
             </dependency>
-            <dependency>
-                <groupId>cn.dev33</groupId>
-                <artifactId>sa-token-jwt</artifactId>
-                <version>${satoken.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.dev33</groupId>
-                <artifactId>sa-token-alone-redis</artifactId>
-                <version>${satoken.version}</version>
-            </dependency>
+
         </dependencies>
     </dependencyManagement>
 </project>
