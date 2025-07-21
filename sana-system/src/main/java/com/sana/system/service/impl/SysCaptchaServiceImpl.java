@@ -59,21 +59,7 @@ public class SysCaptchaServiceImpl implements SysCaptchaService {
         return captchaVO;
     }
 
-    @Override
-    public boolean validate(String key, String code) {
 
-        if (StrUtil.isBlank(key) || StrUtil.isBlank(code)) {
-            return false;
-        }
-        key = CacheKeyBuilder.captchaKey(key);
-        String captcha = (String) redisCacheOps.get(key);
-        // 删除验证码
-        if (captcha != null) {
-            redisCacheOps.delete(key);
-        }
-        // 效验成功
-        return code.equalsIgnoreCase(captcha);
-    }
 
     @Override
     public SanaResult<Boolean> captchaEnabled() {

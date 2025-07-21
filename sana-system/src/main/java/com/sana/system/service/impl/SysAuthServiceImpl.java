@@ -3,15 +3,20 @@ package com.sana.system.service.impl;
 import cn.dev33.satoken.secure.BCrypt;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
+import cn.hutool.core.util.StrUtil;
+import com.sana.base.cache.redis.CacheKeyBuilder;
+import com.sana.base.cache.redis.CacheOps;
 import com.sana.base.syshandle.exception.SanaException;
 import com.sana.system.entity.SysUserEntity;
 import com.sana.system.entity.query.SysAccountLoginQuery;
 import com.sana.system.entity.result.SysUserAuthDataResult;
 import com.sana.system.entity.result.UserInfoResult;
 import com.sana.system.service.SysAuthService;
+import com.sana.system.service.SysCaptchaService;
 import com.sana.system.service.SysUserService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -27,15 +32,25 @@ public class SysAuthServiceImpl implements SysAuthService {
     @Resource
     private SysUserService sysUserService;
 
+    @Value("${spring.captchaEnabled}")
+    private Boolean captchaEnabled;
+
+    @Resource
+    private CacheOps redisCacheOps;
+
+
     @Override
     public SysUserAuthDataResult loginByAccount(SysAccountLoginQuery login) {
-/*        if(captchaEnabled){
-            boolean flag = sysCaptchaService.validate(login.getKey(), login.getCaptcha());
+        if(captchaEnabled){
+            boolean flag = validate(login.getKey(), login.getCaptcha());
             if (!flag) {
                 throw new SanaException("验证码错误");
             }
-        }*/
+        }
         SysUserEntity user =  sysUserService.getUserName(login.getUsername());
+
+        String pw_hash = BCrypt.hashpw(login.getPassword());
+        log.info("登录密码：{}", pw_hash);
 
         if (Objects.isNull(user)) {
             throw new SanaException("登录用户：" + login.getUsername() + " 不存在.");
@@ -71,4 +86,27 @@ public class SysAuthServiceImpl implements SysAuthService {
         return sysUserAuthDataResult;
 
     }
+
+    /**
+     * 效验验证码
+     *
+     * @param key
+     * @param code
+     * @return
+     */
+    public boolean validate(String key, String code) {
+
+        if (StrUtil.isBlank(key) || StrUtil.isBlank(code)) {
+            return false;
+        }
+        key = CacheKeyBuilder.captchaKey(key);
+        String captcha = (String) redisCacheOps.get(key);
+        // 删除验证码
+        if (captcha != null) {
+            redisCacheOps.delete(key);
+        }
+        // 效验成功
+        return code.equalsIgnoreCase(captcha);
+    }
+
 }
