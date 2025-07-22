@@ -18,7 +18,7 @@
 		GROUP BY us.id
 	</select>
 	<select id="getUserName" resultType="com.sana.system.entity.SysUserEntity">
-		SELECT * FROM sys_user WHERE username = #{username}
+		SELECT * FROM sys_user WHERE username = #{username} and deleted = 0
 	</select>
 
 

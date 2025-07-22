@@ -34,7 +34,6 @@
         <java.version>17</java.version>
         <mybatisplus.version>3.5.5</mybatisplus.version>
         <mybatis.spring.version>3.0.3</mybatis.spring.version>
-        <redisson.version>3.21.3</redisson.version>
         <knife4j.version>4.3.0</knife4j.version>
         <caffeine.version>3.1.8</caffeine.version>
         <taosdata.version>3.2.5</taosdata.version>
@@ -79,11 +78,7 @@
                 <artifactId>dynamic-datasource-spring-boot3-starter</artifactId>
                 <version>${dynamic-datasource.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.redisson</groupId>
-                <artifactId>redisson-spring-boot-starter</artifactId>
-                <version>${redisson.version}</version>
-            </dependency>
+
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
@@ -99,7 +94,6 @@
                 <artifactId>easy-captcha</artifactId>
                 <version>${captcha.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
@@ -117,8 +111,19 @@
             </dependency>
             <dependency>
                 <groupId>cn.dev33</groupId>
-                <artifactId>sa-token-alone-redis</artifactId>
+                <artifactId>sa-token-redis-template</artifactId>
                 <version>${satoken.version}</version>
+            </dependency>
+            <!-- Sa-Token 整合 Fastjson -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-fastjson</artifactId>
+                <version>${satoken.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
+                <version>2.11.1</version>
             </dependency>
             <dependency>
                 <groupId>com.taosdata.jdbc</groupId>
