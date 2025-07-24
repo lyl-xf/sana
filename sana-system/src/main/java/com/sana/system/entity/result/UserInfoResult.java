@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -19,7 +20,7 @@ public class UserInfoResult implements Serializable {
     private Long userId;
     private String dashboard;
     private String userName;
-    private Set<String> role;
+    private List<String> role;
     private String realName;
     private Integer gender;
     private String signature;

@@ -20,6 +20,20 @@
 	<select id="getUserName" resultType="com.sana.system.entity.SysUserEntity">
 		SELECT * FROM sys_user WHERE username = #{username} and deleted = 0
 	</select>
+    <select id="getUSerIds" resultType="java.lang.Long">
+		SELECT
+		users.id
+		FROM
+		sys_user users
+		LEFT JOIN sys_user_org userorg ON users.id = userorg.user_id
+		where users.deleted = 0
+		<if test="subIdList != null and subIdList.size() > 0">
+			and userorg.org_id in
+			<foreach collection="subIdList" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
 
 
 </mapper>

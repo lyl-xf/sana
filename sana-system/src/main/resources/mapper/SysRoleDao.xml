@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sana.system.dao.SysRoleDao">
+
+    <select id="getDataScopeByUserId" resultType="java.lang.Integer">
+        SELECT
+            MIN( role.data_scope ) AS dataScope
+        FROM
+            sys_role role,
+            sys_user_role userrole
+        WHERE
+            role.id = userrole.role_id
+          AND userrole.user_id = #{userId} and role.deleted = 0
+    </select>
+</mapper>

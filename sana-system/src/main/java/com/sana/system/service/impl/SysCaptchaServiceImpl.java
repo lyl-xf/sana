@@ -1,9 +1,8 @@
 package com.sana.system.service.impl;
 
 import cn.hutool.core.lang.UUID;
-import cn.hutool.core.util.StrUtil;
 import com.sana.base.cache.redis.CacheKeyBuilder;
-import com.sana.base.cache.redis.CacheOps;
+import com.sana.base.cache.redis.RedisUtils;
 import com.sana.base.syshandle.result.SanaResult;
 import com.sana.system.entity.result.SysCaptchaResult;
 import com.sana.system.service.SysCaptchaService;
@@ -27,7 +26,7 @@ public class SysCaptchaServiceImpl implements SysCaptchaService {
 
 
     @Resource
-    private CacheOps redisCacheOps;
+    private RedisUtils redisUtils;
     @Value("${spring.captchaEnabled}")
     private Boolean captchaEnabled;
 
@@ -52,7 +51,7 @@ public class SysCaptchaServiceImpl implements SysCaptchaService {
 
         // 保存到缓存
         String redisKey = CacheKeyBuilder.captchaKey(key);
-        redisCacheOps.set(redisKey, captcha.text(), 300);
+        redisUtils.set(redisKey, captcha.text(), 300);
         captchaVO.setKey(key);
         captchaVO.setImage(image);
         captchaVO.setCaptchaEnabled(true);

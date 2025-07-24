@@ -6,6 +6,15 @@ package com.sana.base.cache.redis;
  */
 public class CacheKeyBuilder {
 
+
+    /**
+     * 用户信息缓存KEY
+     */
+    public static String userInfoKey(Long key) {
+
+        return CachePrefix.USERINFOKEY + key;
+    }
+
     /**
      * 验证码Key
      */

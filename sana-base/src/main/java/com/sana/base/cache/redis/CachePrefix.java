@@ -8,6 +8,11 @@ public interface CachePrefix {
 
 
     /**
+     * 用户信息缓存
+     */
+    String USERINFOKEY = "sana:userinfo:";
+
+    /**
      * captcha缓存
      */
     String CAPTCHAKEY = "sana:captcha:";

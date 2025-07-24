@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sana.system.dao.SysMenusDao">
+
+
+	<select id="getAuthorityList" resultType="java.lang.String">
+
+		select code from sys_menus where deleted = 0
+
+	</select>
+	<select id="getUserAuthorityList" resultType="java.lang.String" parameterType="java.lang.Long">
+
+		SELECT
+			cod.code
+		FROM
+			sys_user_role role
+				LEFT JOIN sys_role_menu romenu ON role.role_id = romenu.role_id
+				LEFT JOIN sys_menus cod ON romenu.menu_id = cod.id
+		WHERE
+			role.user_id = #{userId} and cod.deleted = 0
+
+
+	</select>
+</mapper>

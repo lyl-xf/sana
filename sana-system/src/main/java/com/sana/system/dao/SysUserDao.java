@@ -9,6 +9,8 @@ import com.sana.system.entity.query.SysUserQuery;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * @author LON
  * @create 2025/7/12
@@ -19,4 +21,6 @@ public interface SysUserDao extends BaseDao<SysUserEntity> {
     IPage<SysUserCopyResult> getLists(@Param("page") IPage<SysUserEntity> page, @Param("query") SysUserQuery query, @Param("DataScopeIgnore") boolean DataScopeIgnore);
 
     SysUserEntity getUserName(String username);
+
+    List<Long> getUSerIds(@Param("subIdList") List<Long> subIdList);
 }

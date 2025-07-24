@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  * @create 2025/7/12 15:45
  */
 @Component
-public class CacheOps {
+public class RedisUtils {
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
 
