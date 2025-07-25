@@ -1,6 +1,6 @@
 <template>
 	<el-card shadow="hover" header="关于项目" class="item-background">
-		<p> 基于 SpringBoot3.3 + SpringSecurity6.2 + Mybatis-Plus3.5.5 + jwt0.11 + java17 + mysql8 + minio + redis6.2 + swagger3.0 + vue3.2 + vue-router4 + vuex4 + axios + element-plus + vue-i18n</p>
+		<p> 基于 SpringBoot3.3 + sa-token1.44 + Mybatis-Plus3.5.5 + jwt0.11 + java17 + mysql8 + minio + redis6.2 + swagger3.0 + vue3.2 + vue-router4 + vuex4 + axios + element-plus + vue-i18n</p>
 		<p>
 <!--			欢迎使用 <a href="https://github.com/lyl-xf/sana" target="_blank">sana</a>-->
 		</p>
