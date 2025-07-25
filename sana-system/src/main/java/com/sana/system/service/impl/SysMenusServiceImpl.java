@@ -3,9 +3,11 @@ package com.sana.system.service.impl;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.StrUtil;
 import com.sana.base.mybatis.service.impl.BaseServiceImpl;
+import com.sana.base.syshandle.entity.MyUserDetails;
 import com.sana.base.syshandle.enums.SuperAdminEnum;
 import com.sana.base.syshandle.enums.UserStatusEnum;
 import com.sana.base.syshandle.exception.SanaException;
+import com.sana.base.utils.TreeUtils;
 import com.sana.system.dao.SysMenusDao;
 import com.sana.system.entity.SysMenusEntity;
 import com.sana.system.entity.SysUserEntity;
@@ -26,6 +28,11 @@ import java.util.*;
 public class SysMenusServiceImpl extends BaseServiceImpl<SysMenusDao, SysMenusEntity> implements SysMenusService {
 
 
+    /**
+     * 获取用户权限
+     * @param user
+     * @return
+     */
     @Override
     public Set<String> getUserAuthority(SysUserEntity user) {
         List<String> authorityList;
@@ -47,9 +54,14 @@ public class SysMenusServiceImpl extends BaseServiceImpl<SysMenusDao, SysMenusEn
         return permsSet;
     }
 
+
+    /**
+     * 获取用户菜单
+     * @param user
+     * @return
+     */
     @Override
-    public SysMenusNavResult getNavMenuList() {
-/*        StpUtil.getLoginIdAsLong();
+    public SysMenusNavResult getNavMenuList(MyUserDetails user) {
         List<SysMenusResult> menuList = null;
         SysMenusNavResult sysNavResult = new SysMenusNavResult();
         // 系统管理员，拥有最高权限
@@ -73,6 +85,6 @@ public class SysMenusServiceImpl extends BaseServiceImpl<SysMenusDao, SysMenusEn
         dashboardGrids.add("about");
 
         sysNavResult.setDashboardGrid(dashboardGrids);
-        return sysNavResult;*/
+        return sysNavResult;
     }
 }

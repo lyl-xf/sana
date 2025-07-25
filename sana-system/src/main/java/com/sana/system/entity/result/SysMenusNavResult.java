@@ -20,5 +20,5 @@ public class SysMenusNavResult {
     @Schema(description = "菜单")
     private List<SysMenusResult> menu;
     @Schema(description = "权限")
-    private Set<String> permissions;
+    private List<String> permissions;
 }

@@ -17,4 +17,7 @@ public interface SysAuthService {
     SysUserAuthDataResult loginByAccount(SysAccountLoginQuery login);
 
 
+    String getVersion();
+
+    void logout();
 }

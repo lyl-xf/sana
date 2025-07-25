@@ -3,11 +3,13 @@ package com.sana.system.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.sana.base.mybatis.service.impl.BaseServiceImpl;
 import com.sana.base.syshandle.page.SanaPage;
+import com.sana.system.convert.SysUserConvert;
 import com.sana.system.dao.SysUserDao;
 import com.sana.system.entity.SysUserEntity;
 import com.sana.system.entity.result.SysUserCopyResult;
 import com.sana.system.entity.query.SysUserQuery;
 import com.sana.system.entity.result.SysUserResult;
+import com.sana.system.entity.save.SysUserSave;
 import com.sana.system.entity.update.SysUserPasswordUpdate;
 import com.sana.system.entity.update.SysUserUpdate;
 import com.sana.system.service.SysUserService;
@@ -51,9 +53,6 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
                             .map(Long::valueOf)
                             .collect(Collectors.toList())
                             : Collections.emptyList());
-                /*    if(dto.getPostIdList()!=null){
-                        result.setPostId(Long.parseLong(dto.getPostIdList()));
-                    }*/
                     result.setRoleIdList(StringUtils.isNotBlank(dto.getRoleIdList())
                             ? Arrays.stream(dto.getRoleIdList().split(","))
                             .map(Long::valueOf)
@@ -79,5 +78,13 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
     @Override
     public SysUserEntity getUserName(String username) {
         return baseMapper.getUserName(username);
+    }
+
+    @Override
+    public void registerUser(SysUserSave vo) {
+        //实体转换
+        SysUserEntity user = SysUserConvert.INSTANCE.convert(vo);
+        //保存用户
+        baseMapper.insert(user);
     }
 }

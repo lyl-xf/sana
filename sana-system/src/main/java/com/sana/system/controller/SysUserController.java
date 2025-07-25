@@ -5,7 +5,6 @@ import cn.hutool.core.util.StrUtil;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import com.sana.base.syshandle.page.SanaPage;
 import com.sana.base.syshandle.result.SanaResult;
-import com.sana.system.entity.SysUserEntity;
 import com.sana.system.entity.query.SysUserQuery;
 import com.sana.system.entity.result.SysUserPasswordResult;
 import com.sana.system.entity.result.SysUserResult;
@@ -34,11 +33,8 @@ import java.util.List;
 @Tag(name = "用户管理")
 public class SysUserController {
 
-
     @Resource
     private SysUserService sysUserService;
-
-
 
     /**
      * 用户数据分页查询
@@ -55,7 +51,6 @@ public class SysUserController {
 
     @PostMapping("/save")
     @Operation(summary = "保存")
-    @SaCheckPermission("sys:user:save")
     public SanaResult<String> save(@RequestBody @Valid SysUserSave vo) {
         // 新增密码不能为空
         if (StrUtil.isBlank(vo.getPassword())) {
@@ -71,7 +66,6 @@ public class SysUserController {
 
     @PostMapping("/resetPassword")
     @Operation(summary = "重置为默认密码")
-    @SaCheckPermission("sys:user:password")
     public SanaResult password(@RequestBody @Valid SysUserPasswordResult vo) {
         return SanaResult.ok();
     }
@@ -81,7 +75,6 @@ public class SysUserController {
 
     @PostMapping("/update")
     @Operation(summary = "修改")
-    @SaCheckPermission("hasAuthority('sys:user:update')")
     public SanaResult<String> update(@RequestBody @Valid SysUserUpdate vo) {
 
         return SanaResult.ok();
@@ -89,7 +82,6 @@ public class SysUserController {
 
     @PostMapping("/delete")
     @Operation(summary = "删除")
-    @SaCheckPermission("hasAuthority('sys:user:delete')")
     public SanaResult<String> delete(@RequestBody List<Long> idList) {
 
         return SanaResult.ok();
@@ -97,7 +89,6 @@ public class SysUserController {
 
     @PostMapping("/updateMySelf")
     @Operation(summary = "修改个人用户信息")
-    @SaCheckPermission("hasAuthority('serve:user:save')")
     public SanaResult updateMySelf(@RequestBody @Valid SysUserUpdate sysUserUpdate) {
         SysUserResult sysUserResult = sysUserService.updateMySelf(sysUserUpdate);
         return SanaResult.ok();
@@ -105,7 +96,6 @@ public class SysUserController {
 
     @PostMapping("/updateMySelfPassword")
     @Operation(summary = "修改个人密码")
-    @SaCheckPermission("hasAuthority('serve:password:save')")
     public SanaResult<String> password(@RequestBody @Valid SysUserPasswordUpdate sysUserPasswordUpdate) {
         // 修改密码
         String result = sysUserService.updateMySelfPassword(sysUserPasswordUpdate);

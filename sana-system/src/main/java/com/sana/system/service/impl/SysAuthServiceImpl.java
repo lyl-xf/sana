@@ -10,6 +10,7 @@ import com.sana.base.syshandle.entity.MyUserDetails;
 import com.sana.base.syshandle.enums.UserStatusEnum;
 import com.sana.base.syshandle.exception.SanaException;
 import com.sana.base.syshandle.usercache.UserCacheService;
+import com.sana.base.syshandle.usercache.UserContextUtil;
 import com.sana.system.entity.SysUserEntity;
 import com.sana.system.entity.query.SysAccountLoginQuery;
 import com.sana.system.entity.result.SysUserAuthDataResult;
@@ -42,6 +43,9 @@ public class SysAuthServiceImpl implements SysAuthService {
     @Value("${spring.captchaEnabled}")
     private Boolean captchaEnabled;
 
+    @Value("${sana.version}")
+    private String version;
+
     @Resource
     private RedisUtils redisUtils;
 
@@ -65,10 +69,7 @@ public class SysAuthServiceImpl implements SysAuthService {
                 }
             }
             SysUserEntity user =  sysUserService.getUserName(login.getUsername());
-/*        // 注册时加密密码
-        String hashedPassword = BCrypt.hashpw(login.getPassword(), BCrypt.gensalt());
-        user.setPassword(hashedPassword);
-        sysUserService.updateById(user);*/
+
             if (Objects.isNull(user)) {
                 throw new SanaException("登录用户：" + login.getUsername() + " 不存在");
             }
@@ -89,6 +90,18 @@ public class SysAuthServiceImpl implements SysAuthService {
             }else {
                 throw new SanaException("登录失败");
             }
+    }
+
+    @Override
+    public String getVersion() {
+        return version;
+    }
+
+    @Override
+    public void logout() {
+        MyUserDetails user = UserContextUtil.getCurrentUserInfo();
+        StpUtil.logout(user.getId());
+        userCacheService.removeUserInfo(user.getId());
     }
 
 
@@ -127,7 +140,7 @@ public class SysAuthServiceImpl implements SysAuthService {
         MyUserDetails myUserDetails = new MyUserDetails();
         BeanUtils.copyProperties(user, myUserDetails);
         myUserDetails.setDataScopeList(dataScopeList);
-        //myUserDetails.setAuthoritySet(authoritySet);
+        myUserDetails.setAuthoritySet(authoritySet);
         MyUserDetails myUserDetail = userCacheService.getUserInfo(user.getId());
         if(myUserDetail!=null){
             userCacheService.updateUserInfo(user.getId(),myUserDetails);

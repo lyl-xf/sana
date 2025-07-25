@@ -6,8 +6,10 @@ import com.sana.base.syshandle.page.SanaPage;
 import com.sana.system.entity.SysUserEntity;
 import com.sana.system.entity.query.SysUserQuery;
 import com.sana.system.entity.result.SysUserResult;
+import com.sana.system.entity.save.SysUserSave;
 import com.sana.system.entity.update.SysUserPasswordUpdate;
 import com.sana.system.entity.update.SysUserUpdate;
+import jakarta.validation.Valid;
 
 /**
  * @author LON
@@ -21,4 +23,6 @@ public interface SysUserService extends BaseService<SysUserEntity> {
     String updateMySelfPassword(SysUserPasswordUpdate sysUserPasswordUpdate);
 
     SysUserEntity getUserName(String username);
+
+    void registerUser(@Valid SysUserSave vo);
 }

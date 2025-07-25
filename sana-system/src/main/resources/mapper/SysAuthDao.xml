@@ -34,6 +34,15 @@
 			</foreach>
 		</if>
 	</select>
+    <select id="getOnlyOrgIdList" resultType="java.lang.Long" parameterType="java.lang.Long">
+
+		SELECT
+			users.id
+		FROM
+			sys_user users
+				LEFT JOIN sys_user_org userorg ON users.id = userorg.user_id
+		WHERE userorg.org_id = #{orgId}
+	</select>
 
 
 </mapper>

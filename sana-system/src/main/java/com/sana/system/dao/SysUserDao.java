@@ -23,4 +23,6 @@ public interface SysUserDao extends BaseDao<SysUserEntity> {
     SysUserEntity getUserName(String username);
 
     List<Long> getUSerIds(@Param("subIdList") List<Long> subIdList);
+
+    List<Long> getOnlyOrgIdList(Long orgId);
 }

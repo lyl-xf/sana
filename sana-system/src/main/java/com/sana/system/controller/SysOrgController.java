@@ -1,11 +1,8 @@
 package com.sana.system.controller;
 
-import io.swagger.v3.oas.annotations.Operation;
+import com.sana.system.service.SysOrgService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
-import jakarta.validation.Valid;
-import org.springdoc.core.annotations.ParameterObject;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

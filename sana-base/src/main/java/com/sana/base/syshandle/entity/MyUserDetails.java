@@ -72,7 +72,7 @@ public class MyUserDetails {
     /**
      * 拥有权限集合
      */
-    //private List<String> authoritySet;
+    private List<String> authoritySet;
 
 
 }

@@ -6,10 +6,8 @@ import com.sana.base.syshandle.usercache.UserContextUtil;
 import com.sana.system.entity.result.SysMenusNavResult;
 import com.sana.system.service.SysMenusService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
-import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,7 +30,7 @@ public class SysMenusController {
     public SanaResult<SysMenusNavResult> nav() {
         MyUserDetails user = UserContextUtil.getCurrentUserInfo();
         //获取菜单导航
-        SysMenusNavResult navResult = sysMenusService.getNavMenuList();
+        SysMenusNavResult navResult = sysMenusService.getNavMenuList(user);
         return SanaResult.ok(navResult);
     }
 

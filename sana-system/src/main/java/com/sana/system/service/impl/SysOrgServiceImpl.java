@@ -29,7 +29,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<SysOrgDao, SysOrgEntity> 
         Long orgId = baseMapper.getByUserId(userId);
         // 所有机构的id、pid列表
         List<SysOrgEntity> orgList = baseMapper.getIdAndPidList();
-        // 递归查询所有子机构ID列表
+        // 查询所有子机构ID列表
         List<Long> subIdList = new ArrayList<>();
         getTree(orgId, orgList, subIdList);
         // 本机构也添加进去
