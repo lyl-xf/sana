@@ -1,20 +1,33 @@
 package com.sana.system.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.sana.base.mybatis.service.impl.BaseServiceImpl;
 import com.sana.base.syshandle.enums.DataScopeEnum;
+import com.sana.base.syshandle.exception.SanaException;
+import com.sana.base.syshandle.page.SanaPage;
+import com.sana.system.convert.SysRoleConvert;
 import com.sana.system.dao.SysRoleDao;
 import com.sana.system.entity.SysRoleEntity;
 import com.sana.system.entity.SysUserEntity;
-import com.sana.system.service.SysOrgService;
-import com.sana.system.service.SysRoleService;
+import com.sana.system.entity.query.SysRoleQuery;
+import com.sana.system.entity.result.SysRoleResult;
+import com.sana.system.entity.save.SysRoleSave;
+import com.sana.system.entity.update.SysRoleDataScopeUpdate;
+import com.sana.system.entity.update.SysRoleMenusUpdate;
+import com.sana.system.entity.update.SysRoleUpdate;
+import com.sana.system.service.*;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
+ * 本页面的todo，em....前端这块是每次登录将数据进行缓存然后走前端缓存。所以第一版暂时不做更新。设置好了权限退出、重新登录就好了
+ * 第二版再优化一下前端，一旦更新了角色权限，将直接刷新缓存。
  * @author LON
  * @create 2025/7/12
  */
@@ -24,6 +37,15 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleDao, SysRoleEntit
 
     @Resource
     private SysOrgService sysOrgService;
+
+    @Resource
+    private SysMenusService sysMenusService;
+
+    @Resource
+    private SysRoleMenuService sysRoleMenuService;
+
+    @Resource
+    private SysUserRoleService sysUserRoleService;
 
     /**
      * 根据用户详情获取数据权限范围。
@@ -71,6 +93,87 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleDao, SysRoleEntit
         }
 
         return new ArrayList<>();
+    }
+
+
+
+
+
+    @Override
+    public SanaPage<SysRoleResult> pageRole(SysRoleQuery query) {
+        IPage<SysRoleResult> page = baseMapper.getPageRole(getPage(query), query,true);
+        return new SanaPage<>(page.getRecords(), page.getTotal(),page.getPages(),page.getSize());
+    }
+
+    @Override
+    public List<SysRoleResult> getListRole(SysRoleQuery sysRoleQuery) {
+        List<SysRoleEntity> entityList = baseMapper.getListRole(sysRoleQuery,true);
+        return SysRoleConvert.INSTANCE.convertList(entityList);
+    }
+
+    @Override
+    public void saveRole(SysRoleSave saveVO) {
+        SysRoleEntity entity = SysRoleConvert.INSTANCE.convert(saveVO);
+        baseMapper.insert(entity);
+    }
+
+    @Override
+    public void updateRole(SysRoleUpdate updateVo) {
+        SysRoleEntity entity = SysRoleConvert.INSTANCE.convert(updateVo);
+        // 更新角色
+        updateById(entity);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void roleLinkMenus(SysRoleMenusUpdate sysRoleMenusUpdate) {
+        //
+        try {
+            Long roleid = sysRoleMenusUpdate.getRoleId();
+            //维护角色菜单
+            List<Long> menuIdList = sysMenusService.getMenuIds(sysRoleMenusUpdate.getMenus());
+            sysRoleMenuService.deleteByRoleIdList(Collections.singletonList(roleid));
+            sysRoleMenuService.saveRoleMenu(roleid, menuIdList);
+            // todo 维护数据权限,角色信息的(角色绑定菜单、数据权限、首页模块权限)之后，为了兼容前端的功能，这里采用让其退出后再生效
+            baseMapper.updateRole(roleid,sysRoleMenusUpdate.getGrid());
+        }catch (Exception e){
+            log.info("角色授权异常",e);
+            throw new SanaException("角色授权异常：", e);
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void dataScope(SysRoleDataScopeUpdate updateVO) {
+        try{
+            SysRoleEntity entity = getById(updateVO.getId());
+            entity.setDataScope(updateVO.getDataScope());
+            // 更新角色
+            updateById(entity);
+            // todo 更新角色对应用户的缓存权限
+
+        }catch (Exception e){
+            log.info("修改数据权限错误",e);
+            throw new SanaException("修改数据权限错误：", e);
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteRole(List<Long> idList) {
+        try {
+            // 删除角色
+            removeByIds(idList);
+            // 删除用户角色关系
+            sysUserRoleService.deleteByRoleIdList(idList);
+            // 删除角色菜单关系
+            sysRoleMenuService.deleteByRoleIdList(idList);
+            // todo 更新角色对应用户的缓存权限
+            //查询出来这个角色下的用户的信息然后批量更新缓存中的数据
+        }catch (Exception e){
+            log.info("删除角色错误",e);
+            throw new SanaException("删除角色错误：", e);
+        }
     }
 
 }

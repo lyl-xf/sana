@@ -4,6 +4,7 @@ import com.sana.base.mybatis.dao.BaseDao;
 import com.sana.system.entity.SysMenusEntity;
 import com.sana.system.entity.result.SysMenusResult;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,4 +22,8 @@ public interface SysMenusDao extends BaseDao<SysMenusEntity> {
     List<SysMenusResult> getMenus();
 
     List<SysMenusResult> getUserMenuList(long userid);
+
+    List<String> getRoleMenusList(Long roleId);
+
+    List<Long> getMenuIds(@Param("menus") List<String> menus);
 }

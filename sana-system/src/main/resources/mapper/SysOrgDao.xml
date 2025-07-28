@@ -17,4 +17,11 @@
 	<select id="getIdAndPidList" resultType="com.sana.system.entity.SysOrgEntity">
 		select id, pid from sys_org where deleted = 0
 	</select>
+    <select id="getList" resultType="com.sana.system.entity.result.SysOrgResult">
+		select *,name as label from sys_org where deleted = 0
+		<if test="params.name != null and params.name != ''">
+			and name like concat('%',#{params.name},'%')
+		</if>
+		order by sort asc
+	</select>
 </mapper>

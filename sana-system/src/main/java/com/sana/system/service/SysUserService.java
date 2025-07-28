@@ -24,5 +24,5 @@ public interface SysUserService extends BaseService<SysUserEntity> {
 
     SysUserEntity getUserName(String username);
 
-    void registerUser(@Valid SysUserSave vo);
+    void registerUser(SysUserSave vo);
 }

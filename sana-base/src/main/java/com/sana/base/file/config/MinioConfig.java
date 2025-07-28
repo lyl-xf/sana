@@ -7,9 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author Liuyulet
- * @version 1.0
- * @data 2024/11/25 13:35
+ * @author LON
  */
 @Data
 @Configuration

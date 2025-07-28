@@ -2,6 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.sana.system.dao.SysRoleDao">
+    <update id="updateRole">
+        update sys_role set data_scope = #{grid} where id = #{roleid}
+    </update>
 
     <select id="getDataScopeByUserId" resultType="java.lang.Integer">
         SELECT
@@ -12,5 +15,20 @@
         WHERE
             role.id = userrole.role_id
           AND userrole.user_id = #{userId} and role.deleted = 0
+    </select>
+
+
+    <select id="getPageRole" resultType="com.sana.system.entity.result.SysRoleResult">
+        select * from sys_role where deleted = 0
+        <if test="model.name != null and model.name.trim() != ''">
+            and name = #{model.name}
+        </if>
+        order by sort asc
+    </select>
+    <select id="getListRole" resultType="com.sana.system.entity.SysRoleEntity">
+        select * from sys_role where deleted = 0
+        <if test="sysRoleQuery.name != null and sysRoleQuery.name.trim() != ''">
+            and name = #{sysRoleQuery.name}
+        </if>
     </select>
 </mapper>
