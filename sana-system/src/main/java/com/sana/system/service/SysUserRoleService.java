@@ -2,6 +2,9 @@ package com.sana.system.service;
 
 
 
+import com.sana.base.mybatis.service.BaseService;
+import com.sana.system.entity.SysUserRoleEntity;
+
 import java.util.List;
 
 public interface SysUserRoleService extends BaseService<SysUserRoleEntity> {
