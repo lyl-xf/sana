@@ -134,7 +134,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleDao, SysRoleEntit
             List<Long> menuIdList = sysMenusService.getMenuIds(sysRoleMenusUpdate.getMenus());
             sysRoleMenuService.deleteByRoleIdList(Collections.singletonList(roleid));
             sysRoleMenuService.saveRoleMenu(roleid, menuIdList);
-            // todo 维护数据权限,角色信息的(角色绑定菜单、数据权限、首页模块权限)之后，为了兼容前端的功能，这里采用让其退出后再生效
+            // todo 维护数据权限,角色信息的(角色绑定菜单、数据权限、首页模块权限)之后，为了兼容前端的功能，这里采用让其退出后再生效，也可以修改为刷新缓存生效
             baseMapper.updateRole(roleid,sysRoleMenusUpdate.getGrid());
         }catch (Exception e){
             log.info("角色授权异常",e);

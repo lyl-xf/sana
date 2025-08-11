@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 数据范围枚举
  * @author LON
  * @create 2025/7/12
  */
