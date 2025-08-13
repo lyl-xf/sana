@@ -3,6 +3,8 @@ package com.sana.base.mybatis.config;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.toolkit.PluginUtils;
 import com.baomidou.mybatisplus.extension.plugins.inner.InnerInterceptor;
+import com.sana.base.syshandle.entity.MyUserDetails;
+import com.sana.base.syshandle.usercache.UserContextUtil;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.expression.Alias;
 import net.sf.jsqlparser.expression.Expression;
@@ -78,13 +80,12 @@ public class DataScopeInnerInterceptor implements InnerInterceptor {
      * 获取布尔类型的参数值
      */
     private Boolean getBooleanParam(Map<?, ?> paramMap, String key) {
-        Object value = paramMap.get(key);
-        if (value instanceof Boolean) {
-            return (Boolean) value;
-        } else if (value instanceof String) {
-            return Boolean.parseBoolean((String) value);
+        if (!paramMap.containsKey(key)) {
+            System.out.println("paramMap不包含对应的注释");
+            return null;
+        }else {
+            return true;
         }
-        return null;
     }
 
     /**
@@ -103,10 +104,8 @@ public class DataScopeInnerInterceptor implements InnerInterceptor {
      * 从用户上下文中获取权限范围（示例实现）
      */
     private List<Long> getCurrentUserDataScope() {
-        // 示例：从 ThreadLocal 或 SecurityContext 获取当前用户信息
-        // User user = UserContext.getCurrentUser();
-        // return user != null ? user.getDataScope() : null;
-        return Arrays.asList(1L, 2L, 3L); // 仅用于演示
+        MyUserDetails user = UserContextUtil.getCurrentUserInfo();
+        return user.getDataScopeList(); // 仅用于演示
     }
 
     /**

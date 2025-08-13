@@ -64,9 +64,7 @@ public class MyUserDetails {
     private Integer status;
     /**
      * 数据权限范围
-     * <p>
      * null：表示全部数据权限
-     * 本人数据默认查询
      */
     private List<Long> dataScopeList;
     /**
