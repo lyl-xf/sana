@@ -28,6 +28,7 @@ public class SysUserSave implements Serializable {
     private String username;
 
     @Schema(description = "密码")
+    @NotBlank(message = "密码不能为空")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 

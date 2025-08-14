@@ -1,8 +1,12 @@
 package com.sana.system.service.impl;
 
+import cn.dev33.satoken.secure.BCrypt;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.sana.base.mybatis.service.impl.BaseServiceImpl;
+import com.sana.base.syshandle.entity.MyUserDetails;
+import com.sana.base.syshandle.exception.SanaException;
 import com.sana.base.syshandle.page.SanaPage;
+import com.sana.base.syshandle.usercache.UserContextUtil;
 import com.sana.system.convert.SysUserConvert;
 import com.sana.system.dao.SysUserDao;
 import com.sana.system.entity.SysUserEntity;
@@ -12,11 +16,14 @@ import com.sana.system.entity.result.SysUserResult;
 import com.sana.system.entity.save.SysUserSave;
 import com.sana.system.entity.update.SysUserPasswordUpdate;
 import com.sana.system.entity.update.SysUserUpdate;
+import com.sana.system.service.SysUserRoleService;
 import com.sana.system.service.SysUserService;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -30,6 +37,14 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntity> implements SysUserService {
+
+    @Resource
+    private SysUserRoleService sysUserRoleService;
+
+/*    @Resource
+    private SysUserOrgService sysUserOrgService;*/
+
+
     @Override
     public SanaPage<SysUserResult> page(SysUserQuery query) {
         IPage<SysUserCopyResult> page = baseMapper.getLists(getPage(query),query,true);
@@ -66,13 +81,26 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
     }
 
     @Override
-    public SysUserResult updateMySelf(SysUserUpdate sysUserUpdate) {
-        return null;
+    public void updateMySelf(SysUserUpdate sysUserUpdate) {
+        SysUserEntity sysUserEntity = baseMapper.getUserName(sysUserUpdate.getUsername());
+        sysUserEntity.setSignature(sysUserUpdate.getSignature());
+        sysUserEntity.setRealName(sysUserUpdate.getRealName());
+        sysUserEntity.setGender(sysUserUpdate.getGender());
+        baseMapper.updateById(sysUserEntity);
     }
 
     @Override
     public String updateMySelfPassword(SysUserPasswordUpdate sysUserPasswordUpdate) {
-        return "";
+        MyUserDetails user = UserContextUtil.getCurrentUserInfo();
+        SysUserEntity userEntity =  baseMapper.getUserName(user.getUsername());
+
+        if (!BCrypt.checkpw( sysUserPasswordUpdate.getPassword(),user.getPassword())) {
+            throw new SanaException("账号密码不正确");
+        }
+        userEntity.setPassword(BCrypt.hashpw(sysUserPasswordUpdate.getNewPassword()));
+        baseMapper.updateById(userEntity);
+
+        return null;
     }
 
     @Override
@@ -86,5 +114,28 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
         SysUserEntity user = SysUserConvert.INSTANCE.convert(vo);
         //保存用户
         baseMapper.insert(user);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void saveUserOrgRole(SysUserSave vo) {
+/*        try {
+
+            //实体转换
+            SysUserEntity user = SysUserConvert.INSTANCE.convert(vo);
+            user.setPassword(BCrypt.hashpw(vo.getPassword()));
+            //保存用户
+            baseMapper.insert(user);
+            //保存角色
+            List<Long> userRole = vo.getGroup();
+            sysUserRoleService.saveUserRole(user.getId(),userRole);
+            //保存组织
+            List<Long> userOrg = vo.getDept();
+            sysUserOrgService.saveUserOrg(user.getId(),userOrg);
+
+        }catch (Exception e){
+            log.info("保存用户、维护用户组织、角色出现异常，请排查",e);
+            throw new LanaException("保存用户、维护用户组织、角色出现异常，请排查");
+        }*/
     }
 }

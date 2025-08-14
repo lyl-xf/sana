@@ -62,7 +62,7 @@ public class SysAuthController {
         if (StrUtil.isBlank(vo.getPassword())) {
             return SanaResult.error("密码不能为空");
         }
-        String hashedPassword = BCrypt.hashpw(vo.getPassword(), BCrypt.gensalt());
+        String hashedPassword = BCrypt.hashpw(vo.getPassword());
         // 密码加密
         vo.setPassword(hashedPassword);
         // 保存

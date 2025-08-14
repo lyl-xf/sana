@@ -52,15 +52,7 @@ public class SysUserController {
     @PostMapping("/save")
     @Operation(summary = "保存")
     public SanaResult<String> save(@RequestBody @Valid SysUserSave vo) {
-        // 新增密码不能为空
-        if (StrUtil.isBlank(vo.getPassword())) {
-            return SanaResult.error("密码不能为空");
-        }
-/*        // 密码加密
-        vo.setPassword(null);
-        // 保存
-        sysUserService.saveUserOrgRole(vo);*/
-
+        sysUserService.saveUserOrgRole(vo);
         return SanaResult.ok();
     }
 
@@ -90,7 +82,7 @@ public class SysUserController {
     @PostMapping("/updateMySelf")
     @Operation(summary = "修改个人用户信息")
     public SanaResult updateMySelf(@RequestBody @Valid SysUserUpdate sysUserUpdate) {
-        SysUserResult sysUserResult = sysUserService.updateMySelf(sysUserUpdate);
+        sysUserService.updateMySelf(sysUserUpdate);
         return SanaResult.ok();
     }
 

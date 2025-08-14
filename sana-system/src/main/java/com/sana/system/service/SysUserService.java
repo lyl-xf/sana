@@ -18,11 +18,13 @@ import jakarta.validation.Valid;
 public interface SysUserService extends BaseService<SysUserEntity> {
     SanaPage<SysUserResult> page(SysUserQuery query);
 
-    SysUserResult updateMySelf(SysUserUpdate sysUserUpdate);
+    void updateMySelf(SysUserUpdate sysUserUpdate);
 
     String updateMySelfPassword(SysUserPasswordUpdate sysUserPasswordUpdate);
 
     SysUserEntity getUserName(String username);
 
     void registerUser(SysUserSave vo);
+
+    void saveUserOrgRole(@Valid SysUserSave vo);
 }
