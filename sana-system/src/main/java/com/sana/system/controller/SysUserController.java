@@ -3,8 +3,10 @@ package com.sana.system.controller;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.hutool.core.util.StrUtil;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
+import com.sana.base.syshandle.entity.MyUserDetails;
 import com.sana.base.syshandle.page.SanaPage;
 import com.sana.base.syshandle.result.SanaResult;
+import com.sana.base.syshandle.usercache.UserContextUtil;
 import com.sana.system.entity.query.SysUserQuery;
 import com.sana.system.entity.result.SysUserPasswordResult;
 import com.sana.system.entity.result.SysUserResult;
@@ -58,7 +60,8 @@ public class SysUserController {
 
     @PostMapping("/resetPassword")
     @Operation(summary = "重置为默认密码")
-    public SanaResult password(@RequestBody @Valid SysUserPasswordResult vo) {
+    public SanaResult resetPassword(@RequestBody @Valid SysUserPasswordResult vo) {
+        sysUserService.resetPassword(vo);
         return SanaResult.ok();
     }
 
@@ -68,14 +71,18 @@ public class SysUserController {
     @PostMapping("/update")
     @Operation(summary = "修改")
     public SanaResult<String> update(@RequestBody @Valid SysUserUpdate vo) {
-
+        sysUserService.updateByUserId(vo);
         return SanaResult.ok();
     }
 
     @PostMapping("/delete")
     @Operation(summary = "删除")
     public SanaResult<String> delete(@RequestBody List<Long> idList) {
-
+        MyUserDetails user = UserContextUtil.getCurrentUserInfo();
+        if (idList.contains(user.getId())) {
+            return SanaResult.error("不能删除当前登录用户");
+        }
+        sysUserService.delete(idList);
         return SanaResult.ok();
     }
 

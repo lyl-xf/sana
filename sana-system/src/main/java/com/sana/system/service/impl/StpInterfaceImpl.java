@@ -1,8 +1,6 @@
 package com.sana.system.service.impl;
 
 import cn.dev33.satoken.stp.StpInterface;
-import cn.hutool.core.util.StrUtil;
-import com.sana.base.syshandle.enums.SuperAdminEnum;
 import com.sana.system.entity.SysUserEntity;
 import com.sana.system.service.SysMenusService;
 import com.sana.system.service.SysUserService;

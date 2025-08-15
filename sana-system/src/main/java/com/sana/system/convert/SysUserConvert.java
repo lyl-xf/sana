@@ -16,6 +16,6 @@ public interface SysUserConvert {
     SysUserConvert INSTANCE = Mappers.getMapper(SysUserConvert.class);
 
     SysUserEntity convert(SysUserSave save);
-
+    SysUserEntity convert(SysUserUpdate update);
 
 }

@@ -12,16 +12,19 @@ import com.sana.system.dao.SysUserDao;
 import com.sana.system.entity.SysUserEntity;
 import com.sana.system.entity.result.SysUserCopyResult;
 import com.sana.system.entity.query.SysUserQuery;
+import com.sana.system.entity.result.SysUserPasswordResult;
 import com.sana.system.entity.result.SysUserResult;
 import com.sana.system.entity.save.SysUserSave;
 import com.sana.system.entity.update.SysUserPasswordUpdate;
 import com.sana.system.entity.update.SysUserUpdate;
+import com.sana.system.service.SysUserOrgService;
 import com.sana.system.service.SysUserRoleService;
 import com.sana.system.service.SysUserService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,9 +44,11 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
     @Resource
     private SysUserRoleService sysUserRoleService;
 
-/*    @Resource
-    private SysUserOrgService sysUserOrgService;*/
+    @Resource
+    private SysUserOrgService sysUserOrgService;
 
+    @Value("${sana.resetPassword}")
+    private String resetPassword;
 
     @Override
     public SanaPage<SysUserResult> page(SysUserQuery query) {
@@ -119,8 +124,9 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void saveUserOrgRole(SysUserSave vo) {
-/*        try {
-
+        try {
+            //初始加密密码
+            vo.setPassword(vo.getPassword());
             //实体转换
             SysUserEntity user = SysUserConvert.INSTANCE.convert(vo);
             user.setPassword(BCrypt.hashpw(vo.getPassword()));
@@ -135,7 +141,49 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
 
         }catch (Exception e){
             log.info("保存用户、维护用户组织、角色出现异常，请排查",e);
-            throw new LanaException("保存用户、维护用户组织、角色出现异常，请排查");
-        }*/
+            throw new SanaException("保存用户、维护用户组织、角色出现异常，请排查");
+        }
+    }
+
+    @Override
+    public void resetPassword(SysUserPasswordResult vo) {
+        SysUserEntity sysUserEntity = baseMapper.selectById(vo.getId());
+        sysUserEntity.setPassword(BCrypt.hashpw(resetPassword));
+        // 修改密码
+        baseMapper.updateById(sysUserEntity);
+    }
+
+    @Override
+    public void updateByUserId(SysUserUpdate vo) {
+        try {
+            //实体转换
+            SysUserEntity user = SysUserConvert.INSTANCE.convert(vo);
+            //修改用户
+            baseMapper.updateById(user);
+            //修改角色
+            List<Long> userRole = vo.getGroup();
+            sysUserRoleService.deleteByUserIdList(user.getId());
+            sysUserRoleService.saveUserRole(user.getId(),userRole);
+            //修改组织
+            List<Long> userOrg = vo.getDept();
+            sysUserOrgService.deleteByUserIdList(user.getId());
+            sysUserOrgService.saveUserOrg(user.getId(),userOrg);
+
+        }catch (Exception e){
+            log.info("保存用户、维护用户组织、角色出现异常，请排查",e);
+            throw new SanaException("保存用户、维护用户组织、角色出现异常，请排查");
+        }
+    }
+
+    @Override
+    public void delete(List<Long> idList) {
+        // 删除用户
+        baseMapper.deleteBatchIds(idList);
+
+        // 删除用户角色关系
+        sysUserRoleService.deleteByUserIdList(idList);
+
+        // 删除用户组织关系
+        sysUserOrgService.deleteByUserIdList(idList);
     }
 }
