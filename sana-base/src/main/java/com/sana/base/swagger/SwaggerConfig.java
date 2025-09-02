@@ -29,7 +29,7 @@ public class SwaggerConfig {
         contact.setName("lyl-xf");
         return new OpenAPI().info(new Info()
                 .title("Sana接口文档")
-                .description("基于Sa-token，jdk17的基础管理平台")
+                .description("基于jdk17、vue3的管理平台")
                 .contact(contact)
                 .version("1.0")
                 .termsOfService("Apache-2.0 license")

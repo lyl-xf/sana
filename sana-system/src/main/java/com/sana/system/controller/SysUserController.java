@@ -4,6 +4,8 @@ import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.hutool.core.util.StrUtil;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import com.sana.base.syshandle.entity.MyUserDetails;
+import com.sana.base.syshandle.enums.OperateTypeEnum;
+import com.sana.base.syshandle.log.OptLog;
 import com.sana.base.syshandle.page.SanaPage;
 import com.sana.base.syshandle.result.SanaResult;
 import com.sana.base.syshandle.usercache.UserContextUtil;
@@ -45,6 +47,7 @@ public class SysUserController {
      */
     @GetMapping("/page")
     @Operation(summary = "分页")
+    @OptLog(type = OperateTypeEnum.QUERY)
     //@SaCheckPermission("sys:user:page")
     public SanaResult<SanaPage<SysUserResult>> page(@ParameterObject @Valid SysUserQuery query) {
         SanaPage<SysUserResult> sanaPage = sysUserService.page(query);

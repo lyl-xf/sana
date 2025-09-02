@@ -17,4 +17,9 @@ public interface CachePrefix {
      */
     String CAPTCHAKEY = "sana:captcha:";
 
+    /**
+     * log缓存
+     */
+    String LOGKEY = "lana:log";
+
 }

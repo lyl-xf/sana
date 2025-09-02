@@ -81,7 +81,7 @@ public class DataScopeInnerInterceptor implements InnerInterceptor {
      */
     private Boolean getBooleanParam(Map<?, ?> paramMap, String key) {
         if (!paramMap.containsKey(key)) {
-            System.out.println("paramMap不包含对应的注释");
+            //System.out.println("paramMap不包含对应的注释");
             return null;
         }else {
             return true;

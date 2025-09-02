@@ -41,14 +41,18 @@ public class MinioFileService implements FileService {
         try {
             //如果BucketName不存在，则创建
             boolean found = minioClient.bucketExists(BucketExistsArgs.builder().bucket(properties.getBucketName()).build());
+
             if (!found) {
                 minioClient.makeBucket(MakeBucketArgs.builder().bucket(properties.getBucketName()).build());
             }
+
             String contentType = MediaType.APPLICATION_OCTET_STREAM_VALUE;
+
             Optional<MediaType> mediaType = MediaTypeFactory.getMediaType(path);
             if (mediaType.isPresent()) {
                 contentType = mediaType.get().toString();
             }
+
             minioClient.putObject(
                 PutObjectArgs.builder().bucket(properties.getBucketName()).contentType(contentType).object(path).stream(inputStream, inputStream.available(), -1).build()
             );
@@ -56,6 +60,7 @@ public class MinioFileService implements FileService {
         } catch (Exception e) {
             throw new SanaException("上传文件失败：", e);
         }
+
         return properties.getEndPoint() + "/" + properties.getBucketName() + "/" + path;
     }
 }

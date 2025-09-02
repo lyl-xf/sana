@@ -30,7 +30,7 @@
 			<el-header>
 				<div class="left-panel">
 					<el-button type="primary" icon="el-icon-plus" v-auth="'sys:dict:save'" @click="addInfo"></el-button>
-					<el-button type="danger" plain icon="el-icon-delete" v-auth="'sys:dic:delete'" :disabled="selection.length==0" @click="batch_del"></el-button>
+<!--					<el-button type="danger" plain icon="el-icon-delete" v-auth="'sys:dic:delete'" :disabled="selection.length==0" @click="batch_del"></el-button>-->
 				</div>
 			</el-header>
 			<el-main class="nopadding">

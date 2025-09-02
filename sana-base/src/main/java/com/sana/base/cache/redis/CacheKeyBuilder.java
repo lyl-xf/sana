@@ -23,4 +23,13 @@ public class CacheKeyBuilder {
         return CachePrefix.CAPTCHAKEY + key;
     }
 
+    /**
+     * 日志 key
+     * @return
+     */
+    public static String logKey() {
+
+        return CachePrefix.LOGKEY;
+    }
+
 }
