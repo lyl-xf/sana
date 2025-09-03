@@ -315,5 +315,14 @@ export default {
 				return await http.get(this.url, params);
 			}
 		}
+	},
+	logJob: {
+		list: {
+			url: `${config.API_URL}/rules/quartz/getJobData`,
+			name: "日志定时入库设置",
+			get: async function(params){
+				return await http.get(this.url, params);
+			}
+		}
 	}
 }
