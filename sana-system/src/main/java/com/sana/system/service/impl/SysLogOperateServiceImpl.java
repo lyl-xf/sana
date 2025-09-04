@@ -5,16 +5,20 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.sana.base.mybatis.service.impl.BaseServiceImpl;
 import com.sana.base.syshandle.entity.MyUserDetails;
 import com.sana.base.syshandle.enums.OperateTypeEnum;
+import com.sana.base.syshandle.enums.QuartzEnum;
 import com.sana.base.syshandle.page.SanaPage;
 import com.sana.base.syshandle.usercache.UserContextUtil;
 import com.sana.system.dao.SysLogOperateDao;
 import com.sana.system.entity.SysLogOperateEntity;
 import com.sana.system.entity.query.SysLogOperateQuery;
 import com.sana.system.entity.query.SysLogSysOperateQuery;
+import com.sana.system.entity.result.JobInfoResult;
 import com.sana.system.entity.result.SysLogOperateResult;
 import com.sana.system.service.SysLogOperateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 /**
@@ -51,6 +55,20 @@ public class SysLogOperateServiceImpl extends BaseServiceImpl<SysLogOperateDao, 
         }
 
         return new SanaPage<>(page.getRecords(), page.getTotal(),page.getPages(),page.getSize());
+    }
+
+    @Override
+    public List<JobInfoResult> getJobData() {
+        JobInfoResult logOperateJob= baseMapper.getJobData(QuartzEnum.LOGS_CLASS_NAME.getValue());
+        if(logOperateJob!=null){
+            logOperateJob.setJobType(1);
+        }
+
+        JobInfoResult deviceDataJob = baseMapper.getJobData(QuartzEnum.DEVICE_CLASS_NAME.getValue());
+        if(deviceDataJob!=null){
+            deviceDataJob.setJobType(2);
+        }
+        return List.of(logOperateJob,deviceDataJob);
     }
 
 }

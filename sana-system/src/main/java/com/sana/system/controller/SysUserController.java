@@ -1,11 +1,9 @@
 package com.sana.system.controller;
 
-import cn.dev33.satoken.annotation.SaCheckPermission;
-import cn.hutool.core.util.StrUtil;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import com.sana.base.syshandle.entity.MyUserDetails;
 import com.sana.base.syshandle.enums.OperateTypeEnum;
-import com.sana.base.syshandle.log.OptLog;
+import com.sana.base.syshandle.operatelog.OptLog;
 import com.sana.base.syshandle.page.SanaPage;
 import com.sana.base.syshandle.result.SanaResult;
 import com.sana.base.syshandle.usercache.UserContextUtil;

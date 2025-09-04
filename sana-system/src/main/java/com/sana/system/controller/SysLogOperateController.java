@@ -4,6 +4,7 @@ import com.sana.base.syshandle.page.SanaPage;
 import com.sana.base.syshandle.result.SanaResult;
 import com.sana.system.entity.query.SysLogOperateQuery;
 import com.sana.system.entity.query.SysLogSysOperateQuery;
+import com.sana.system.entity.result.JobInfoResult;
 import com.sana.system.entity.result.SysLogOperateResult;
 import com.sana.system.service.SysLogOperateService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,6 +15,8 @@ import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @author LON
@@ -32,8 +35,8 @@ public class SysLogOperateController {
     @GetMapping("/page")
     @Operation(summary = "个人操作日志分页")
     public SanaResult<SanaPage<SysLogOperateResult>> page(@ParameterObject @Valid SysLogOperateQuery query) {
-        SanaPage<SysLogOperateResult> lanaPage = sysLogOperateService.page(query);
-        return SanaResult.ok(lanaPage);
+        SanaPage<SysLogOperateResult> sanaPage = sysLogOperateService.page(query);
+        return SanaResult.ok(sanaPage);
     }
 
 
@@ -76,4 +79,9 @@ public class SysLogOperateController {
         }
     }
 
+    @GetMapping("/getJobData")
+    @Operation(summary = "新增设备数据存储定时任务")
+    public SanaResult<List<JobInfoResult>> getJobData() {
+        return SanaResult.ok( sysLogOperateService.getJobData());
+    }
 }

@@ -4,7 +4,7 @@
 			<el-tabs tab-position="top">
 <!--				<div class="el-form-item-msg" data-v-b33b3cf8="">关闭后普通用户无法登录，仅允许管理员角色登录</div>-->
 				<el-tab-pane label="系统日志定时入库">
-					<el-alert title="每次点击增删改查，都会优先存在redis中，通过定时存储任务进行间隔性获取并批量存入TDengine数据库中。下方为增删改查相关日志的入库时间间隔调整" type="warning" style="margin-bottom: 15px;"></el-alert>
+					<el-alert title="点击菜单功能都会产生日志，并且会优先存在redis中，通过定时存储任务进行间隔性获取并批量存入TDengine数据库中。下方为增删改查相关日志的入库时间间隔调整" type="warning" style="margin-bottom: 15px;"></el-alert>
 					<el-form ref="form" :model="syslog" label-width="100px" style="margin-top: 20px;">
 
 						<el-form-item label="任务名称">

@@ -32,9 +32,9 @@ public class SysDictDataController {
     @Operation(summary = "分页")
     public SanaResult<SanaPage<SysDictDataResult>> page(@ParameterObject SysDictDataQuery query) {
         // 调用服务进行分页查询
-        SanaPage<SysDictDataResult> lanaPage = sysDictDataService.page(query);
+        SanaPage<SysDictDataResult> sanaPage = sysDictDataService.page(query);
         // 返回查询结果
-        return SanaResult.ok(lanaPage);
+        return SanaResult.ok(sanaPage);
     }
 
 

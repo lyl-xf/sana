@@ -7,6 +7,16 @@
         ${sql}
     </insert>
 
+
+    <insert id="saveBatch">
+        insert into sys_log_operate (module, name, req_uri, req_method, req_params, ip, user_agent, operate_type, duration, status, user_id, real_name, create_time)
+        values
+        <foreach item="item" index="index" collection="optLogEntityList" separator=",">
+            ( #{item.module}, #{item.name}, #{item.reqUri}, #{item.reqMethod}, #{item.reqParams}, #{item.ip}, #{item.userAgent}, #{item.operateType}, #{item.duration}, #{item.status}, #{item.userId}, #{item.realName},NOW())
+        </foreach>
+    </insert>
+
+
     <select id="getListsTd" resultType="com.sana.system.entity.result.SysLogOperateResult">
         select *
         from  sys_log_operate where user_id = #{query.userId} ORDER BY ts DESC
@@ -74,6 +84,20 @@
             </if>
         </where>
         ORDER BY ts DESC
+    </select>
+    <select id="getJobData" resultType="com.sana.system.entity.result.JobInfoResult"
+            parameterType="java.lang.String">
+        SELECT
+            qjd.JOB_NAME AS jobName,
+            qjd.JOB_GROUP AS jobGroup,
+            qct.TRIGGER_GROUP AS triggerGroup,
+            qct.TRIGGER_NAME AS triggerName,
+            qct.CRON_EXPRESSION AS cron
+        FROM  QRTZ_CRON_TRIGGERS qct
+                  LEFT JOIN QRTZ_TRIGGERS qt ON qct.TRIGGER_GROUP = qt.TRIGGER_GROUP
+                  LEFT JOIN QRTZ_JOB_DETAILS qjd  ON qt.JOB_GROUP = qjd.JOB_GROUP
+        WHERE
+            qjd.JOB_CLASS_NAME = #{logsClassName}
     </select>
 
 
