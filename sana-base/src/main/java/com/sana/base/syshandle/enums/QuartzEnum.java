@@ -41,7 +41,7 @@ public enum QuartzEnum {
     /**
      * 设备数据类名称
      */
-    DEVICE_CLASS_NAME("com.sana.device.job.DeviceDataJob");
+    DEVICE_CLASS_NAME("com.sana.system.job.DeviceDataJob");
 
 
     private final String value;

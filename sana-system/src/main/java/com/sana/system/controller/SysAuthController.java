@@ -3,6 +3,8 @@ package com.sana.system.controller;
 import cn.dev33.satoken.secure.BCrypt;
 import cn.hutool.core.util.StrUtil;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
+import com.sana.base.syshandle.enums.OperateTypeEnum;
+import com.sana.base.syshandle.operatelog.OptLog;
 import com.sana.base.syshandle.result.SanaResult;
 import com.sana.system.entity.query.SysAccountLoginQuery;
 import com.sana.system.entity.result.AccessTokenResult;
@@ -41,6 +43,7 @@ public class SysAuthController {
      */
     @PostMapping("/login")
     @Operation(summary = "账号密码登录")
+    @OptLog(type = OperateTypeEnum.QUERY)
     //@SaCheckPermission("")
     public SanaResult<SysUserAuthDataResult> login(@RequestBody SysAccountLoginQuery login) {
         // 通过账号服务进行账号密码登录，返回用户令牌
@@ -72,6 +75,7 @@ public class SysAuthController {
     }
     @PostMapping("/logout")
     @Operation(summary = "退出登陆")
+    @OptLog(type = OperateTypeEnum.QUERY)
     public SanaResult<AccessTokenResult> logout() {
         // 调用服务层方法，处理用户登出逻辑
         sysAuthService.logout();

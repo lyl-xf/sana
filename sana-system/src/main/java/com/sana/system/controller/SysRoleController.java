@@ -1,5 +1,7 @@
 package com.sana.system.controller;
 
+import com.sana.base.syshandle.enums.OperateTypeEnum;
+import com.sana.base.syshandle.operatelog.OptLog;
 import com.sana.base.syshandle.page.SanaPage;
 import com.sana.base.syshandle.result.SanaResult;
 import com.sana.system.entity.query.SysRoleQuery;
@@ -32,6 +34,7 @@ public class SysRoleController {
 
     @GetMapping("/page")
     @Operation(summary = "分页")
+    @OptLog(type = OperateTypeEnum.QUERY)
     public SanaResult<SanaPage<SysRoleResult>> page(@ParameterObject @Valid SysRoleQuery query) {
         SanaPage<SysRoleResult> rolePage = sysRoleService.pageRole(query);
         return SanaResult.ok(rolePage);
@@ -39,6 +42,7 @@ public class SysRoleController {
 
     @GetMapping("/list")
     @Operation(summary = "列表")
+    @OptLog(type = OperateTypeEnum.QUERY)
     public SanaResult<List<SysRoleResult>> list() {
         List<SysRoleResult> list = sysRoleService.getListRole(new SysRoleQuery());
         return SanaResult.ok(list);
@@ -46,6 +50,7 @@ public class SysRoleController {
 
     @PostMapping("/save")
     @Operation(summary = "保存")
+    @OptLog(type = OperateTypeEnum.INSERT)
     public SanaResult<String> save(@RequestBody @Valid SysRoleSave saveVO) {
         sysRoleService.saveRole(saveVO);
         return SanaResult.ok();
@@ -53,6 +58,7 @@ public class SysRoleController {
 
     @PostMapping("/update")
     @Operation(summary = "修改")
+    @OptLog(type = OperateTypeEnum.UPDATE)
     public SanaResult<String> update(@RequestBody @Valid SysRoleUpdate updateVo) {
         sysRoleService.updateRole(updateVo);
         return SanaResult.ok();
@@ -62,7 +68,7 @@ public class SysRoleController {
 
     @PostMapping("/roleLinkMenus")
     @Operation(summary = "角色绑定菜单、数据权限、首页模块权限")
-    //@OperateLog(type = OperateTypeEnum.UPDATE)
+    @OptLog(type = OperateTypeEnum.UPDATE)
     public SanaResult<String> roleLinkMenus(@RequestBody @Valid SysRoleMenusUpdate sysRoleMenusUpdate) {
         sysRoleService.roleLinkMenus(sysRoleMenusUpdate);
         return SanaResult.ok();
@@ -71,6 +77,7 @@ public class SysRoleController {
 
     @PutMapping("/data-scope")
     @Operation(summary = "数据权限")
+    @OptLog(type = OperateTypeEnum.UPDATE)
     public SanaResult<String> dataScope(@RequestBody @Valid SysRoleDataScopeUpdate updateVO) {
         sysRoleService.dataScope(updateVO);
         return SanaResult.ok();
@@ -78,6 +85,7 @@ public class SysRoleController {
 
     @GetMapping("/delete")
     @Operation(summary = "删除")
+    @OptLog(type = OperateTypeEnum.DELETE)
     public SanaResult<String> delete(@RequestParam("id") List<Long> idList) {
         sysRoleService.deleteRole(idList);
 

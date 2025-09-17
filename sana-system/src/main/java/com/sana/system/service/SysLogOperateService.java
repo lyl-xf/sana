@@ -17,4 +17,8 @@ public interface SysLogOperateService extends BaseService<SysLogOperateEntity> {
     SanaPage<SysLogOperateResult> sysPage(SysLogSysOperateQuery query);
 
     List<JobInfoResult> getJobData();
+
+    boolean updateLogJob(String jobName, String cron, String jobGroup, String triggerGroup, String value);
+
+    boolean updateDeviceJob(String jobName, String cron, String jobGroup, String triggerGroup, String value);
 }

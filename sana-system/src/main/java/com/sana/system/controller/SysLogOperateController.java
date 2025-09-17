@@ -1,5 +1,7 @@
 package com.sana.system.controller;
 
+import com.sana.base.syshandle.entity.JobInfoEntity;
+import com.sana.base.syshandle.enums.QuartzEnum;
 import com.sana.base.syshandle.page.SanaPage;
 import com.sana.base.syshandle.result.SanaResult;
 import com.sana.system.entity.query.SysLogOperateQuery;
@@ -12,9 +14,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springdoc.core.annotations.ParameterObject;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -80,8 +80,21 @@ public class SysLogOperateController {
     }
 
     @GetMapping("/getJobData")
-    @Operation(summary = "新增设备数据存储定时任务")
+    @Operation(summary = "数据存储定时任务查询")
     public SanaResult<List<JobInfoResult>> getJobData() {
         return SanaResult.ok( sysLogOperateService.getJobData());
+    }
+
+
+    @PostMapping("/updateLogJob")
+    @Operation(summary = "新增日志存储定时任务")
+    public SanaResult createLogJob(@RequestBody JobInfoEntity jobInfo) {
+        return SanaResult.ok( sysLogOperateService.updateLogJob(jobInfo.getJobName(), jobInfo.getCron(),jobInfo.getJobGroup(),jobInfo.getTriggerGroup(),  QuartzEnum.LOGS_CLASS_NAME.getValue()));
+    }
+
+    @PostMapping("/updateDeviceJob")
+    @Operation(summary = "新增设备数据存储定时任务")
+    public SanaResult createDeviceJob(@RequestBody JobInfoEntity jobInfo) {
+        return SanaResult.ok( sysLogOperateService.updateDeviceJob(jobInfo.getJobName(), jobInfo.getCron(),jobInfo.getJobGroup(),jobInfo.getTriggerGroup(),  QuartzEnum.DEVICE_CLASS_NAME.getValue()));
     }
 }

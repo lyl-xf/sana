@@ -24,7 +24,7 @@ public class DeviceDataJob implements Job {
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
 
-/*        log.info("\n\t----------------------------------------------------------------------------\n\t" +
+     /*   log.info("\n\t----------------------------------------------------------------------------\n\t" +
                         "=========================定时任务调度，执行业务逻辑====================:\n\t" +
                         "jobName:{}\n\t" +
                         "jobGroup:{}\n\t" +
@@ -45,7 +45,7 @@ public class DeviceDataJob implements Job {
                 DateUtil.formatDateTime(context.getNextFireTime()),
                 DateUtil.formatDateTime(context.getScheduledFireTime()),
                 "设备数据定时触发存储。"
-        );*/
-
+        );
+*/
     }
 }

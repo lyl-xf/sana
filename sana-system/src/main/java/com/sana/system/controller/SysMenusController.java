@@ -1,6 +1,8 @@
 package com.sana.system.controller;
 
 import com.sana.base.syshandle.entity.MyUserDetails;
+import com.sana.base.syshandle.enums.OperateTypeEnum;
+import com.sana.base.syshandle.operatelog.OptLog;
 import com.sana.base.syshandle.result.SanaResult;
 import com.sana.base.syshandle.usercache.UserContextUtil;
 import com.sana.system.entity.SysMenusDelete;
@@ -34,6 +36,7 @@ public class SysMenusController {
 
     @GetMapping("/nav")
     @Operation(summary = "菜单导航")
+    @OptLog(type = OperateTypeEnum.QUERY)
     public SanaResult<SysMenusNavResult> nav() {
         MyUserDetails user = UserContextUtil.getCurrentUserInfo();
         //获取菜单导航
@@ -44,6 +47,7 @@ public class SysMenusController {
     @GetMapping("/list")
     @Operation(summary = "菜单列表")
     @Parameter(name = "type")
+    @OptLog(type = OperateTypeEnum.QUERY)
     public SanaResult<List<SysMenusResult>> list(Integer type) {
         MyUserDetails user = UserContextUtil.getCurrentUserInfo();
         List<SysMenusResult> menu = sysMenusService.getMenuList(user);
@@ -52,6 +56,7 @@ public class SysMenusController {
 
     @PostMapping("/save")
     @Operation(summary = "保存")
+    @OptLog(type = OperateTypeEnum.INSERT)
     public SanaResult save(@RequestBody @Valid SysMenusSave saveVO) {
         SysMenusEntity sysMenusEntity = sysMenusService.saveMenu(saveVO);
         return SanaResult.ok(sysMenusEntity.getId());
@@ -60,6 +65,7 @@ public class SysMenusController {
 
     @PostMapping("/update")
     @Operation(summary = "修改")
+    @OptLog(type = OperateTypeEnum.UPDATE)
     public SanaResult<String> update(@RequestBody @Valid SysMenusUpdate uodateVO) {
         sysMenusService.updateByData(uodateVO);
         return SanaResult.ok();
@@ -68,6 +74,7 @@ public class SysMenusController {
 
     @PostMapping("/delete")
     @Operation(summary = "删除")
+    @OptLog(type = OperateTypeEnum.DELETE)
     public SanaResult<String> delete(@RequestBody SysMenusDelete sysMenusDelete) {
         sysMenusService.delete(sysMenusDelete.getIds());
         return SanaResult.ok();
@@ -75,6 +82,7 @@ public class SysMenusController {
 
     @GetMapping("/roleList")
     @Operation(summary = "角色菜单分配列表")
+    @OptLog(type = OperateTypeEnum.QUERY)
     public SanaResult<List<String>> roleMenusList(@RequestParam("roleId") Long roleId) {
         MyUserDetails user = UserContextUtil.getCurrentUserInfo();
         List<String> menu = sysMenusService.getRoleMenusList(user,roleId);

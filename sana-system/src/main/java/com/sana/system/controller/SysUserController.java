@@ -53,7 +53,8 @@ public class SysUserController {
     }
 
     @PostMapping("/save")
-    @Operation(summary = "保存")
+    @Operation(summary = "新增")
+    @OptLog(type = OperateTypeEnum.INSERT)
     public SanaResult<String> save(@RequestBody @Valid SysUserSave vo) {
         sysUserService.saveUserOrgRole(vo);
         return SanaResult.ok();
@@ -61,6 +62,7 @@ public class SysUserController {
 
     @PostMapping("/resetPassword")
     @Operation(summary = "重置为默认密码")
+    @OptLog(type = OperateTypeEnum.UPDATE)
     public SanaResult resetPassword(@RequestBody @Valid SysUserPasswordResult vo) {
         sysUserService.resetPassword(vo);
         return SanaResult.ok();
@@ -71,6 +73,7 @@ public class SysUserController {
 
     @PostMapping("/update")
     @Operation(summary = "修改")
+    @OptLog(type = OperateTypeEnum.UPDATE)
     public SanaResult<String> update(@RequestBody @Valid SysUserUpdate vo) {
         sysUserService.updateByUserId(vo);
         return SanaResult.ok();
@@ -78,6 +81,7 @@ public class SysUserController {
 
     @PostMapping("/delete")
     @Operation(summary = "删除")
+    @OptLog(type = OperateTypeEnum.DELETE)
     public SanaResult<String> delete(@RequestBody List<Long> idList) {
         MyUserDetails user = UserContextUtil.getCurrentUserInfo();
         if (idList.contains(user.getId())) {
@@ -89,6 +93,7 @@ public class SysUserController {
 
     @PostMapping("/updateMySelf")
     @Operation(summary = "修改个人用户信息")
+    @OptLog(type = OperateTypeEnum.UPDATE)
     public SanaResult updateMySelf(@RequestBody @Valid SysUserUpdate sysUserUpdate) {
         sysUserService.updateMySelf(sysUserUpdate);
         return SanaResult.ok();
@@ -96,6 +101,7 @@ public class SysUserController {
 
     @PostMapping("/updateMySelfPassword")
     @Operation(summary = "修改个人密码")
+    @OptLog(type = OperateTypeEnum.UPDATE)
     public SanaResult<String> password(@RequestBody @Valid SysUserPasswordUpdate sysUserPasswordUpdate) {
         // 修改密码
         String result = sysUserService.updateMySelfPassword(sysUserPasswordUpdate);

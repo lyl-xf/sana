@@ -1,5 +1,7 @@
 package com.sana.system.controller;
 
+import com.sana.base.syshandle.enums.OperateTypeEnum;
+import com.sana.base.syshandle.operatelog.OptLog;
 import com.sana.base.syshandle.result.SanaResult;
 import com.sana.system.convert.SysDictTypeConvert;
 import com.sana.system.entity.SysDictTypeEntity;
@@ -31,6 +33,7 @@ public class SysDictTypeController {
 
     @GetMapping("/list")
     @Operation(summary = "字典列表")
+    @OptLog(type = OperateTypeEnum.QUERY)
     public SanaResult<List<SysDictTypeResult>> getList() {
         // 通过ID从服务中获取字典类型实体
         List<SysDictTypeEntity> entity = sysDictTypeService.getList();
@@ -41,6 +44,7 @@ public class SysDictTypeController {
 
     @PostMapping("/save")
     @Operation(summary = "新增")
+    @OptLog(type = OperateTypeEnum.INSERT)
     public SanaResult<String> save(@RequestBody @Valid SysDictTypeSave saveVO) {
         sysDictTypeService.save(saveVO);
         return SanaResult.ok();
@@ -53,6 +57,7 @@ public class SysDictTypeController {
      */
     @PostMapping("/update")
     @Operation(summary = "修改")
+    @OptLog(type = OperateTypeEnum.UPDATE)
     public SanaResult<String> update(@RequestBody @Valid SysDictTypeUpdate uodateVO) {
         SysDictTypeEntity entity = SysDictTypeConvert.INSTANCE.convert(uodateVO);
         sysDictTypeService.updateById(entity);
@@ -62,6 +67,7 @@ public class SysDictTypeController {
 
     @GetMapping("/deletDicType")
     @Operation(summary = "删除")
+    @OptLog(type = OperateTypeEnum.DELETE)
     public SanaResult<String> delete(@RequestParam("id") Long id) {
         // 调用服务层方法，执行删除操作
         sysDictTypeService.removeDictType(id);

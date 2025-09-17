@@ -1,5 +1,7 @@
 package com.sana.system.controller;
 
+import com.sana.base.syshandle.enums.OperateTypeEnum;
+import com.sana.base.syshandle.operatelog.OptLog;
 import com.sana.base.syshandle.result.SanaResult;
 import com.sana.system.entity.query.SysOrgQuery;
 import com.sana.system.entity.result.SysOrgResult;
@@ -31,6 +33,7 @@ public class SysOrgController {
 
     @GetMapping("/list")
     @Operation(summary = "列表")
+    @OptLog(type = OperateTypeEnum.QUERY)
     public SanaResult<List<SysOrgResult>> list(@ParameterObject @Valid SysOrgQuery query) {
         List<SysOrgResult> list = sysOrgService.getList(query);
 
@@ -40,6 +43,7 @@ public class SysOrgController {
 
     @PostMapping("/save")
     @Operation(summary = "保存")
+    @OptLog(type = OperateTypeEnum.INSERT)
     public SanaResult<String> save(@RequestBody @Valid SysOrgSave saveVO) {
         sysOrgService.saveOrg(saveVO);
 
@@ -48,6 +52,7 @@ public class SysOrgController {
 
     @PostMapping("/update")
     @Operation(summary = "修改")
+    @OptLog(type = OperateTypeEnum.UPDATE)
     public SanaResult<String> update(@RequestBody @Valid SysOrgUpdate updateVO) {
         sysOrgService.updateOrg(updateVO);
 
@@ -56,6 +61,7 @@ public class SysOrgController {
 
     @GetMapping("/delete")
     @Operation(summary = "删除")
+    @OptLog(type = OperateTypeEnum.DELETE)
     public SanaResult<String> delete(@RequestParam("id") Long id) {
         sysOrgService.deleteOrg(id);
 

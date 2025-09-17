@@ -3,6 +3,8 @@ package com.sana.system.controller;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.file.FileNameUtil;
 import com.sana.base.file.service.FileService;
+import com.sana.base.syshandle.enums.OperateTypeEnum;
+import com.sana.base.syshandle.operatelog.OptLog;
 import com.sana.base.syshandle.result.SanaResult;
 import com.sana.system.entity.result.SysFileUploadResult;
 import com.sana.system.service.SysFileUploadService;
@@ -32,6 +34,7 @@ public class SysFileUploadController {
 
     @PostMapping("/upload")
     @Operation(summary = "上传")
+    @OptLog(type = OperateTypeEnum.INSERT)
     public SanaResult<SysFileUploadResult> upload(@RequestParam("file") MultipartFile file) throws Exception {
         if (file.isEmpty()) {
             return SanaResult.error("请选择需要上传的文件");

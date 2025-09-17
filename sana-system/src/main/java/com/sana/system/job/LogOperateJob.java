@@ -46,7 +46,7 @@ public class LogOperateJob implements Job {
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        log.info("\n\t----------------------------------------------------------------------------\n\t" +
+/*        log.info("\n\t----------------------------------------------------------------------------\n\t" +
                         "=========================定时任务调度，执行业务逻辑====================:\n\t" +
                         "jobName:{}\n\t" +
                         "jobGroup:{}\n\t" +
@@ -67,7 +67,7 @@ public class LogOperateJob implements Job {
                 DateUtil.formatDateTime(context.getNextFireTime()),
                 DateUtil.formatDateTime(context.getScheduledFireTime()),
                 "操作日志定时触发存储。"
-        );
+        );*/
 
         if (loggingEnabled) {
             if(logSaveType.equals("tdengine")){
@@ -127,20 +127,22 @@ public class LogOperateJob implements Job {
                     log.error("日志存储失败", e);
                 }
             }else {
-                List<OptLogEntity> optLogEntityList = new ArrayList<>();
                 String key = CacheKeyBuilder.logKey();
-                if(optLogEntityList!=null){
+                //检查是否有这个key的数据，如果有，则循环取出，如果没有，则停止本次的循环
+                OptLogEntity logEntitys = (OptLogEntity) redisCacheOps.rightPop(key);
+                if(logEntitys!=null){
+                    List<OptLogEntity> optLogEntityList = new ArrayList<>();
+                    optLogEntityList.add(logEntitys);
                     for (int i = 0; i < dataNum -1; i++) {
-                        OptLogEntity logEntitys = (OptLogEntity) redisCacheOps.rightPop(key);
-                        if(logEntitys!=null){
-                            optLogEntityList.add(logEntitys);
+                        OptLogEntity forLogEntitys = (OptLogEntity) redisCacheOps.rightPop(key);
+                        if(forLogEntitys!=null){
+                            optLogEntityList.add(forLogEntitys);
                         }else {
                             sysLogOperateDao.saveBatch(optLogEntityList);
                             return;
                         }
                     }
                 }
-                sysLogOperateDao.saveBatch(optLogEntityList);
             }
         }
     }

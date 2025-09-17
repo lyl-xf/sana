@@ -318,8 +318,8 @@ export default {
 	},
 	logJob: {
 		list: {
-			url: `${config.API_URL}/sys/log/operate/getJobData`,
-			name: "日志定时入库设置",
+				url: `${config.API_URL}/sys/log/operate/getJobData`,
+			name: "日志定时入库设置查询",
 			get: async function(params){
 				return await http.get(this.url, params);
 			}

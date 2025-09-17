@@ -1,5 +1,7 @@
 package com.sana.system.controller;
 
+import com.sana.base.syshandle.enums.OperateTypeEnum;
+import com.sana.base.syshandle.operatelog.OptLog;
 import com.sana.base.syshandle.page.SanaPage;
 import com.sana.base.syshandle.result.SanaResult;
 import com.sana.system.convert.SysDictDataConvert;
@@ -30,6 +32,7 @@ public class SysDictDataController {
 
     @GetMapping("/page")
     @Operation(summary = "分页")
+    @OptLog(type = OperateTypeEnum.QUERY)
     public SanaResult<SanaPage<SysDictDataResult>> page(@ParameterObject SysDictDataQuery query) {
         // 调用服务进行分页查询
         SanaPage<SysDictDataResult> sanaPage = sysDictDataService.page(query);
@@ -40,6 +43,7 @@ public class SysDictDataController {
 
     @PostMapping("/saveDicData")
     @Operation(summary = "新增")
+    @OptLog(type = OperateTypeEnum.INSERT)
     public SanaResult<String> save(@RequestBody SysDictDataSave saveVO) {
         sysDictDataService.save(saveVO);
         return SanaResult.ok();
@@ -53,6 +57,7 @@ public class SysDictDataController {
      */
     @PostMapping("/updateDicData")
     @Operation(summary = "修改")
+    @OptLog(type = OperateTypeEnum.UPDATE)
     public SanaResult<String> update(@RequestBody @Valid SysDictDataUpdate uodateVO) {
         SysDictDataEntity entity = SysDictDataConvert.INSTANCE.convert(uodateVO);
         sysDictDataService.updateById(entity);
@@ -61,6 +66,7 @@ public class SysDictDataController {
 
     @GetMapping("/deletDicData")
     @Operation(summary = "删除")
+    @OptLog(type = OperateTypeEnum.DELETE)
     public SanaResult<String> delete(@RequestParam("id") Long id) {
         // 调用服务层方法，执行删除操作
         sysDictDataService.removeById(id);
