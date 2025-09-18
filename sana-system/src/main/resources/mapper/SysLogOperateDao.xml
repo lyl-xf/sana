@@ -101,4 +101,121 @@
     </select>
 
 
+    <select id="getSysLogLists" resultType="com.sana.system.entity.result.SysLogOperateResult">
+        select *
+        from  sys_log_operate
+        <where>
+            <if test="query.operateType !=null and query.operateType != ''">
+                and operate_type in (1,2,3,4)
+            </if>
+            <if test="query.startTime !=null and query.endTime !=null">
+                and create_time BETWEEN #{query.startTime} AND #{query.endTime}
+            </if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+
+
+    <select id="getdeviceLogLists" resultType="com.sana.system.entity.result.SysLogOperateResult">
+        select
+        id,
+        module as module,
+        `name` as name,
+        req_uri as reqUri,
+        req_method as reqMethod,
+        req_params as reqParams,
+        ip,
+        user_agent as userAgent,
+        operate_type as operateType,
+        duration,
+        `status`,
+        user_id as userId,
+        real_name as realName,
+        create_time as createTime
+        from  sys_log_operate
+        <where>
+            <if test="query.operateType !=null and query.operateType != ''">
+                and operate_type in (0,5,6)
+            </if>
+            <if test="query.startTime !=null and query.endTime !=null">
+                and create_time BETWEEN #{query.startTime} AND #{query.endTime}
+            </if>
+        </where>
+        ORDER BY create_time DESC
+
+    </select>
+    <select id="getCommunLogLists" resultType="com.sana.system.entity.result.SysLogOperateResult">
+        select
+        id,
+        module as module,
+        `name` as name,
+        req_uri as reqUri,
+        req_method as reqMethod,
+        req_params as reqParams,
+        ip,
+        user_agent as userAgent,
+        operate_type as operateType,
+        duration,
+        `status`,
+        user_id as userId,
+        real_name as realName,
+        create_time as createTime
+        from  sys_log_operate
+        <where>
+            <if test="query.operateType !=null and query.operateType != ''">
+                and operate_type in (7,8)
+            </if>
+            <if test="query.startTime !=null and query.endTime !=null">
+                and create_time BETWEEN #{query.startTime} AND #{query.endTime}
+            </if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+    <select id="getSysLists" resultType="com.sana.system.entity.result.SysLogOperateResult">
+        select
+        id,
+        module as module,
+        `name` as name,
+        req_uri as reqUri,
+        req_method as reqMethod,
+        req_params as reqParams,
+        ip,
+        user_agent as userAgent,
+        operate_type as operateType,
+        duration,
+        `status`,
+        user_id as userId,
+        real_name as realName,
+        create_time as createTime
+        from  sys_log_operate
+        <where>
+            <if test="query.operateType !=null">
+                and operate_type = #{query.operateType}
+            </if>
+            <if test="query.startTime !=null and query.endTime !=null">
+                and create_time BETWEEN #{query.startTime} AND #{query.endTime}
+            </if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+    <select id="getLists" resultType="com.sana.system.entity.result.SysLogOperateResult">
+        select
+            id,
+            module as module,
+            `name` as name,
+            req_uri as reqUri,
+            req_method as reqMethod,
+            req_params as reqParams,
+            ip,
+            user_agent as userAgent,
+            operate_type as operateType,
+            duration,
+            `status`,
+            user_id as userId,
+            real_name as realName,
+            create_time as createTime
+        from  sys_log_operate where user_id = #{query.userId} ORDER BY create_time DESC
+    </select>
+
+
 </mapper>

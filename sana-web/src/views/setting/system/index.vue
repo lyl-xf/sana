@@ -27,7 +27,7 @@
 							<el-input v-model="syslog.triggerGroup" disabled></el-input>
 						</el-form-item>
 						<el-form-item>
-							<el-button type="primary" style="margin-top: 50px" @click="SaveConfig()">保存</el-button>
+							<el-button type="primary" style="margin-top: 50px" @click="SaveConfig(1)">保存</el-button>
 						</el-form-item>
 					</el-form>
 				</el-tab-pane>
@@ -55,7 +55,7 @@
 							<el-input v-model="devicelog.triggerGroup" disabled></el-input>
 						</el-form-item>
 						<el-form-item>
-							<el-button type="primary" style="margin-top: 50px" @click="SaveConfig()">保存</el-button>
+							<el-button type="primary" style="margin-top: 50px" @click="SaveConfig(2)">保存</el-button>
 						</el-form-item>
 					</el-form>
 				</el-tab-pane>
@@ -81,7 +81,7 @@
 		},
 		methods: {
 			async getJobData(){
-				var res = await await this.$API.system.logJob.list.get();
+				var res = await await this.$API.system.log.logJob.list.get();
 				if (res.code == 200) {
 					if(res.data[0].jobType == 1){
 						this.syslog = res.data[0];
@@ -91,7 +91,38 @@
 						this.devicelog = res.data[0];
 					}
 			}},
-			async SaveConfig(){
+			async SaveConfig(jobType){
+				//保存日志配置
+				if(jobType == 1){
+					var logJob = {
+						jobName: this.syslog.jobName,
+						cron: this.syslog.cron,
+						jobGroup: this.syslog.jobGroup,
+						triggerName: this.syslog.triggerName,
+						triggerGroup: this.syslog.triggerGroup
+					}
+					var logres = await await this.$API.system.log.updateLogJob.list.post(logJob)
+					if(logres.code == 200){
+						this.$message.warning(logres.msg)
+					}else{
+						this.$message.warning(logres.msg)
+					}
+				//保存设备日志配置
+				}else{
+					var deviceJob = {
+						jobName: this.devicelog.jobName,
+						cron: this.devicelog.cron,
+						jobGroup: this.devicelog.jobGroup,
+						triggerName: this.devicelog.triggerName,
+						triggerGroup: this.devicelog.triggerGroup
+					}
+					var deviceres = await await this.$API.system.log.updateDeviceJob.list.post(deviceJob)
+					if(deviceres.code == 200){
+						this.$message.warning(deviceres.msg)
+					}else{
+						this.$message.warning(deviceres.msg)
+					}
+				}
 				this.$message.warning("功能开发中.....");
 			}
 		}

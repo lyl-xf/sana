@@ -18,6 +18,7 @@ import com.sana.system.entity.result.SysLogOperateResult;
 import com.sana.system.service.SysLogOperateService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,31 +35,61 @@ public class SysLogOperateServiceImpl extends BaseServiceImpl<SysLogOperateDao, 
     @Resource
     private SchedulerUtils schedulerUtils;
 
+    @Value("${sana.logging-save-type:tdengine}")
+    private String logSaveType;
+
     @Override
     public SanaPage<SysLogOperateResult> page(SysLogOperateQuery query) {
         MyUserDetails user = UserContextUtil.getCurrentUserInfo();
         query.setUserId(user.getId());
-        IPage<SysLogOperateResult> page = baseMapper.getListsTd(getPage(query),query);
-        return new SanaPage<>(page.getRecords(), page.getTotal(),page.getPages(),page.getSize());
+        if(logSaveType.equals("tdengine")){
+            IPage<SysLogOperateResult> page = baseMapper.getListsTd(getPage(query),query);
+            return new SanaPage<>(page.getRecords(), page.getTotal(),page.getPages(),page.getSize());
+        }else {
+            IPage<SysLogOperateResult> page = baseMapper.getLists(getPage(query),query);
+            return new SanaPage<>(page.getRecords(), page.getTotal(),page.getPages(),page.getSize());
+        }
+
     }
 
     @Override
     public SanaPage<SysLogOperateResult> sysPage(SysLogSysOperateQuery query) {
-        IPage<SysLogOperateResult> page = null;
-        //系统日志
-        if(query.getOperateType()== OperateTypeEnum.SYSTEM.getValue()){
-             page = baseMapper.getSysLogListsTd(getPage(query),query);
-        //设备日志
-        } else if (query.getOperateType()== OperateTypeEnum.DEVICE.getValue()) {
-             page = baseMapper.getdeviceLogListsTd(getPage(query),query);
-        //通讯日志
-        }else if (query.getOperateType()== OperateTypeEnum.COMMUNICATION.getValue()){
-             page = baseMapper.getCommunLogListsTd(getPage(query),query);
-        }else {
-            page = baseMapper.getSysListsTd(getPage(query),query);
+
+        if(logSaveType.equals("tdengine")){
+
+            IPage<SysLogOperateResult> page = null;
+            //系统日志
+            if(query.getOperateType()== OperateTypeEnum.SYSTEM.getValue()){
+                page = baseMapper.getSysLogListsTd(getPage(query),query);
+                //设备日志
+            } else if (query.getOperateType()== OperateTypeEnum.DEVICE.getValue()) {
+                page = baseMapper.getdeviceLogListsTd(getPage(query),query);
+                //通讯日志
+            }else if (query.getOperateType()== OperateTypeEnum.COMMUNICATION.getValue()){
+                page = baseMapper.getCommunLogListsTd(getPage(query),query);
+            }else {
+                page = baseMapper.getSysListsTd(getPage(query),query);
+            }
+
+            return new SanaPage<>(page.getRecords(), page.getTotal(),page.getPages(),page.getSize());
+        }else{
+            IPage<SysLogOperateResult> page = null;
+            //系统日志
+            if(query.getOperateType()== OperateTypeEnum.SYSTEM.getValue()){
+                page = baseMapper.getSysLogLists(getPage(query),query);
+                //设备日志
+            } else if (query.getOperateType()== OperateTypeEnum.DEVICE.getValue()) {
+                page = baseMapper.getdeviceLogLists(getPage(query),query);
+                //通讯日志
+            }else if (query.getOperateType()== OperateTypeEnum.COMMUNICATION.getValue()){
+                page = baseMapper.getCommunLogLists(getPage(query),query);
+            }else {
+                page = baseMapper.getSysLists(getPage(query),query);
+            }
+            return new SanaPage<>(page.getRecords(), page.getTotal(),page.getPages(),page.getSize());
         }
 
-        return new SanaPage<>(page.getRecords(), page.getTotal(),page.getPages(),page.getSize());
+
     }
 
     @Override

@@ -66,4 +66,8 @@ public class SysLogOperateResult implements Serializable {
     @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
     private Date ts;
 
+    @Schema(description = "时间")
+    private String createTime;
+
+
 }

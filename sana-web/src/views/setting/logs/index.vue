@@ -33,7 +33,11 @@
 							<el-table-column label="模块名" prop="module" width="140"></el-table-column>
 							<el-table-column label="操作名" prop="name" width="160"></el-table-column>
 							<el-table-column label="触发方式" prop="reqUri" width="300"></el-table-column>
-							<el-table-column label="日志时间" prop="ts" width="170"></el-table-column>
+							<el-table-column label="日志时间" width="170">
+								<template #default="scope">
+									<span>{{ scope.row.ts || scope.row.createTime }}</span>
+								</template>
+							</el-table-column>
 							<el-table-column label="操作结果" prop="status" width="100">
 									<template #default="scope">
 									<el-tag v-if="scope.row.status==1" type="success">成功</el-tag>

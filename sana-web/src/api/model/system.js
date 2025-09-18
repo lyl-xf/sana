@@ -289,6 +289,33 @@ export default {
 			get: async function(params){
 				return await http.get(this.url, params);
 			}
+		},
+		logJob: {
+			list: {
+				url: `${config.API_URL}/sys/log/operate/getJobData`,
+				name: "日志定时入库设置查询",
+				get: async function(params){
+					return await http.get(this.url, params);
+				}
+			}
+		},
+		updateLogJob: {
+			list: {
+				url: `${config.API_URL}/sys/log/operate/updateLogJob`,
+				name: "新增日志存储定时任务",
+				post: async function(data){
+					return await http.post(this.url, data, {});
+				}
+			}
+		},
+		updateDeviceJob: {
+			list: {
+				url: `${config.API_URL}/sys/log/operate/updateDeviceJob`,
+				name: "新增设备数据存储定时任务",
+				post: async function(data){
+					return await http.post(this.url, data, {});
+				}
+			}
 		}
 	},
 	table: {
@@ -316,13 +343,5 @@ export default {
 			}
 		}
 	},
-	logJob: {
-		list: {
-				url: `${config.API_URL}/sys/log/operate/getJobData`,
-			name: "日志定时入库设置查询",
-			get: async function(params){
-				return await http.get(this.url, params);
-			}
-		}
-	}
+
 }
