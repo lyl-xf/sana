@@ -30,9 +30,6 @@ public class SysDictTypeSave implements Serializable {
     @NotBlank(message = "字典名称不能为空")
     private String name;
 
-    @Schema(description = "排序")
-    private Integer sort;
-
     @Schema(description = "创建时间")
     @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
     private Date createTime;

@@ -22,4 +22,9 @@ public interface CachePrefix {
      */
     String LOGKEY = "sana:log";
 
+    /**
+     * log缓存
+     */
+    String DICTKEY = "sana:dict";
+
 }

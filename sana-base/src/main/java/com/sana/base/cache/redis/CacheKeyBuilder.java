@@ -32,4 +32,16 @@ public class CacheKeyBuilder {
         return CachePrefix.LOGKEY;
     }
 
+    /**
+     * 字典 key
+     * @return
+     */
+    public static String dictKey(String key) {
+
+        return CachePrefix.DICTKEY +key;
+    }
+
+
+
+
 }

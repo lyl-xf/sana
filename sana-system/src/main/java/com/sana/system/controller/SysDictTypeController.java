@@ -35,10 +35,7 @@ public class SysDictTypeController {
     @Operation(summary = "字典列表")
     @OptLog(type = OperateTypeEnum.QUERY)
     public SanaResult<List<SysDictTypeResult>> getList() {
-        // 通过ID从服务中获取字典类型实体
-        List<SysDictTypeEntity> entity = sysDictTypeService.getList();
-        // 将实体转换为SysDictTypeResult对象，然后封装到Result对象中返回
-        return SanaResult.ok(SysDictTypeConvert.INSTANCE.convertList(entity));
+        return SanaResult.ok(sysDictTypeService.getList());
     }
 
 

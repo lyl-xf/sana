@@ -41,7 +41,7 @@
         <aviator.version>5.4.3</aviator.version>
         <captcha.version>1.6.2</captcha.version>
         <satoken.version>1.44.0</satoken.version>
-        <mapstruct.version>1.6.3</mapstruct.version>
+        <mapstruct.version>1.5.5.Final</mapstruct.version>
         <minio.version>8.5.1</minio.version>
         <okio.version>3.3.0</okio.version>
         <jsoup.version>1.16.1</jsoup.version>

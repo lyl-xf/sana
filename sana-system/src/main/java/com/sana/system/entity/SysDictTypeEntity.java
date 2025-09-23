@@ -21,8 +21,4 @@ public class SysDictTypeEntity extends BaseEntity {
      * 字典名称
      */
     private String name;
-    /**
-     * 排序
-     */
-    private Integer sort;
 }

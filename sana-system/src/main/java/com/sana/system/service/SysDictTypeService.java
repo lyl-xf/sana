@@ -2,6 +2,7 @@ package com.sana.system.service;
 
 import com.sana.base.mybatis.service.BaseService;
 import com.sana.system.entity.SysDictTypeEntity;
+import com.sana.system.entity.result.SysDictTypeResult;
 import com.sana.system.entity.save.SysDictTypeSave;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public interface SysDictTypeService extends BaseService<SysDictTypeEntity> {
 
     void delete(List<Long> idList);
 
-    List<SysDictTypeEntity> getList();
+    List<SysDictTypeResult> getList();
 
     void removeDictType(Long id);
 }

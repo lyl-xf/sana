@@ -22,16 +22,11 @@ public class SysDictTypeResult implements Serializable {
     @Schema(description = "id")
     private Long id;
 
-    @Schema(description = "字典编码", required = true)
-    @NotBlank(message = "字典类型不能为空")
+    @Schema(description = "字典编码")
     private String code;
 
-    @Schema(description = "字典名称", required = true)
-    @NotBlank(message = "字典名称不能为空")
+    @Schema(description = "字典名称")
     private String name;
-
-    @Schema(description = "排序")
-    private Integer sort;
 
 
     @Schema(description = "创建时间")
