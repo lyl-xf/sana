@@ -45,7 +45,7 @@ public class SysDictDataController {
     @Operation(summary = "新增")
     @OptLog(type = OperateTypeEnum.INSERT)
     public SanaResult<String> save(@RequestBody SysDictDataSave saveVO) {
-        sysDictDataService.save(saveVO);
+        sysDictDataService.saveDicData(saveVO);
         return SanaResult.ok();
     }
     /**
@@ -59,8 +59,7 @@ public class SysDictDataController {
     @Operation(summary = "修改")
     @OptLog(type = OperateTypeEnum.UPDATE)
     public SanaResult<String> update(@RequestBody @Valid SysDictDataUpdate uodateVO) {
-        SysDictDataEntity entity = SysDictDataConvert.INSTANCE.convert(uodateVO);
-        sysDictDataService.updateById(entity);
+        sysDictDataService.updateDicData(uodateVO);
         return SanaResult.ok();
     }
 
@@ -69,7 +68,7 @@ public class SysDictDataController {
     @OptLog(type = OperateTypeEnum.DELETE)
     public SanaResult<String> delete(@RequestParam("id") Long id) {
         // 调用服务层方法，执行删除操作
-        sysDictDataService.removeById(id);
+        sysDictDataService.deleteDicData(id);
         return SanaResult.ok();
     }
 }

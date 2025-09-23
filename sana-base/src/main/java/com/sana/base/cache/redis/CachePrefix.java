@@ -20,11 +20,11 @@ public interface CachePrefix {
     /**
      * log缓存
      */
-    String LOGKEY = "sana:log";
+    String LOGKEY = "sana:log:";
 
     /**
      * log缓存
      */
-    String DICTKEY = "sana:dict";
+    String DICTKEY = "sana:dict:";
 
 }

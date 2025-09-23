@@ -17,9 +17,9 @@ import java.util.List;
 public interface SysDictDataService extends BaseService<SysDictDataEntity> {
     SanaPage<SysDictDataResult> page(SysDictDataQuery query);
 
-    void save(SysDictDataSave saveVO);
+    void saveDicData(SysDictDataSave saveVO);
 
-    void update(SysDictDataUpdate updateVO);
+    void updateDicData(SysDictDataUpdate updateVO);
 
-    void delete(List<Long> idList);
+    void deleteDicData(Long id);
 }

@@ -65,9 +65,9 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
         Map<String, Object> columnMap = new HashMap<>();
         columnMap.put("dic", id);
         sysDictDataDao.deleteByMap(columnMap);
-
+        SysDictTypeEntity sysDictTypeEntity = baseMapper.selectById(id);
         //删除字典类型缓存
-        String redisKey = CacheKeyBuilder.dictKey(baseMapper.selectById(id).getCode());
+        String redisKey = CacheKeyBuilder.dictKey(sysDictTypeEntity.getCode());
         Object o = redisUtils.get(redisKey);
         // 删除验证码
         if (o != null) {

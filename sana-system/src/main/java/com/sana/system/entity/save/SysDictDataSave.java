@@ -34,7 +34,7 @@ public class SysDictDataSave implements Serializable {
     @Schema(description = "字典值")
     private String key;
 
-    @Schema(description = "备注")
+    @Schema(description = "有效")
     private String yx;
 
     @Schema(description = "排序", required = true)

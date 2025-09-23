@@ -21,9 +21,7 @@ public interface SysDictTypeConvert {
 
     SysDictTypeConvert INSTANCE = Mappers.getMapper(SysDictTypeConvert.class);
 
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "createTime", target = "createTime")
-    @Mapping(source = "updateTime", target = "updateTime")
+
     SysDictTypeResult convert(SysDictTypeEntity entity);
 
     SysDictTypeEntity convert(SysDictTypeResult vo);
@@ -32,9 +30,7 @@ public interface SysDictTypeConvert {
 
     SysDictTypeEntity convert(SysDictTypeUpdate vo);
 
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "createTime", target = "createTime")
-    @Mapping(source = "updateTime", target = "updateTime")
+
     List<SysDictTypeResult> convertList(List<SysDictTypeEntity> list);
 
 
