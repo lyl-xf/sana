@@ -1,0 +1,81 @@
+############## Sa-Token 配置 (文档: https://sa-token.cc) ##############
+sa-token:
+  token-name: satoken # token 名称（同时也是 cookie 名称）
+  timeout: 2592000  # token 有效期（单位：秒） 默认30天，-1 代表永久有效
+  active-timeout: -1  # token 最低活跃频率（单位：秒），如果 token 超过此时间没有访问系统就会被冻结，默认-1 代表不限制，永不冻结
+  is-concurrent: true  # 是否允许同一账号多地同时登录 （为 true 时允许一起登录, 为 false 时新登录挤掉旧登录）
+  is-share: false  # 在多人登录同一账号时，是否共用一个 token （为 true 时所有登录共用一个 token, 为 false 时每次登录新建一个 token）
+  token-style: uuid  # token 风格（默认可取值：uuid、simple-uuid、random-32、random-64、random-128、tik）
+  is-log: true  # 是否输出操作日志
+  jwt-secret-key: sanakeyidSDWWsdjnussadFasdewsaDQWedwfdasefAS # jwt秘钥
+  ignore-config:
+    paths:
+      - /sys/captcha/getCaptcha
+      - /sys/captcha/enabled
+      - /sys/auth/login
+      - /sys/auth/token
+      - /sys/auth/logout
+      - /sys/auth/send/code
+      - /upload/**
+      - /actuator/**
+      - /v3/api-docs/**
+      - /webjars/**
+      - /swagger/**
+      - /swagger-resources/**
+      - /swagger-ui.html
+      - /doc.html
+      - /swagger-ui/**
+      - /favicon.ico
+
+spring:
+  # 是否开启登录验证码
+  captchaEnabled: true
+  # 数据库连接信心
+  data:
+    redis:
+      database: 1
+      host: 127.0.0.1
+      port: 6379
+      password: 123456...
+      timeout: 6000ms  # 连接超时时长（毫秒）
+      lettuce:
+        pool:
+          max-active: 20    # 最大活跃连接数
+          max-idle: 10      # 最大空闲连接
+          min-idle: 5       # 最小空闲连接
+          max-wait: 5000ms  # 获取连接最大等待时间
+          time-between-eviction-runs: 30000ms  # 空闲连接检查周期
+  datasource:
+    dynamic:
+      hikari: # Hikari 连接池全局配置
+        connection-timeout: 30000     # 等待连接池分配链接的最大时长（毫秒），超过这个时长还没有可用的连接则发生 SQLException，默认：30 秒
+        minimum-idle: 2               # 最小空闲连接数
+        maximum-pool-size: 10         # 最大连接数
+        idle-timeout: 600000          # 连接超时的最大时长（毫秒），超时则被释放（retired），默认：10 分钟
+        max-lifetime: 1800000         # 连接的生命时长（毫秒），超时而且没被使用则被释放（retired），默认： 30 分钟
+        connection-test-query: SELECT 1
+      primary: mysql
+      datasource:
+        mysql:
+          # MySQL8
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://127.0.0.1:3306/sana?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
+          username: root
+          password: 123456...
+          # TDengine
+        tdengine: # TDengine正常情况是不起作用的，具体可以选择入库类型，将数据入库
+          #原生链接，需要配置客户端
+          #driver-class-name: com.taosdata.jdbc.TSDBDriver
+          #url: jdbc:TAOS://127.0.0.1:6030/sana?charset=UTF-8&locale=en_US.UTF-8&timezone=UTC-8
+          #REST 连接
+          driver-class-name: com.taosdata.jdbc.rs.RestfulDriver
+          url: jdbc:TAOS-RS://127.0.0.1:6041/sana?charset=UTF-8&locale=en_US.UTF-8&timezone=UTC-8
+          username: root
+          password: 123456...
+# 文件存储
+storage:
+  minio:
+    access-key: Y2j5CZqWVsysWsvkTYjhR
+    secret-key: ro2TfKWjV07JrbsuOTXBhT1XEq0Rqp5PGzzRQNXRY
+    end-point: http://127.0.0.1:9000
+    bucket-name: dev
