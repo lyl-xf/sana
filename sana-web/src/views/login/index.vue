@@ -2,7 +2,7 @@
 	<div class="login_bg">
 		<div class="login_adv" style="background-image: url(img/auth_banner.jpg);">
 			<div class="login_adv__title">
-				<h2>sana物联网平台</h2>
+				<h2>sana基础手脚架</h2>
 				<h4>{{ $t('login.slogan') }}</h4>
 				<p class="pre-line" v-text="$t('login.describe')"></p>
 				<div>

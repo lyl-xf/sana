@@ -738,9 +738,9 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$zFcjZlqGuJyglnToPdXJeuxKcEHN.ztB0gVmIT2BS1UBno1qIFyeK', '超级管理员', 'http://8.139.4.114:9000/dev/20250527/1748330038908_54870.jpg', 1, 'lyl@163.com', '13245677645', '三月来百草开 盈香满袖万物苏\n虫鸣和着欢笑 心事舒', 1, 1, 0, 10000, '2024-01-10 06:13:37', 1, '2025-05-27 15:14:33', '[超级管理员:admin]', '[超级管理员:admin]');
-INSERT INTO `sys_user` VALUES (2, 'lana', '{bcrypt}$2a$10$9u1PD9leVDpJEeIFb4jbo.GwD403Zobjg82HBzxJfYPVpHtvJu2xK', 'lana0101', 'http://8.139.4.114:9000/dev/20250527/1748330038908_54853.jpg', 2, 'lyl@163.com', '13245677656', '牛马干活\\韭菜施肥\\蘸料上色', 0, 1, 0, 10000, '2024-07-22 09:49:43', 1, '2025-05-27 15:33:27', '[超级管理员:admin]', '[超级管理员:admin]');
-INSERT INTO `sys_user` VALUES (10006, 'test', '{bcrypt}$2a$10$IjToP406QrLlpW/RpSL.RumkMqKsNUTr.4wD1wA3DeB8ImGU/e02W', '测试用户1', 'http://8.139.4.114:9000/dev/20250527/1748330038908_54878.jpg', NULL, NULL, NULL, NULL, 0, 1, 1, 1, '2024-11-26 17:25:34', 1, '2025-05-27 15:33:31', '[超级管理员:admin]', '[超级管理员:admin]');
+INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$zFcjZlqGuJyglnToPdXJeuxKcEHN.ztB0gVmIT2BS1UBno1qIFyeK', '超级管理员', 'http://127.0.0.1:9000/dev/20250527/1748330038908_54870.jpg', 1, 'lyl@163.com', '13245677645', '三月来百草开 盈香满袖万物苏\n虫鸣和着欢笑 心事舒', 1, 1, 0, 10000, '2024-01-10 06:13:37', 1, '2025-05-27 15:14:33', '[超级管理员:admin]', '[超级管理员:admin]');
+INSERT INTO `sys_user` VALUES (2, 'sana', '$2a$10$zFcjZlqGuJyglnToPdXJeuxKcEHN.ztB0gVmIT2BS1UBno1qIFyeK', 'sana0101', 'http://127.0.0.1:9000/dev/20250527/1748330038908_54853.jpg', 2, 'lyl@163.com', '13245677656', '牛马干活\\韭菜施肥\\蘸料上色', 0, 1, 0, 10000, '2024-07-22 09:49:43', 1, '2025-05-27 15:33:27', '[超级管理员:admin]', '[超级管理员:admin]');
+INSERT INTO `sys_user` VALUES (10006, 'test', '$2a$10$zFcjZlqGuJyglnToPdXJeuxKcEHN.ztB0gVmIT2BS1UBno1qIFyeK', '测试用户1', 'http://127.0.0.1:9000/dev/20250527/1748330038908_54878.jpg', NULL, NULL, NULL, NULL, 0, 1, 1, 1, '2024-11-26 17:25:34', 1, '2025-05-27 15:33:31', '[超级管理员:admin]', '[超级管理员:admin]');
 
 -- ----------------------------
 -- Table structure for sys_user_org

@@ -16,7 +16,7 @@
 				</div>
 				<div class="tips-item">
 					<div class="tips-item-icon"><el-icon><el-icon-milk-tea/></el-icon></div>
-					<div class="tips-item-message">项目目的：第一版本是提供一个基础的前后端分离的项目，后期会将其改造为物联网平台与办公平台</div>
+					<div class="tips-item-message">项目目的：第一版本是提供一个基础的前后端分离的项目，后期会将其改造为物联网设备管理平台</div>
 				</div>
 			</div>
 			<div class="actions">
