@@ -24,10 +24,34 @@ public interface SysDictTypeConvert {
 
     SysDictTypeResult convert(SysDictTypeEntity entity);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "creator", ignore = true)
+    @Mapping(target = "createTime", ignore = true)
+    @Mapping(target = "updater", ignore = true)
+    @Mapping(target = "updateTime", ignore = true)
+    @Mapping(target = "deleted", ignore = true)
+    @Mapping(target = "creatorName", ignore = true)
+    @Mapping(target = "updaterName", ignore = true)
     SysDictTypeEntity convert(SysDictTypeResult vo);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "creator", ignore = true)
+    @Mapping(target = "createTime", ignore = true)
+    @Mapping(target = "updater", ignore = true)
+    @Mapping(target = "updateTime", ignore = true)
+    @Mapping(target = "deleted", ignore = true)
+    @Mapping(target = "creatorName", ignore = true)
+    @Mapping(target = "updaterName", ignore = true)
     SysDictTypeEntity convert(SysDictTypeSave vo);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "creator", ignore = true)
+    @Mapping(target = "createTime", ignore = true)
+    @Mapping(target = "updater", ignore = true)
+    @Mapping(target = "updateTime", ignore = true)
+    @Mapping(target = "deleted", ignore = true)
+    @Mapping(target = "creatorName", ignore = true)
+    @Mapping(target = "updaterName", ignore = true)
     SysDictTypeEntity convert(SysDictTypeUpdate vo);
 
 
