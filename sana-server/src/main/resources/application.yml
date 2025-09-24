@@ -1,0 +1,76 @@
+# Tomcat
+server:
+  port: 8081
+  servlet:
+    context-path: /sana
+    session:
+      cookie:
+        http-only: true
+spring:
+  # 环境 dev|test|prod
+  profiles:
+    active: dev
+  application:
+    name: sana
+  jackson:
+    time-zone: GMT+8
+  servlet:
+    multipart:
+      max-file-size: 400MB
+      max-request-size: 400MB
+  # 任务调度
+  quartz:
+    job-store-type: "jdbc"    # 任务存储类型
+    wait-for-jobs-to-complete-on-shutdown: false    # 关闭时等待任务完成
+    overwrite-existing-jobs: true   # 是否覆盖已有的任务
+    auto-startup: true    # 是否自动启动计划程序
+    startup-delay: 0s   # 延迟启动
+    jdbc:
+      initialize-schema: "never"  # 数据库架构初始化模式（never：从不进行初始化；always：每次都清空数据库进行初始化；embedded：只初始化内存数据库（默认值））
+    properties: # 相关属性配置
+      org:
+        quartz:
+          scheduler:
+            instanceName: SanaScheduler # 调度器实例名称
+            instanceId: AUTO  # 分布式节点ID自动生成
+          jobStore:
+            class: org.springframework.scheduling.quartz.LocalDataSourceJobStore
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+            tablePrefix: QRTZ_  # 表前缀
+            isClustered: false  # 是否开启集群
+            dataSource: quartz  # 数据源别名（自定义）
+            clusterCheckinInterval: 10000 # 分布式节点有效性检查时间间隔（毫秒）
+            useProperties: false
+          # 线程池配置
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount: 10
+            threadPriority: 5
+            threadsInheritContextClassLoaderOfInitializingThread: true
+sana:
+  version: '@project.version@'
+  resetPassword: '123456' #重置密码功能中默认要修改的密码
+  logging-enabled: true #是否开启日志存储（如果关闭，则不会进行日志数据的存储）
+  logging-save-type: mysql #日志存储类型（tdengine\mysql）
+  devicedata-enabled: true  #是否开启设备数据存储
+  log-save-speed: 20  # 日志每次存储条数(建议根据实际配置、实际操作数量修改)
+  device-data-speed: 20  # 设备存储每次存储条数（建议根据实际配置、实际操作数量修改）
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  typeAliasesPackage: com.sana.*.entity
+  global-config:
+    db-config:
+      id-type: AUTO
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+    banner: false
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    call-setters-on-nulls: true
+    jdbc-type-for-null: 'null'
+  configuration-properties:
+    prefix:
+    blobType: BLOB
+    boolValue: TRUE
