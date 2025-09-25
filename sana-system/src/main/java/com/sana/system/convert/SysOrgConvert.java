@@ -49,6 +49,5 @@ public interface SysOrgConvert {
     @Mapping(target = "children", ignore = true)
     SysOrgResult convert(SysOrgEntity entity);
 
-    List<SysOrgResult> convertList(List<SysOrgEntity> list);
 
 }

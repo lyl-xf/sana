@@ -35,6 +35,9 @@ public interface SysRoleConvert {
     @Mapping(target = "updaterName", ignore = true)
     SysRoleEntity convert(SysRoleSave saveVO);
 
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createTime", ignore = true)
     List<SysRoleResult> convertList(List<SysRoleEntity> entityList);
 
     @Mapping(target = "id", ignore = true)
