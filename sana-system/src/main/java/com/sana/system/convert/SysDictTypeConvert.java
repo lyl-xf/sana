@@ -22,9 +22,6 @@ public interface SysDictTypeConvert {
     SysDictTypeConvert INSTANCE = Mappers.getMapper(SysDictTypeConvert.class);
 
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "createTime", ignore = true)
-    @Mapping(target = "updateTime", ignore = true)
     SysDictTypeResult convert(SysDictTypeEntity entity);
 
     @Mapping(target = "id", ignore = true)

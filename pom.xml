@@ -22,6 +22,7 @@
         <module>sana-base</module>
         <module>sana-system</module>
         <module>sana-server</module>
+        <module>sana-abutment</module>
     </modules>
 
     <!--基础版本-->
@@ -45,6 +46,7 @@
         <minio.version>8.5.1</minio.version>
         <okio.version>3.3.0</okio.version>
         <jsoup.version>1.16.1</jsoup.version>
+        <mqtt.version>2.4.4</mqtt.version>
 
 
     </properties>
@@ -146,7 +148,16 @@
                 <artifactId>minio</artifactId>
                 <version>${minio.version}</version>
             </dependency>
-
+<!--            <dependency>
+                <groupId>org.dromara.mica-mqtt</groupId>
+                <artifactId>mica-mqtt-client-spring-boot-starter</artifactId>
+                <version>${mqtt.version}</version>
+            </dependency>-->
+            <dependency>
+                <groupId>org.dromara.mica-mqtt</groupId>
+                <artifactId>mica-mqtt-server-spring-boot-starter</artifactId>
+                <version>${mqtt.version}</version>
+            </dependency>
             <dependency>
                 <artifactId>okio</artifactId>
                 <groupId>com.squareup.okio</groupId>

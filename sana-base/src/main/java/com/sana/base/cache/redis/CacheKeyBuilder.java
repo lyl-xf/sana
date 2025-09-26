@@ -41,7 +41,15 @@ public class CacheKeyBuilder {
         return CachePrefix.DICTKEY +key;
     }
 
+    /**
+     * 设备物模型
+     */
+    public static String deviceMode(String deviceNub) {
 
+        return CachePrefix.DEVICEMODE+deviceNub;
+    }
 
-
+    public static String deviceIdRuleJon(String deviceNub) {
+        return CachePrefix.DEVICEIDRULEJOB+deviceNub;
+    }
 }

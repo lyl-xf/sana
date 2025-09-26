@@ -24,6 +24,15 @@ public class SwaggerConfig {
     }
 
     @Bean
+    public GroupedOpenApi abutmentApi() {
+        return GroupedOpenApi.builder()
+                .group("接入管理")
+                .pathsToMatch("/abutment/**")
+                .packagesToScan("com.lana.abutment")
+                .build();
+    }
+
+    @Bean
     public OpenAPI customOpenAPI() {
         Contact contact = new Contact();
         contact.setName("lyl-xf");

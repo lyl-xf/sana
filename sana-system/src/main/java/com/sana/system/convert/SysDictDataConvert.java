@@ -15,9 +15,7 @@ public interface SysDictDataConvert {
 
     SysDictDataConvert INSTANCE = Mappers.getMapper(SysDictDataConvert.class);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "createTime", ignore = true)
-    @Mapping(target = "updateTime", ignore = true)
+
     SysDictDataResult convert(SysDictDataEntity entity);
 
     @Mapping(target = "id", ignore = true)
