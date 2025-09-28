@@ -28,7 +28,7 @@ public class SwaggerConfig {
         return GroupedOpenApi.builder()
                 .group("接入管理")
                 .pathsToMatch("/abutment/**")
-                .packagesToScan("com.lana.abutment")
+                .packagesToScan("com.sana.abutment")
                 .build();
     }
 

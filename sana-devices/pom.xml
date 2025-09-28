@@ -2,39 +2,23 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>com.sana</groupId>
         <artifactId>sana</artifactId>
         <version>${revision}</version>
     </parent>
-    <artifactId>sana-server</artifactId>
+    <artifactId>sana-devices</artifactId>
     <packaging>jar</packaging>
-    <name>sana-server</name>
-
+    <name>sana-devices</name>
 
     <dependencies>
 
+
         <dependency>
             <groupId>com.sana</groupId>
-            <artifactId>sana-system</artifactId>
-            <version>${revision}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sana</groupId>
-            <artifactId>sana-devices</artifactId>
+            <artifactId>sana-rules</artifactId>
             <version>${revision}</version>
         </dependency>
 
     </dependencies>
-
-    <build>
-        <finalName>${project.artifactId}</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 </project>

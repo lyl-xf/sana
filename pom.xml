@@ -23,6 +23,8 @@
         <module>sana-system</module>
         <module>sana-server</module>
         <module>sana-abutment</module>
+        <module>sana-devices</module>
+        <module>sana-rules</module>
     </modules>
 
     <!--基础版本-->
@@ -46,7 +48,7 @@
         <minio.version>8.5.1</minio.version>
         <okio.version>3.3.0</okio.version>
         <jsoup.version>1.16.1</jsoup.version>
-        <mqtt.version>2.4.4</mqtt.version>
+        <mqtt.version>2.4.5</mqtt.version>
 
 
     </properties>

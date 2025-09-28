@@ -98,7 +98,7 @@
 
     </update>
 
-    <select id="getMqttGroupPage" resultType="com.lana.abutment.mqtthandle.entity.vo.result.ProtocolsMqttResult">
+    <select id="getMqttGroupPage" resultType="com.sana.abutment.entity.result.ProtocolsMqttResult">
         select * from protocols_mqtt where deleted = 0
         <if test="model.name != null and model.name.trim() != ''">
             and mqtt_name like concat('%',#{model.name},'%')
@@ -107,7 +107,7 @@
     </select>
 
     <select id="getMqttGroupList"
-            resultType="com.lana.abutment.mqtthandle.entity.vo.result.RuleProtocolsMqttResult">
+            resultType="com.sana.abutment.entity.result.RuleProtocolsMqttResult">
         select id,mqtt_name as label from protocols_mqtt where deleted = 0 order by create_time asc
     </select>
 
@@ -116,7 +116,7 @@
         select agreement_id from device_abutment where product_id = #{id}
     </select>
     <select id="getDevicveeModeList"
-            resultType="com.lana.abutment.mqtthandle.initializer.cacheproties.DeviceItemModeCacheSave">
+            resultType="com.sana.abutment.initializer.cacheproties.DeviceItemModeCacheSave">
         SELECT
             device_item_id,
             GROUP_CONCAT( mode_signs ) AS mode_signs
@@ -125,13 +125,10 @@
         GROUP BY
             device_item_id
     </select>
-    <select id="getMqttBroker" resultType="com.lana.abutment.mqtthandle.entity.vo.result.ProtocolsMqttResult">
+    <select id="getMqttBroker" resultType="com.sana.abutment.entity.result.ProtocolsMqttResult">
         select * from protocols_mqtt where mqtt_type = 1 and deleted = 0
     </select>
 
-    <!--    <select id="getTdengineTable" resultType="java.lang.Boolean">
-            SELECT table_name FROM information_schema.ins_tables WHERE db_name = 'lana' AND table_name = 'airdetectionName'
-        </select>-->
 
 
 </mapper>
