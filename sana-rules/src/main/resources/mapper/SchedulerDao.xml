@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sana.rules.dao.SchedulerDao">
+
+
+    <select id="getJobData" resultType="com.sana.rules.entity.vo.result.JobInfoResult" parameterType="java.lang.String">
+        SELECT
+            qjd.JOB_NAME AS jobName,
+            qjd.JOB_GROUP AS jobGroup,
+            qct.TRIGGER_GROUP AS triggerGroup,
+            qct.TRIGGER_NAME AS triggerName,
+            qct.CRON_EXPRESSION AS cron
+        FROM  QRTZ_CRON_TRIGGERS qct
+                  LEFT JOIN QRTZ_TRIGGERS qt ON qct.TRIGGER_GROUP = qt.TRIGGER_GROUP
+                  LEFT JOIN QRTZ_JOB_DETAILS qjd  ON qt.JOB_GROUP = qjd.JOB_GROUP
+        WHERE
+            qjd.JOB_CLASS_NAME = #{logsClassName}
+    </select>
+
+</mapper>

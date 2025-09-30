@@ -21,7 +21,6 @@ log
 /nbbuild/
 /dist/
 /nbdist/
-/.nb-gradle/
 build/
 
 ### STS ###

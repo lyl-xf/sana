@@ -1,0 +1,24 @@
+let m = seq.list();
+if ((deviceId == 42 && temperature > 35) && (deviceId == 42 && humidity > 50)) {
+let hit = seq.map();
+seq.put(hit, "actionMap", "actionMap1750237526139");
+seq.put(hit, "message", "命中条件：粉色的室内空气检测器 的 温度 > 35 与 粉色的室内空气检测器 的 湿度 > 50");
+seq.add(m, hit);
+}
+if(deviceId == 42){
+    if(temperature < 35){
+    let hit = seq.map();
+    seq.put(hit, "actionMap", "actionMap1750237526257");
+    seq.put(hit, "message", "命中条件：粉色的室内空气检测器 的 温度 < 35");
+    seq.add(m, hit);
+    }
+}
+if(deviceId == 42){
+    if(humidity < 30){
+    let hit = seq.map();
+    seq.put(hit, "actionMap", "actionMap1750237526257");
+    seq.put(hit, "message", "命中条件：粉色的室内空气检测器 的 湿度 < 30");
+    seq.add(m, hit);
+    }
+}
+return m;

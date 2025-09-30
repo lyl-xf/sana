@@ -1,0 +1,14 @@
+let m = seq.list();
+if ((deviceId == 43 && temperature > 40) && (deviceId == 43 && temperature > 70)) {
+let hit = seq.map();
+seq.put(hit, "actionMap", "actionMap1750237536939");
+seq.put(hit, "message", "命中条件：烤漆的室外空气检测器 的 温度 > 40 与 烤漆的室外空气检测器 的 温度 > 70");
+seq.add(m, hit);
+}
+if ((deviceId == 43 &&  temperature < 40) && (deviceId == 43 &&  humidity < 70)) {
+let hit = seq.map();
+seq.put(hit, "actionMap", "actionMap1750237537291");
+seq.put(hit, "message", "命中条件： 烤漆的室外空气检测器 的 温度 < 40 与  烤漆的室外空气检测器 的 湿度 < 70");
+seq.add(m, hit);
+}
+return m;

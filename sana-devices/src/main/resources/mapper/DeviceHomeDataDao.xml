@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sana.devices.dao.DeviceHomeDataDao">
+
+
+    <select id="getDeviceStatusList" resultType="com.sana.devices.entity.DevicesPinEntity">
+        SELECT
+            SUM(`status` = 1) AS onStatus,
+            SUM(`status` = 0) AS offStatus
+        FROM `device_item` WHERE deleted = 0
+    </select>
+    <select id="systemLog" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM sys_log_operate WHERE operate_type IN (1,2,3,4)
+    </select>
+    <select id="deviceActionLog" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM sys_log_operate WHERE operate_type = 0
+    </select>
+    <select id="deviceAlarmsLog" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM sys_log_operate WHERE operate_type = 5
+    </select>
+    <select id="deviceAlarm" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM sys_log_operate WHERE operate_type = 6
+    </select>
+    <select id="scenarioModeLog" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM sys_log_operate WHERE operate_type = 9
+    </select>
+
+    <select id="getLogCounts" resultType="com.sana.devices.entity.LogCountEntity">
+        SELECT 'systemLog' AS logType, COUNT(*) AS countValue FROM lana.sys_log_operate WHERE operate_type IN (1, 2, 3, 4)
+        UNION ALL
+        SELECT 'deviceActionLog', COUNT(*) FROM lana.sys_log_operate WHERE operate_type = 0
+        UNION ALL
+        SELECT 'deviceAlarmsLog', COUNT(*) FROM lana.sys_log_operate WHERE operate_type = 5
+        UNION ALL
+        SELECT 'deviceAlarm', COUNT(*) FROM lana.sys_log_operate WHERE operate_type = 6
+        UNION ALL
+        SELECT 'scenarioModeLog', COUNT(*) FROM lana.sys_log_operate WHERE operate_type = 9
+    </select>
+
+</mapper>

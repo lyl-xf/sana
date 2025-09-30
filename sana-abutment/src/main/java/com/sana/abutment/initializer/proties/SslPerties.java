@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * @author LON
- * @create 2025/9/25 16:20
+ * @create 2025/9/21
  */
 @Data
 public class SslPerties {
