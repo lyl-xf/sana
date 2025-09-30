@@ -5,6 +5,7 @@ import com.sana.base.syshandle.tree.HandleTree;
 import com.sana.base.utils.DateUtils;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
@@ -15,7 +16,7 @@ import java.util.Date;
  */
 @Data
 @Schema(description = "产品类型")
-
+@EqualsAndHashCode(callSuper=false)
 public class DeviceProductTypeResult extends HandleTree<DeviceProductTypeResult> {
     /**
      * 上级ID

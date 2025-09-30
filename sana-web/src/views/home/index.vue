@@ -1,13 +1,13 @@
 <template>
 	<div v-if="pageLoading">
-		<el-main>
+<!--		<el-main>
 			<el-card shadow="never">
 				<el-skeleton :rows="1"></el-skeleton>
 			</el-card>
 			<el-card shadow="never" style="margin-top: 15px;">
 				<el-skeleton></el-skeleton>
 			</el-card>
-		</el-main>
+		</el-main>-->
 	</div>
 	<work v-if="dashboard=='1'" @on-mounted="onMounted"></work>
 	<widgets v-else @on-mounted="onMounted"></widgets>
