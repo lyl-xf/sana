@@ -62,7 +62,7 @@ public class RulesItemNodeServiceIpml extends BaseServiceImpl<RulesItemNodeDao, 
     private RulesItemQuratzService rulesItemQuratzService;
     @Resource
     private RedisUtils redisCacheOps;
-    @Value("${lana.aviator-path}")
+    @Value("${sana.aviator-path}")
     private String aviatorPath;
     @Resource
     private RulesItemDao rulesItemDao;
@@ -657,7 +657,7 @@ public class RulesItemNodeServiceIpml extends BaseServiceImpl<RulesItemNodeDao, 
         String targetDirectory = null;
         if(aviatorPath==null || aviatorPath.isEmpty()){
             String userDir = System.getProperty("user.dir");
-            String scriptPath = Paths.get(userDir, "lana-rules","src", "main", "resources", "script").toString();
+            String scriptPath = Paths.get(userDir, "sana-rules","src", "main", "resources", "script").toString();
             targetDirectory = scriptPath;
         }else {
             targetDirectory = aviatorPath;

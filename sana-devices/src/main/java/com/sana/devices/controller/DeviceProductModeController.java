@@ -36,8 +36,8 @@ public class DeviceProductModeController {
     @Operation(summary = "列表查询")
     @OptLog(type = OperateTypeEnum.QUERY)
     public SanaResult<List<DeviceProductModeResult>> getProductModePage(@RequestParam("id") Long id) {
-        List<DeviceProductModeResult> lanaPage = deviceProductModeService.getProductModePage(id);
-        return SanaResult.ok(lanaPage);
+        List<DeviceProductModeResult> sanaPage = deviceProductModeService.getProductModePage(id);
+        return SanaResult.ok(sanaPage);
     }
 
 

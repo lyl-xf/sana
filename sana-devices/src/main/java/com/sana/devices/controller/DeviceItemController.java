@@ -45,8 +45,8 @@ public class DeviceItemController {
     @Operation(summary = "分页查询")
     @OptLog(type = OperateTypeEnum.QUERY)
     public SanaResult<SanaPage<DeviceItemResult>> getDeviceItemPage(@ParameterObject @Valid DeviceItemQuery query) {
-        SanaPage<DeviceItemResult> lanaPage = deviceItemService.getDeviceItemPage(query);
-        return SanaResult.ok(lanaPage);
+        SanaPage<DeviceItemResult> sanaPage = deviceItemService.getDeviceItemPage(query);
+        return SanaResult.ok(sanaPage);
     }
 
 
@@ -83,7 +83,7 @@ public class DeviceItemController {
     @Operation(summary = "历史数据查询")
     @OptLog(type = OperateTypeEnum.QUERY)
     public SanaResult<SanaPage<Map<String, Object>>> historyData(@ParameterObject @Valid DeviceHistoryQuery query) {
-        SanaPage<Map<String, Object>> lanaPage = deviceItemService.historyData(query);
-        return SanaResult.ok(lanaPage);
+        SanaPage<Map<String, Object>> sanaPage = deviceItemService.historyData(query);
+        return SanaResult.ok(sanaPage);
     }
 }

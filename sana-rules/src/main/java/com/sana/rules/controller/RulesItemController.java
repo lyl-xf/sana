@@ -33,8 +33,8 @@ public class RulesItemController {
     @Operation(summary = "规则实例分页查询")
     @OptLog(type = OperateTypeEnum.QUERY)
     public SanaResult<SanaPage<RulesItemResult>> getPage(@ParameterObject @Valid RulesItemPageQuery query) {
-        SanaPage<RulesItemResult> lanaPage = rulesItemService.getRulesPage(query);
-        return SanaResult.ok(lanaPage);
+        SanaPage<RulesItemResult> sanaPage = rulesItemService.getRulesPage(query);
+        return SanaResult.ok(sanaPage);
     }
 
 

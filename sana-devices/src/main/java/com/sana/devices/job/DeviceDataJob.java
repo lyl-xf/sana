@@ -28,10 +28,10 @@ import java.util.List;
 public class DeviceDataJob implements Job {
 
 
-    @Value("${lana.devicedata-enabled:false}")
+    @Value("${sana.devicedata-enabled:false}")
     private boolean loggingEnabled;
 
-    @Value("${lana.device-data-speed:20}")
+    @Value("${sana.device-data-speed:20}")
     private int dataNum;
 
     @Resource

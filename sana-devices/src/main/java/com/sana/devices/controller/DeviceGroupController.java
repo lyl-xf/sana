@@ -47,8 +47,8 @@ public class DeviceGroupController {
     @Operation(summary = "分页查询")
     @OptLog(type = OperateTypeEnum.QUERY)
     public SanaResult<SanaPage<DeviceGroupResult>> getDeviceGroupPage(@ParameterObject @Valid DeviceGroupQuery query) {
-        SanaPage<DeviceGroupResult> lanaPage = deviceGroupService.getDeviceGroupPage(query);
-        return SanaResult.ok(lanaPage);
+        SanaPage<DeviceGroupResult> sanaPage = deviceGroupService.getDeviceGroupPage(query);
+        return SanaResult.ok(sanaPage);
     }
 
 
@@ -69,8 +69,8 @@ public class DeviceGroupController {
     @Operation(summary = "所属分组设备分页查询")
     @OptLog(type = OperateTypeEnum.QUERY)
     public SanaResult<SanaPage<GroupDeviceItemResult>> groupDeviceItemPage(@ParameterObject @Valid GroupDeviceItemQuery query) {
-        SanaPage<GroupDeviceItemResult> lanaPage = deviceItemService.groupDeviceItemPage(query);
-        return SanaResult.ok(lanaPage);
+        SanaPage<GroupDeviceItemResult> sanaPage = deviceItemService.groupDeviceItemPage(query);
+        return SanaResult.ok(sanaPage);
     }
 
     @GetMapping("/groupDeviceItemList")

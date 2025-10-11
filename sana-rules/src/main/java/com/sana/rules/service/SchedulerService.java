@@ -1,8 +1,5 @@
 package com.sana.rules.service;
 
-import com.sana.rules.entity.vo.result.JobInfoResult;
-
-import java.util.List;
 
 /**
  * @author LON
@@ -47,5 +44,4 @@ public interface SchedulerService {
 
     boolean createDeviceJob(String jobName, String cron, String jobGroup,String triggerGroup,String jobClassName);
 
-    List<JobInfoResult> getJobData();
 }

@@ -3,7 +3,6 @@ package com.sana.rules.service.impl;
 import com.sana.base.scheduler.SchedulerUtils;
 import com.sana.base.syshandle.enums.QuartzEnum;
 import com.sana.rules.dao.SchedulerDao;
-import com.sana.rules.entity.vo.result.JobInfoResult;
 import com.sana.rules.service.SchedulerService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -54,14 +53,6 @@ public class SchedulerServiceImpl implements SchedulerService {
         return schedulerUtils.addCronJob(jobName, cron, jobGroup,triggerGroup, jobClassName, QuartzEnum.DEVICE_TRIGGER_PRE.getValue());
     }
 
-    @Override
-    public List<JobInfoResult> getJobData() {
-        JobInfoResult LogOperateJob= schedulerDao.getJobData(QuartzEnum.LOGS_CLASS_NAME.getValue());
-        LogOperateJob.setJobType(1);
-        JobInfoResult DeviceDataJob = schedulerDao.getJobData(QuartzEnum.DEVICE_CLASS_NAME.getValue());
-        DeviceDataJob.setJobType(2);
-        return List.of(LogOperateJob,DeviceDataJob);
-    }
 
 
 }

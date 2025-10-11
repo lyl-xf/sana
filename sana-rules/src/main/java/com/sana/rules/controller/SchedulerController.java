@@ -5,7 +5,6 @@ import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import com.sana.base.syshandle.enums.QuartzEnum;
 import com.sana.base.syshandle.result.SanaResult;
 import com.sana.rules.entity.JobInfoEntity;
-import com.sana.rules.entity.vo.result.JobInfoResult;
 import com.sana.rules.service.SchedulerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -61,11 +60,5 @@ public class SchedulerController {
         return SanaResult.ok( schedulerService.createDeviceJob(jobInfo.getJobName(), jobInfo.getCron(),jobInfo.getJobGroup(),jobInfo.getTriggerGroup(),  QuartzEnum.DEVICE_CLASS_NAME.getValue()));
     }
 
-
-    @GetMapping("/getJobData")
-    @Operation(summary = "设备数据存储定时任务")
-    public SanaResult<List<JobInfoResult>> getJobData() {
-        return SanaResult.ok( schedulerService.getJobData());
-    }
 
 }

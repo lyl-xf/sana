@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class RulesItemServiceIpml extends BaseServiceImpl<RulesItemDao, RulesItemEntity> implements RulesItemService {
 
-    @Value("${lana.aviator-path}")
+    @Value("${sana.aviator-path}")
     private String aviatorPath;
 
 

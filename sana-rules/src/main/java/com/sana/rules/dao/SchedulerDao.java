@@ -1,7 +1,6 @@
 package com.sana.rules.dao;
 
 
-import com.sana.rules.entity.vo.result.JobInfoResult;
 import org.apache.ibatis.annotations.Mapper;
 
 
@@ -12,5 +11,4 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface SchedulerDao {
 
-    JobInfoResult getJobData(String logsClassName);
 }

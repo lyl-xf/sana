@@ -37,8 +37,8 @@ public class DeviceModeController {
     @Operation(summary = "列表查询")
     @OptLog(type = OperateTypeEnum.QUERY)
     public SanaResult<List<DeviceModeResult>> getDeviceItemModeList(@RequestParam("id") Long id) {
-        List<DeviceModeResult> lanaList = deviceModeService.getDeviceItemModeList(id);
-        return SanaResult.ok(lanaList);
+        List<DeviceModeResult> sanaList = deviceModeService.getDeviceItemModeList(id);
+        return SanaResult.ok(sanaList);
     }
 
     @PostMapping("/save")
@@ -52,8 +52,8 @@ public class DeviceModeController {
     @Operation(summary = "控制属性列表查询")
     @OptLog(type = OperateTypeEnum.QUERY)
     public SanaResult<List<DeviceModeResult>> getDeviceContoleList(@RequestParam("id") Long id) {
-        List<DeviceModeResult> lanaList = deviceModeService.getDeviceContoleList(id);
-        return SanaResult.ok(lanaList);
+        List<DeviceModeResult> sanaList = deviceModeService.getDeviceContoleList(id);
+        return SanaResult.ok(sanaList);
     }
 
     @PostMapping("/saveContoleModel")

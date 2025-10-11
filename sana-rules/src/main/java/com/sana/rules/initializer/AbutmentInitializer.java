@@ -53,7 +53,7 @@ public class AbutmentInitializer {
     private DataAnalysisService dataAnalysisService;
 
 
-    @Value("${lana.aviator-path}")
+    @Value("${sana.aviator-path}")
     private String aviatorPath;
 
     @PostConstruct
@@ -202,7 +202,7 @@ public class AbutmentInitializer {
     }
 
     /**
-     * 初始化定时任务中，检索设备信息是否属于定时任务的缓存中（rules_job_device_id,对应的redis为： lana:deviceIdRuleJob）
+     * 初始化定时任务中，检索设备信息是否属于定时任务的缓存中（rules_job_device_id,对应的redis为： sana:deviceIdRuleJob）
      */
     private void initDeviceIdRuleJobCache() {
         List<RulesJobDeviceIdEntity> rulesJobDeviceIdEntityList = rulesItemDao.getRulesJobDeviceId();
@@ -218,7 +218,7 @@ public class AbutmentInitializer {
     }
 
     /**
-     * 初始化监听规则中，每个设备属于哪个规则（rules_listen_device_id，对应的redis为： lana:deviceIdRule:）
+     * 初始化监听规则中，每个设备属于哪个规则（rules_listen_device_id，对应的redis为： sana:deviceIdRule:）
      */
     private void initDeviceIdRuleListenCache() {
         List<RulesListenDeviceIdEntity> rulesListenDeviceIdEntity = rulesItemDao.getRulesListenDeviceIdList();
@@ -285,7 +285,7 @@ public class AbutmentInitializer {
         String targetDirectory = null;
         if (aviatorPath == null || aviatorPath.isEmpty()) {
             String userDir = System.getProperty("user.dir");
-            String scriptPath = Paths.get(userDir, "lana-rules", "src", "main", "resources", "script").toString();
+            String scriptPath = Paths.get(userDir, "sana-rules", "src", "main", "resources", "script").toString();
             targetDirectory = scriptPath;
         } else {
             targetDirectory = aviatorPath;

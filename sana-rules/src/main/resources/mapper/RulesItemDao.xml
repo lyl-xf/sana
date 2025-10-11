@@ -13,18 +13,7 @@
     </update>
 
 
-    <!--    <select id="getRules" resultType="com.lana.rules.entity.vo.result.RulesItemResult">
-            select
-                ri.id as id,
-                ri.as_name as asName,
-                ri.as_type as asType,
-                ri.as_content as asContent,
-                ri.as_path as asPath
-            from rules_device_item rdi
-            left join rules_item ri ON rdi.rules_item_id=ri.id
-            WHERE rdi.device_id = #{queryVO.deviceId}
-            and ri.deleted = 0
-        </select>-->
+
     <select id="getRulesPage" resultType="com.sana.rules.entity.vo.result.RulesItemResult">
         select
             *

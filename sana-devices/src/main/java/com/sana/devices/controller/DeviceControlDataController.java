@@ -60,9 +60,9 @@ public class DeviceControlDataController {
 /*    @PostMapping("/update")
     @Operation(summary = "暂时不用，自己写前端，双向迁就....")
     @OptLog(type = OperateTypeEnum.UPDATE)
-    public LanaResult update(@RequestBody @Valid DeviceControlDataUpdate updateVO) {
+    public SanaResult update(@RequestBody @Valid DeviceControlDataUpdate updateVO) {
         deviceControlDataService.updateDeviceControlData(updateVO);
-        return LanaResult.ok();
+        return SanaResult.ok();
     }*/
     /**
      * 删除

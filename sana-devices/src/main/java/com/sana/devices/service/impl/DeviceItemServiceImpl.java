@@ -6,7 +6,6 @@ import com.sana.base.cache.redis.RedisUtils;
 import com.sana.base.mybatis.service.impl.BaseServiceImpl;
 import com.sana.base.syshandle.enums.GeneralPrefixEnum;
 import com.sana.base.syshandle.page.SanaPage;
-import com.sana.devices.convert.DeviceItemConvert;
 import com.sana.devices.dao.DeviceItemDao;
 import com.sana.devices.entity.DeviceItemEntity;
 import com.sana.devices.entity.vo.query.DeviceHistoryQuery;
@@ -24,6 +23,7 @@ import com.sana.devices.service.DeviceProductModeService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -91,7 +91,9 @@ public class DeviceItemServiceImpl extends BaseServiceImpl<DeviceItemDao, Device
     @Override
     public void saveDeviceItem(DeviceItemSave vo) {
 
-        DeviceItemEntity deviceItem = DeviceItemConvert.INSTANCE.convert(vo);
+        DeviceItemEntity deviceItem = new DeviceItemEntity();
+        //DeviceItemEntity deviceItem = DeviceItemConvert.INSTANCE.convert(vo);
+        BeanUtils.copyProperties(vo,deviceItem);
         Long lastElement = vo.getProductTypeShow().stream()
                 .sorted(Comparator.reverseOrder())
                 .findFirst()
@@ -138,7 +140,9 @@ public class DeviceItemServiceImpl extends BaseServiceImpl<DeviceItemDao, Device
 
     @Override
     public void updateByUserId(DeviceItemUpdate vo) {
-        DeviceItemEntity deviceItem = DeviceItemConvert.INSTANCE.convert(vo);
+        DeviceItemEntity deviceItem = new DeviceItemEntity();
+        //DeviceItemEntity deviceItem = DeviceItemConvert.INSTANCE.convert(vo);
+        BeanUtils.copyProperties(vo,deviceItem);
         Long lastElement = vo.getProductTypeShow().stream()
                 .sorted(Comparator.reverseOrder())
                 .findFirst()
