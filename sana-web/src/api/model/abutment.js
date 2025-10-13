@@ -82,6 +82,36 @@ export default {
 				return await http.post(this.url, data, {});
 			}
 		}
+	},
+	mqttClient:{
+		getClients: {
+			url: `${config.API_URL}/abutment/mqttClient/getClients`,
+			name: "查询mqtt客户端信息",
+			get: async function(params){
+				return await http.get(this.url, params);
+			}
+		},
+		getSubscriptions: {
+			url: `${config.API_URL}/abutment/mqttClient/getSubscriptions`,
+			name: "获取客户端的订阅信息",
+			get: async function(params){
+				return await http.get(this.url, params);
+			}
+		},
+		clientClose: {
+			url: `${config.API_URL}/abutment/mqttClient/close`,
+			name: "获取客户端的订阅信息",
+			get: async function(params){
+				return await http.get(this.url, params);
+			}
+		},
+		getMqttBroker: {
+			url: `${config.API_URL}/abutment/mqtt/getMqttBroker`,
+			name: "获取mqtt-broker",
+			get: async function(params){
+				return await http.get(this.url, params);
+			}
+		}
 	}
 
 }
