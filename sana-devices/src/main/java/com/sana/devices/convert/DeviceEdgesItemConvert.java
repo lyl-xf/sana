@@ -18,24 +18,24 @@ public interface DeviceEdgesItemConvert {
     DeviceEdgesItemConvert INSTANCE = Mappers.getMapper(DeviceEdgesItemConvert.class);
     DeviceEdgesItemResult convert(DeviceEdgesItemEntity deviceEdgesItemEntity);
 
-    @Mapping(target = "id", ignore = true)
+/*    @Mapping(target = "id", ignore = true)
     @Mapping(target = "creator", ignore = true)
     @Mapping(target = "createTime", ignore = true)
     @Mapping(target = "updater", ignore = true)
     @Mapping(target = "updateTime", ignore = true)
     @Mapping(target = "deleted", ignore = true)
     @Mapping(target = "creatorName", ignore = true)
-    @Mapping(target = "updaterName", ignore = true)
+    @Mapping(target = "updaterName", ignore = true)*/
     DeviceEdgesItemEntity convert(DeviceEdgesItemSave saveVo);
 
-    @Mapping(target = "id", ignore = true)
+/*    @Mapping(target = "id", ignore = true)
     @Mapping(target = "creator", ignore = true)
     @Mapping(target = "createTime", ignore = true)
     @Mapping(target = "updater", ignore = true)
     @Mapping(target = "updateTime", ignore = true)
     @Mapping(target = "deleted", ignore = true)
     @Mapping(target = "creatorName", ignore = true)
-    @Mapping(target = "updaterName", ignore = true)
+    @Mapping(target = "updaterName", ignore = true)*/
     DeviceEdgesItemEntity convert(DeviceEdgesItemUpdate updateVo);
 }
 

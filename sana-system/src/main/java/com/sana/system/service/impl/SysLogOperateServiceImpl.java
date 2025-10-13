@@ -109,14 +109,16 @@ public class SysLogOperateServiceImpl extends BaseServiceImpl<SysLogOperateDao, 
 
     @Override
     public boolean updateLogJob(String jobName, String cron, String jobGroup,String triggerGroup,String jobClassName) {
-        schedulerUtils.deleteCronJob(jobName,jobGroup,QuartzEnum.LOG_TRIGGER_PRE.getValue()+jobName,triggerGroup);
+        //
+        //schedulerUtils.deleteCronJob(jobName,jobGroup,QuartzEnum.LOG_TRIGGER_PRE.getValue()+jobName,triggerGroup);
         return schedulerUtils.addCronJob(jobName, cron, jobGroup,triggerGroup, jobClassName, QuartzEnum.LOG_TRIGGER_PRE.getValue());
     }
 
     //新增日志定时任务
     @Override
     public boolean updateDeviceJob(String jobName, String cron, String jobGroup,String triggerGroup,String jobClassName) {
-        schedulerUtils.deleteCronJob(jobName,jobGroup,QuartzEnum.LOG_TRIGGER_PRE.getValue()+jobName,triggerGroup);
+        //
+        //schedulerUtils.deleteCronJob(jobName,jobGroup,QuartzEnum.LOG_TRIGGER_PRE.getValue()+jobName,triggerGroup);
         return schedulerUtils.addCronJob(jobName, cron, jobGroup,triggerGroup, jobClassName, QuartzEnum.DEVICE_TRIGGER_PRE.getValue());
     }
 

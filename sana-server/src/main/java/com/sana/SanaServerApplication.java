@@ -24,7 +24,7 @@ public class SanaServerApplication {
             InetAddress localHost = InetAddress.getLocalHost();
             log.info("\n----------------------------------------------------------------------------\n\t" +
                     "Application Sana-Server is running!  :\n\t" +
-                    "本地接口文档：http://{}:8081/sana/doc.html\n\t" +
+                    "本地接口文档：http://{}:28081/sana/doc.html\n\t" +
                     "sa-token配置如下:{}\n\t" +
                     "----------------------------------------------------------------------------", localHost.getHostAddress(), SaManager.getConfig());
         } catch (Exception e) {

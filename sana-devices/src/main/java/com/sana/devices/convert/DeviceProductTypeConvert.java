@@ -16,23 +16,23 @@ import org.mapstruct.factory.Mappers;
 public interface DeviceProductTypeConvert {
     DeviceProductTypeConvert INSTANCE = Mappers.getMapper(DeviceProductTypeConvert.class);
 
-    @Mapping(target = "id", ignore = true)
+/*    @Mapping(target = "id", ignore = true)
     @Mapping(target = "creator", ignore = true)
     @Mapping(target = "createTime", ignore = true)
     @Mapping(target = "updater", ignore = true)
     @Mapping(target = "updateTime", ignore = true)
     @Mapping(target = "deleted", ignore = true)
     @Mapping(target = "creatorName", ignore = true)
-    @Mapping(target = "updaterName", ignore = true)
+    @Mapping(target = "updaterName", ignore = true)*/
     DeviceProductTypeEntity convert(DeviceProductTypeSave saveVO);
 
-    @Mapping(target = "id", ignore = true)
+/*    @Mapping(target = "id", ignore = true)
     @Mapping(target = "creator", ignore = true)
     @Mapping(target = "createTime", ignore = true)
     @Mapping(target = "updater", ignore = true)
     @Mapping(target = "updateTime", ignore = true)
     @Mapping(target = "deleted", ignore = true)
     @Mapping(target = "creatorName", ignore = true)
-    @Mapping(target = "updaterName", ignore = true)
+    @Mapping(target = "updaterName", ignore = true)*/
     DeviceProductTypeEntity convert(DeviceProductTypeUpdate saveVO);
 }

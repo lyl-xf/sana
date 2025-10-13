@@ -15,38 +15,38 @@ public interface SysRoleConvert {
     SysRoleConvert INSTANCE = Mappers.getMapper(SysRoleConvert.class);
 
     SysRoleResult convert(SysRoleEntity entity);
-    @Mapping(target = "id", ignore = true)
+/*    @Mapping(target = "id", ignore = true)
     @Mapping(target = "creator", ignore = true)
     @Mapping(target = "createTime", ignore = true)
     @Mapping(target = "updater", ignore = true)
     @Mapping(target = "updateTime", ignore = true)
     @Mapping(target = "deleted", ignore = true)
     @Mapping(target = "creatorName", ignore = true)
-    @Mapping(target = "updaterName", ignore = true)
+    @Mapping(target = "updaterName", ignore = true)*/
     SysRoleEntity convert(SysRoleResult vo);
 
-    @Mapping(target = "id", ignore = true)
+/*    @Mapping(target = "id", ignore = true)
     @Mapping(target = "creator", ignore = true)
     @Mapping(target = "createTime", ignore = true)
     @Mapping(target = "updater", ignore = true)
     @Mapping(target = "updateTime", ignore = true)
     @Mapping(target = "deleted", ignore = true)
     @Mapping(target = "creatorName", ignore = true)
-    @Mapping(target = "updaterName", ignore = true)
+    @Mapping(target = "updaterName", ignore = true)*/
     SysRoleEntity convert(SysRoleSave saveVO);
 
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "createTime", ignore = true)
+/*    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createTime", ignore = true)*/
     List<SysRoleResult> convertList(List<SysRoleEntity> entityList);
 
-    @Mapping(target = "id", ignore = true)
+/*    @Mapping(target = "id", ignore = true)
     @Mapping(target = "creator", ignore = true)
     @Mapping(target = "createTime", ignore = true)
     @Mapping(target = "updater", ignore = true)
     @Mapping(target = "updateTime", ignore = true)
     @Mapping(target = "deleted", ignore = true)
     @Mapping(target = "creatorName", ignore = true)
-    @Mapping(target = "updaterName", ignore = true)
+    @Mapping(target = "updaterName", ignore = true)*/
     SysRoleEntity convert(SysRoleUpdate updateVO);
 }

@@ -18,14 +18,14 @@ public interface SysDictDataConvert {
 
     SysDictDataResult convert(SysDictDataEntity entity);
 
-    @Mapping(target = "id", ignore = true)
+/*    @Mapping(target = "id", ignore = true)
     @Mapping(target = "creator", ignore = true)
     @Mapping(target = "createTime", ignore = true)
     @Mapping(target = "updater", ignore = true)
     @Mapping(target = "updateTime", ignore = true)
     @Mapping(target = "deleted", ignore = true)
     @Mapping(target = "creatorName", ignore = true)
-    @Mapping(target = "updaterName", ignore = true)
+    @Mapping(target = "updaterName", ignore = true)*/
     SysDictDataEntity convert(SysDictDataResult vo);
 
     @Mapping(target = "id", ignore = true)

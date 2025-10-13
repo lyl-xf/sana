@@ -31,6 +31,23 @@ public class SwaggerConfig {
                 .packagesToScan("com.sana.abutment")
                 .build();
     }
+    @Bean
+    public GroupedOpenApi deviceApi() {
+        return GroupedOpenApi.builder()
+                .group("设备管理")
+                .pathsToMatch("/devices/**")
+                .packagesToScan("com.sana.devices")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi rulesApi() {
+        return GroupedOpenApi.builder()
+                .group("规则设置")
+                .pathsToMatch("/rules/**")
+                .packagesToScan("com.sana.rules")
+                .build();
+    }
 
     @Bean
     public OpenAPI customOpenAPI() {
