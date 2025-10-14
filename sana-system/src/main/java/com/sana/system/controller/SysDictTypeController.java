@@ -1,5 +1,6 @@
 package com.sana.system.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.sana.base.syshandle.enums.OperateTypeEnum;
 import com.sana.base.syshandle.operatelog.OptLog;
 import com.sana.base.syshandle.result.SanaResult;
@@ -42,6 +43,7 @@ public class SysDictTypeController {
     @PostMapping("/save")
     @Operation(summary = "新增")
     @OptLog(type = OperateTypeEnum.INSERT)
+    @SaCheckPermission("sys:dict:save")
     public SanaResult<String> save(@RequestBody @Valid SysDictTypeSave saveVO) {
         sysDictTypeService.save(saveVO);
         return SanaResult.ok();
@@ -55,6 +57,7 @@ public class SysDictTypeController {
     @PostMapping("/update")
     @Operation(summary = "修改")
     @OptLog(type = OperateTypeEnum.UPDATE)
+    @SaCheckPermission("sys:dict:update")
     public SanaResult<String> update(@RequestBody @Valid SysDictTypeUpdate uodateVO) {
         SysDictTypeEntity entity = SysDictTypeConvert.INSTANCE.convert(uodateVO);
         sysDictTypeService.updateById(entity);
@@ -65,6 +68,7 @@ public class SysDictTypeController {
     @GetMapping("/deletDicType")
     @Operation(summary = "删除")
     @OptLog(type = OperateTypeEnum.DELETE)
+    @SaCheckPermission("sys:dict:delete")
     public SanaResult<String> delete(@RequestParam("id") Long id) {
         // 调用服务层方法，执行删除操作
         sysDictTypeService.removeDictType(id);

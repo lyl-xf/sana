@@ -1,5 +1,6 @@
 package com.sana.system.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import com.sana.base.syshandle.entity.MyUserDetails;
 import com.sana.base.syshandle.enums.OperateTypeEnum;
@@ -55,6 +56,7 @@ public class SysUserController {
     @PostMapping("/save")
     @Operation(summary = "新增")
     @OptLog(type = OperateTypeEnum.INSERT)
+    @SaCheckPermission("sys:user:save")
     public SanaResult<String> save(@RequestBody @Valid SysUserSave vo) {
         sysUserService.saveUserOrgRole(vo);
         return SanaResult.ok();
@@ -74,6 +76,7 @@ public class SysUserController {
     @PostMapping("/update")
     @Operation(summary = "修改")
     @OptLog(type = OperateTypeEnum.UPDATE)
+    @SaCheckPermission("sys:user:update")
     public SanaResult<String> update(@RequestBody @Valid SysUserUpdate vo) {
         sysUserService.updateByUserId(vo);
         return SanaResult.ok();
@@ -82,6 +85,7 @@ public class SysUserController {
     @PostMapping("/delete")
     @Operation(summary = "删除")
     @OptLog(type = OperateTypeEnum.DELETE)
+    @SaCheckPermission("sys:user:delete")
     public SanaResult<String> delete(@RequestBody List<Long> idList) {
         MyUserDetails user = UserContextUtil.getCurrentUserInfo();
         if (idList.contains(user.getId())) {
@@ -94,6 +98,7 @@ public class SysUserController {
     @PostMapping("/updateMySelf")
     @Operation(summary = "修改个人用户信息")
     @OptLog(type = OperateTypeEnum.UPDATE)
+    @SaCheckPermission("sys:user:save")
     public SanaResult updateMySelf(@RequestBody @Valid SysUserUpdate sysUserUpdate) {
         sysUserService.updateMySelf(sysUserUpdate);
         return SanaResult.ok();
@@ -102,6 +107,7 @@ public class SysUserController {
     @PostMapping("/updateMySelfPassword")
     @Operation(summary = "修改个人密码")
     @OptLog(type = OperateTypeEnum.UPDATE)
+    @SaCheckPermission("serve:password:save")
     public SanaResult<String> password(@RequestBody @Valid SysUserPasswordUpdate sysUserPasswordUpdate) {
         // 修改密码
         String result = sysUserService.updateMySelfPassword(sysUserPasswordUpdate);

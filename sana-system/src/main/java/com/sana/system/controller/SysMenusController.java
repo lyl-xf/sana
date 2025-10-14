@@ -1,5 +1,6 @@
 package com.sana.system.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.sana.base.syshandle.entity.MyUserDetails;
 import com.sana.base.syshandle.enums.OperateTypeEnum;
 import com.sana.base.syshandle.operatelog.OptLog;
@@ -57,6 +58,7 @@ public class SysMenusController {
     @PostMapping("/save")
     @Operation(summary = "保存")
     @OptLog(type = OperateTypeEnum.INSERT)
+    @SaCheckPermission("sys:menus:save")
     public SanaResult save(@RequestBody @Valid SysMenusSave saveVO) {
         SysMenusEntity sysMenusEntity = sysMenusService.saveMenu(saveVO);
         return SanaResult.ok(sysMenusEntity.getId());
@@ -66,6 +68,7 @@ public class SysMenusController {
     @PostMapping("/update")
     @Operation(summary = "修改")
     @OptLog(type = OperateTypeEnum.UPDATE)
+    @SaCheckPermission("sys:menus:update")
     public SanaResult<String> update(@RequestBody @Valid SysMenusUpdate uodateVO) {
         sysMenusService.updateByData(uodateVO);
         return SanaResult.ok();
@@ -75,6 +78,7 @@ public class SysMenusController {
     @PostMapping("/delete")
     @Operation(summary = "删除")
     @OptLog(type = OperateTypeEnum.DELETE)
+    @SaCheckPermission("sys:menus:delete")
     public SanaResult<String> delete(@RequestBody SysMenusDelete sysMenusDelete) {
         sysMenusService.delete(sysMenusDelete.getIds());
         return SanaResult.ok();

@@ -123,7 +123,7 @@ public class SchedulerJob implements Job {
                 if (rulesJobPushDeviceData != null) {
                     //System.out.println(rulesJobPushDeviceKey+"已经存在，不进行更新");
                     String deviceNub = (String)rulesJobPushDeviceData;
-                    System.out.println("要发送采集指令的设备："+deviceNub);
+                    //System.out.println("要发送采集指令的设备："+deviceNub);
                     if (deviceNub.contains(",")) {
                         String[] deviceArray = deviceNub.split(",");
                         for (String deviceId : deviceArray){

@@ -1,5 +1,6 @@
 package com.sana.system.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.sana.base.syshandle.enums.OperateTypeEnum;
 import com.sana.base.syshandle.operatelog.OptLog;
 import com.sana.base.syshandle.page.SanaPage;
@@ -51,6 +52,7 @@ public class SysRoleController {
     @PostMapping("/save")
     @Operation(summary = "保存")
     @OptLog(type = OperateTypeEnum.INSERT)
+    @SaCheckPermission("sys:role:save")
     public SanaResult<String> save(@RequestBody @Valid SysRoleSave saveVO) {
         sysRoleService.saveRole(saveVO);
         return SanaResult.ok();
@@ -59,6 +61,7 @@ public class SysRoleController {
     @PostMapping("/update")
     @Operation(summary = "修改")
     @OptLog(type = OperateTypeEnum.UPDATE)
+    @SaCheckPermission("sys:role:update")
     public SanaResult<String> update(@RequestBody @Valid SysRoleUpdate updateVo) {
         sysRoleService.updateRole(updateVo);
         return SanaResult.ok();
@@ -69,6 +72,7 @@ public class SysRoleController {
     @PostMapping("/roleLinkMenus")
     @Operation(summary = "角色绑定菜单、数据权限、首页模块权限")
     @OptLog(type = OperateTypeEnum.UPDATE)
+    @SaCheckPermission("sys:role:roleLinkMenus")
     public SanaResult<String> roleLinkMenus(@RequestBody @Valid SysRoleMenusUpdate sysRoleMenusUpdate) {
         sysRoleService.roleLinkMenus(sysRoleMenusUpdate);
         return SanaResult.ok();
@@ -86,6 +90,7 @@ public class SysRoleController {
     @GetMapping("/delete")
     @Operation(summary = "删除")
     @OptLog(type = OperateTypeEnum.DELETE)
+    @SaCheckPermission("sys:role:delete")
     public SanaResult<String> delete(@RequestParam("id") List<Long> idList) {
         sysRoleService.deleteRole(idList);
 

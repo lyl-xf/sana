@@ -1,5 +1,6 @@
 package com.sana.system.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.sana.base.syshandle.enums.OperateTypeEnum;
 import com.sana.base.syshandle.operatelog.OptLog;
 import com.sana.base.syshandle.result.SanaResult;
@@ -34,6 +35,7 @@ public class SysOrgController {
     @GetMapping("/list")
     @Operation(summary = "列表")
     @OptLog(type = OperateTypeEnum.QUERY)
+    //@SaCheckPermission("sys:org:list")
     public SanaResult<List<SysOrgResult>> list(@ParameterObject @Valid SysOrgQuery query) {
         List<SysOrgResult> list = sysOrgService.getList(query);
 
@@ -44,6 +46,7 @@ public class SysOrgController {
     @PostMapping("/save")
     @Operation(summary = "保存")
     @OptLog(type = OperateTypeEnum.INSERT)
+    @SaCheckPermission("sys:org:save")
     public SanaResult<String> save(@RequestBody @Valid SysOrgSave saveVO) {
         sysOrgService.saveOrg(saveVO);
 
@@ -53,6 +56,7 @@ public class SysOrgController {
     @PostMapping("/update")
     @Operation(summary = "修改")
     @OptLog(type = OperateTypeEnum.UPDATE)
+    @SaCheckPermission("sys:org:update")
     public SanaResult<String> update(@RequestBody @Valid SysOrgUpdate updateVO) {
         sysOrgService.updateOrg(updateVO);
 
@@ -62,6 +66,7 @@ public class SysOrgController {
     @GetMapping("/delete")
     @Operation(summary = "删除")
     @OptLog(type = OperateTypeEnum.DELETE)
+    @SaCheckPermission("sys:org:delete")
     public SanaResult<String> delete(@RequestParam("id") Long id) {
         sysOrgService.deleteOrg(id);
 
