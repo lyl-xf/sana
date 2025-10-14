@@ -69,6 +69,16 @@ public class LogOperateJob implements Job {
                 "操作日志定时触发存储。"
         );*/
 
+
+        log.info("\n\t----------------------------------------------------------------------------\n\t" +
+                        "jobName:{}\n\t" +
+                        "下次触发时间:{}\n\t" +
+                        "本次触发内容:{}\n\t" +
+                        "----------------------------------------------------------------------------",
+                context.getJobDetail().getKey().getName(),
+                DateUtil.formatDateTime(context.getNextFireTime()),
+                "操作日志定时触发存储。"
+        );
         if (loggingEnabled) {
             if(logSaveType.equals("tdengine")){
                 try {

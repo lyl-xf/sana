@@ -1,5 +1,6 @@
 package com.sana.devices.job;
 
+import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.sana.base.cache.redis.CacheKeyBuilder;
 import com.sana.base.cache.redis.RedisUtils;
@@ -49,8 +50,8 @@ public class DeviceDataJob implements Job {
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
-/*
-        log.info("\n\t----------------------------------------------------------------------------\n\t" +
+
+/*        log.info("\n\t----------------------------------------------------------------------------\n\t" +
                         "=========================定时任务调度，执行业务逻辑====================:\n\t" +
                         "jobName:{}\n\t" +
                         "jobGroup:{}\n\t" +
@@ -72,6 +73,17 @@ public class DeviceDataJob implements Job {
                 DateUtil.formatDateTime(context.getScheduledFireTime()),
                 "设备数据定时触发存储。"
         );*/
+
+
+        log.info("\n\t----------------------------------------------------------------------------\n\t" +
+                        "jobName:{}\n\t" +
+                        "下次触发时间:{}\n\t" +
+                        "本次触发内容:{}\n\t" +
+                        "----------------------------------------------------------------------------",
+                context.getJobDetail().getKey().getName(),
+                DateUtil.formatDateTime(context.getNextFireTime()),
+                "设备数据定时触发存储。"
+        );
 
         try {
             String key = CacheKeyBuilder.mqttScript();

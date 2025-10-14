@@ -141,6 +141,27 @@ export default {
 			post: async function(data){
 				return await http.post(this.url, data, {});
 			}
+		},
+		getDeviceModeMap: {
+			url: `${config.API_URL}/devices/deviceMode/getDeviceModeMap`,
+			name: "获取设备物模型,json格式，用于动态拼接列表展示数据",
+			get: async function(params){
+				return await http.get(this.url, params);
+			}
+		},
+		devicesPin: {
+			url: `${config.API_URL}/devices/deviceHomeData/devicesPin`,
+			name: "获取设备物模型,json格式，用于动态拼接列表展示数据",
+			get: async function(params){
+				return await http.get(this.url, params);
+			}
+		},
+		getLogData: {
+			url: `${config.API_URL}/devices/deviceHomeData/getLogData`,
+			name: "获取设备物模型,json格式，用于动态拼接列表展示数据",
+			get: async function(params){
+				return await http.get(this.url, params);
+			}
 		}
 	},
 	/**

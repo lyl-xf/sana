@@ -49,13 +49,13 @@ public class SchedulerController {
 
 
     @PostMapping("/updateLogJob")
-    @Operation(summary = "新增日志存储定时任务")
+    @Operation(summary = "新增日志存储定时任务,用于规则处理")
     public SanaResult createLogJob(@RequestBody JobInfoEntity jobInfo) {
         return SanaResult.ok( schedulerService.createLogJob(jobInfo.getJobName(), jobInfo.getCron(),jobInfo.getJobGroup(),jobInfo.getTriggerGroup(),  QuartzEnum.LOGS_CLASS_NAME.getValue()));
     }
 
     @PostMapping("/updateDeviceJob")
-    @Operation(summary = "新增设备数据存储定时任务")
+    @Operation(summary = "新增设备数据存储定时任务，用于规则处理")
     public SanaResult createDeviceJob(@RequestBody JobInfoEntity jobInfo) {
         return SanaResult.ok( schedulerService.createDeviceJob(jobInfo.getJobName(), jobInfo.getCron(),jobInfo.getJobGroup(),jobInfo.getTriggerGroup(),  QuartzEnum.DEVICE_CLASS_NAME.getValue()));
     }
