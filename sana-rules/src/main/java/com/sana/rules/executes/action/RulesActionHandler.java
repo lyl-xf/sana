@@ -33,12 +33,6 @@ public class RulesActionHandler {
     private RedisUtils RedisUtils;
 
     @Resource
-    private DataForwardHandler dataForwardHandler;
-
-    @Resource
-    private DeviceControlHandler deviceControlHandler;
-
-    @Resource
     private DataAnalysisService dataAnalysisService;
     @Resource
     private MessagePublish messagePublish;
