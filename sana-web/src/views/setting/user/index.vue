@@ -120,7 +120,7 @@
 			async reset_password(id){
 				var res = await this.$API.system.user.resetPassword.post({"id":id});
 				if(res.code == 200){
-					this.$message.success("操作成功，重置后的原始密码为：123456")
+					this.$message.success("操作成功，重置后的原始密码为：sana.password")
 				}else{
 					this.$alert(res.msg, "提示", {type: 'error'})
 				}

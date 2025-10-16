@@ -107,7 +107,6 @@ public class SysUserController {
     @PostMapping("/updateMySelfPassword")
     @Operation(summary = "修改个人密码")
     @OptLog(type = OperateTypeEnum.UPDATE)
-    @SaCheckPermission("serve:password:save")
     public SanaResult<String> password(@RequestBody @Valid SysUserPasswordUpdate sysUserPasswordUpdate) {
         // 修改密码
         String result = sysUserService.updateMySelfPassword(sysUserPasswordUpdate);

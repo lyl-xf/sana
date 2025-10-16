@@ -59,7 +59,7 @@ public class SysAuthController {
      * @return 返回注册结果，如果注册成功则返回成功信息，否则返回错误信息。
      */
     @PostMapping("/registerUser")
-    @Operation(summary = "获取最新版本号")
+    @Operation(summary = "注册用户")
     public SanaResult<String> registerUser(@RequestBody @Valid SysUserSave vo) {
         // 新增密码不能为空
         if (StrUtil.isBlank(vo.getPassword())) {

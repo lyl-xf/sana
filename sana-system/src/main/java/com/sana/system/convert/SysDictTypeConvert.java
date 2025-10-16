@@ -55,9 +55,9 @@ public interface SysDictTypeConvert {
     SysDictTypeEntity convert(SysDictTypeUpdate vo);
 
 
-/*    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "createTime", ignore = true)
-    @Mapping(target = "updateTime", ignore = true)*/
+    @Mapping(target = "updateTime", ignore = true)
     List<SysDictTypeResult> convertList(List<SysDictTypeEntity> list);
 
 
