@@ -1,4 +1,4 @@
-# sana 基础手脚架
+# sana 基础的IOT设备管理平台
 
 ## 技术栈
 前端项目基于scui修改：[scui](https://gitee.com/lolicode/scui)
