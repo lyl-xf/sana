@@ -2,6 +2,7 @@ package com.sana.system.dao;
 
 import com.sana.base.mybatis.dao.BaseDao;
 import com.sana.system.entity.SysDictTypeEntity;
+import com.sana.system.entity.result.SysDictTypeResult;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -13,5 +14,5 @@ import java.util.List;
 @Mapper
 public interface SysDictTypeDao extends BaseDao<SysDictTypeEntity> {
 
-    List<SysDictTypeEntity> getList();
+    List<SysDictTypeResult> getList();
 }

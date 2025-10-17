@@ -72,7 +72,7 @@ public class DataScopeInnerInterceptor implements InnerInterceptor {
             String buildSql = getSelectSql(boundSql.getSql(), scope);
             PluginUtils.mpBoundSql(boundSql).sql(buildSql);
         } catch (Exception e) {
-            log.warn("Failed to modify SQL for data scope filtering.", e);
+            log.warn("无法修改 SQL 以进行数据范围过滤。", e);
         }
     }
 
@@ -130,7 +130,7 @@ public class DataScopeInnerInterceptor implements InnerInterceptor {
         // 白名单校验字段名
         String[] parts = condition.trim().split("\\s+");
         if (parts.length < 3 || !ALLOWED_COLUMNS.contains(parts[0])) {
-            throw new IllegalArgumentException("Invalid column name in data scope: " + parts[0]);
+            throw new IllegalArgumentException("数据范围内的列名无效： " + parts[0]);
         }
 
         return CCJSqlParserUtil.parseCondExpression(condition);
@@ -157,7 +157,7 @@ public class DataScopeInnerInterceptor implements InnerInterceptor {
             Alias alias = table.getAlias();
             return alias != null ? alias.getName() : table.getName();
         } catch (ClassCastException e) {
-            log.warn("Unsupported FROM item type: {}", plainSelect.getFromItem().getClass());
+            log.warn("不支持的 FROM 项类型： {}", plainSelect.getFromItem().getClass());
             return "";
         }
     }

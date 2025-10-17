@@ -14,7 +14,7 @@
         </if>
 
     </select>
-    <select id="getList" resultType="com.sana.system.entity.SysDictTypeEntity">
+    <select id="getList" resultType="com.sana.system.entity.result.SysDictTypeResult">
         select *
         from sys_dict_type  where deleted = 0
     </select>

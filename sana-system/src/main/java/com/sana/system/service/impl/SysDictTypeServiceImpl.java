@@ -53,9 +53,8 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
     @Override
     public List<SysDictTypeResult> getList() {
 
-        List<SysDictTypeEntity> entity = baseMapper.getList();
-        List<SysDictTypeResult> sysDictTypeResults = SysDictTypeConvert.INSTANCE.convertList(entity);
-        return sysDictTypeResults;
+        List<SysDictTypeResult> entityResult = baseMapper.getList();
+        return entityResult;
     }
 
     @Transactional(rollbackFor = Exception.class)
