@@ -1,4 +1,4 @@
-package com.sana.abutment.servepublish;
+package com.sana.abutment.mqtt.servepublish;
 
 import jakarta.annotation.Resource;
 import org.dromara.mica.mqtt.codec.MqttQoS;

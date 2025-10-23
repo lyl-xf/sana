@@ -1,4 +1,4 @@
-package com.sana.abutment.servecontrol;
+package com.sana.abutment.mqtt.servecontrol;
 
 import com.sana.base.syshandle.exception.SanaException;
 import com.sana.base.syshandle.page.SanaPage;

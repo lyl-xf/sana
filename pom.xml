@@ -25,6 +25,7 @@
         <module>sana-abutment</module>
         <module>sana-devices</module>
         <module>sana-rules</module>
+        <module>sana-camera</module>
     </modules>
 
     <!--基础版本-->
@@ -150,11 +151,11 @@
                 <artifactId>minio</artifactId>
                 <version>${minio.version}</version>
             </dependency>
-<!--            <dependency>
+            <dependency>
                 <groupId>org.dromara.mica-mqtt</groupId>
                 <artifactId>mica-mqtt-client-spring-boot-starter</artifactId>
                 <version>${mqtt.version}</version>
-            </dependency>-->
+            </dependency>
             <dependency>
                 <groupId>org.dromara.mica-mqtt</groupId>
                 <artifactId>mica-mqtt-server-spring-boot-starter</artifactId>

@@ -1,7 +1,7 @@
 package com.sana.rules.executes.job;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sana.abutment.servepublish.MessagePublish;
+import com.sana.abutment.mqtt.servepublish.MessagePublish;
 import com.sana.base.cache.caffeine.CaffeineCacheManager;
 import com.sana.base.cache.redis.CacheKeyBuilder;
 import com.sana.base.cache.redis.RedisUtils;

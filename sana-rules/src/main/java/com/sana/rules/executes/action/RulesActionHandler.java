@@ -2,7 +2,7 @@ package com.sana.rules.executes.action;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.sana.abutment.servepublish.MessagePublish;
+import com.sana.abutment.mqtt.servepublish.MessagePublish;
 import com.sana.base.cache.redis.CacheKeyBuilder;
 import com.sana.base.cache.redis.RedisUtils;
 import com.sana.base.syshandle.enums.GeneralPrefixEnum;

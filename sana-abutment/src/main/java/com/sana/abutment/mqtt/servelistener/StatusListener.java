@@ -1,4 +1,4 @@
-package com.sana.abutment.servelistener;
+package com.sana.abutment.mqtt.servelistener;
 
 import com.sana.abutment.dao.DeviceStatusDao;
 import com.sana.base.syshandle.enums.GeneralPrefixEnum;
