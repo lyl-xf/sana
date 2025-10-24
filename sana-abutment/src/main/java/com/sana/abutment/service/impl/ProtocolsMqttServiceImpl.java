@@ -12,7 +12,8 @@ import com.sana.abutment.entity.result.RuleProtocolsMqttResult;
 import com.sana.abutment.entity.save.ProtocolsMqttSave;
 import com.sana.abutment.entity.update.ProtocolsMqttUpdate;
 import com.sana.abutment.initializer.cacheproties.DeviceItemModeCacheSave;
-import com.sana.abutment.initializer.proties.ProtocolsMqttProperties;
+import com.sana.abutment.initializer.proties.mqttclient.ProtocolsMqttClientProperties;
+import com.sana.abutment.initializer.proties.mqttserve.ProtocolsMqttProperties;
 import com.sana.abutment.service.ProtocolsMqttService;
 import com.sana.base.cache.redis.CacheKeyBuilder;
 import com.sana.base.cache.redis.RedisUtils;
@@ -36,7 +37,8 @@ public class ProtocolsMqttServiceImpl extends BaseServiceImpl<ProtocolsMqttDao, 
 
     @Resource
     private RedisUtils redisCacheOps;
-
+    @Resource
+    private ProtocolsMqttClientProperties protocolsMqttClientProperties;
     @Override
     public List<ProtocolsMqttResult> getMqttGroupPage(ProtocolsMqttQuery query) {
         List<ProtocolsMqttResult> page = baseMapper.getMqttGroupPage(query);
@@ -52,6 +54,8 @@ public class ProtocolsMqttServiceImpl extends BaseServiceImpl<ProtocolsMqttDao, 
     public ProtocolsMqttResult getMqttBroker() {
         return baseMapper.getMqttBroker();
     }
+
+
 
     @Override
     public void saveProtocolsMqttSave(ProtocolsMqttSave saveVO) {
@@ -102,7 +106,7 @@ public class ProtocolsMqttServiceImpl extends BaseServiceImpl<ProtocolsMqttDao, 
     @Override
     public void initializeMqtt(ProtocolsMqttProperties protocolsMqttProperties) {
         InintProtocolsMqttEntity protocolsMqttUpdatate = new InintProtocolsMqttEntity();
-        ProtocolsMqttEntity protocolsMqttEntity = baseMapper.selectOne(new QueryWrapper<ProtocolsMqttEntity>().eq("mqtt_type", 1).eq("mqtt_enabled",1));
+        ProtocolsMqttEntity protocolsMqttEntity = baseMapper.selectOne(new QueryWrapper<ProtocolsMqttEntity>().eq("mqtt_type", 1));
         if(protocolsMqttEntity!=null){
             protocolsMqttUpdatate.setId(protocolsMqttEntity.getId());
             protocolsMqttUpdatate.setIp(protocolsMqttProperties.getIp());
@@ -129,11 +133,50 @@ public class ProtocolsMqttServiceImpl extends BaseServiceImpl<ProtocolsMqttDao, 
             protocolsMqttUpdatate.setUpdateTime(new DateTime());
             protocolsMqttUpdatate.setCreatorName("系统初始化");
             protocolsMqttUpdatate.setUpdaterName("系统初始化");
+            protocolsMqttUpdatate.setLinkType(1);
             baseMapper.updateByProtocol(protocolsMqttUpdatate);
         }else {
             baseMapper.insertProtocol(protocolsMqttUpdatate);
         }
+    }
 
+
+    @Override
+    public void initializeMqttClient(ProtocolsMqttClientProperties protocolsMqttClientProperties) {
+        InintProtocolsMqttEntity protocolsMqttUpdatate = new InintProtocolsMqttEntity();
+        ProtocolsMqttEntity protocolsMqttEntity = baseMapper.selectOne(new QueryWrapper<ProtocolsMqttEntity>().eq("mqtt_type", 2));
+        if(protocolsMqttEntity!=null){
+            protocolsMqttUpdatate.setId(protocolsMqttEntity.getId());
+            protocolsMqttUpdatate.setIp(protocolsMqttClientProperties.getIp());
+            protocolsMqttUpdatate.setMqttName(protocolsMqttClientProperties.getName());
+            protocolsMqttUpdatate.setMqttType(2);
+            protocolsMqttUpdatate.setTcpPort(protocolsMqttClientProperties.getPort().toString());
+            protocolsMqttUpdatate.setUsername(protocolsMqttClientProperties.getUserName());
+            protocolsMqttUpdatate.setPassword(protocolsMqttClientProperties.getPassword());
+            protocolsMqttUpdatate.setLinkType(2);
+            protocolsMqttUpdatate.setMqttEnabled(protocolsMqttClientProperties.getEnabled() ? 1 : 0);
+            baseMapper.updateByProtocol(protocolsMqttUpdatate);
+        }else {
+            protocolsMqttUpdatate.setIp(protocolsMqttClientProperties.getIp());
+            protocolsMqttUpdatate.setMqttName(protocolsMqttClientProperties.getName());
+            protocolsMqttUpdatate.setMqttType(2);
+            protocolsMqttUpdatate.setTcpPort(protocolsMqttClientProperties.getPort().toString());
+            protocolsMqttUpdatate.setUsername(protocolsMqttClientProperties.getUserName());
+            protocolsMqttUpdatate.setPassword(protocolsMqttClientProperties.getPassword());
+            protocolsMqttUpdatate.setCreateTime(new DateTime());
+            protocolsMqttUpdatate.setUpdateTime(new DateTime());
+            protocolsMqttUpdatate.setCreatorName("系统初始化");
+            protocolsMqttUpdatate.setUpdaterName("系统初始化");
+            protocolsMqttUpdatate.setLinkType(2);
+            protocolsMqttUpdatate.setMqttEnabled(protocolsMqttClientProperties.getEnabled() ? 1 : 0);
+            baseMapper.insertProtocol(protocolsMqttUpdatate);
+        }
+
+    }
+
+    @Override
+    public ProtocolsMqttClientProperties getProtocolsMqttClientProperties() {
+        return protocolsMqttClientProperties;
     }
 
     @Override

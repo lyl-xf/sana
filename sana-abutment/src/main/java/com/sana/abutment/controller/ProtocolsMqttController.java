@@ -1,11 +1,13 @@
 package com.sana.abutment.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import com.sana.abutment.entity.query.ProtocolsMqttQuery;
 import com.sana.abutment.entity.result.ProtocolsMqttResult;
 import com.sana.abutment.entity.result.RuleProtocolsMqttResult;
 import com.sana.abutment.entity.save.ProtocolsMqttSave;
 import com.sana.abutment.entity.update.ProtocolsMqttUpdate;
+import com.sana.abutment.initializer.proties.mqttclient.ProtocolsMqttClientProperties;
 import com.sana.abutment.service.ProtocolsMqttService;
 import com.sana.base.syshandle.enums.OperateTypeEnum;
 import com.sana.base.syshandle.operatelog.OptLog;
@@ -35,10 +37,19 @@ public class ProtocolsMqttController {
     @GetMapping("/page")
     @Operation(summary = "查询")
     @OptLog(type = OperateTypeEnum.QUERY)
-    //@PreAuthorize("hasAuthority('protocols:mqtt:page')")
+    //@SaCheckPermission("protocols:mqtt:page)")
     public SanaResult<List<ProtocolsMqttResult>> getMqttGroupPage(@ParameterObject @Valid ProtocolsMqttQuery query) {
         List<ProtocolsMqttResult> sanaPage = protocolsMqttService.getMqttGroupPage(query);
         return SanaResult.ok(sanaPage);
+    }
+
+
+
+    @GetMapping("/getMqttProxyClientMessage")
+    @Operation(summary = "查询")
+    @OptLog(type = OperateTypeEnum.QUERY)
+    public SanaResult<ProtocolsMqttClientProperties> getMqttProxyClientMessage() {
+        return SanaResult.ok(protocolsMqttService.getProtocolsMqttClientProperties());
     }
 
     @GetMapping("/getMqttBroker")
@@ -52,7 +63,7 @@ public class ProtocolsMqttController {
     @GetMapping("/list")
     @Operation(summary = "情景联动协议查询")
     @OptLog(type = OperateTypeEnum.QUERY)
-    //@PreAuthorize("hasAuthority('protocols:mqtt:page')")
+    //@SaCheckPermission("hasAuthority('protocols:mqtt:page')")
     public SanaResult<List<RuleProtocolsMqttResult>> getMqttGroupList(@ParameterObject @Valid ProtocolsMqttQuery query) {
         List<RuleProtocolsMqttResult> sanaPage = protocolsMqttService.getMqttGroupList(query);
         return SanaResult.ok(sanaPage);
@@ -77,7 +88,7 @@ public class ProtocolsMqttController {
     @GetMapping("/delete")
     @Operation(summary = "删除")
     @OptLog(type = OperateTypeEnum.DELETE)
-    //@PreAuthorize("hasAuthority('abutment:protocols:del')")
+    //@SaCheckPermission("abutment:protocols:del")
     public SanaResult<String> deleteProtocolsMqtt(@RequestParam("id") Long id) {
         protocolsMqttService.deleteProtocolsMqtt(id);
         return SanaResult.ok();

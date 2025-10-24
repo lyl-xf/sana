@@ -31,7 +31,7 @@
 								<el-button type="primary" icon="el-icon-more" circle plain></el-button>
 								<template #dropdown>
 									<el-dropdown-menu>
-										<el-dropdown-item  v-if="item.mqttType !=1" @click="edit(item)">编辑</el-dropdown-item>
+<!--										<el-dropdown-item  v-if="item.mqttType !=1" @click="edit(item)">编辑</el-dropdown-item>-->
 										<div v-auth="'abutment:protocols:logs'">
 											<el-dropdown-item  @click="logs(item)">日志</el-dropdown-item>
 										</div>
@@ -57,6 +57,8 @@
 
 	<save-dialog v-if="dialog.save" ref="saveDialog" @success="handleSuccess" @closed="dialog.save=false"></save-dialog>
 
+	<proxys-dialog v-if="dialog.proxys" ref="mqttProxyDialog" @success="handleSuccess" @closed="dialog.proxys=false"></proxys-dialog>
+
 	<el-drawer title="日志" v-model="dialog.logsVisible" :size="600" direction="rtl" destroy-on-close>
 		<logs></logs>
 	</el-drawer>
@@ -64,12 +66,14 @@
 
 <script>
 	import saveDialog from './save'
+	import proxysDialog from './proxys'
 	import logs from './logs'
 
 	export default {
 		name: 'task',
 		components: {
 			saveDialog,
+			proxysDialog,
 			logs
 		},
 /*		provide() {
@@ -81,6 +85,7 @@
 			return {
 				dialog: {
 					save: false,
+					proxys: false,
 					logsVisible: false
 				},
 				list: [
@@ -138,18 +143,31 @@
 					this.$refs.saveDialog.open()
 				})*/
 				/*this.$alert("初版暂不支持添加代理接入协议", "提示", {type: 'warning'})*/
-				this.$message.error("初版暂不支持添加代理接入协议");
+				this.$message.error("目前版本客户端代理仅支持订阅一个mqtt-broker，如果需要修改，请前往后端配置文件中进行修改mqtt.client的配置");
 			},
 			show(item){
-				this.dialog.save = true
-				this.$nextTick(() => {
-					this.$refs.saveDialog.open('show').setData(item)
-				})
+				if(item.mqttType == 1) {
+					this.dialog.save = true
+					this.$nextTick(() => {
+						this.$refs.saveDialog.open('show').setData(item)
+					})
+				}else {
+					this.dialog.proxys = true
+					this.$nextTick(() => {
+						this.$refs.proxysDialog.open('show').setData(item)
+					})
+			}
+
 			},
 			edit(item){
 				this.dialog.save = true
 				this.$nextTick(() => {
-					this.$refs.saveDialog.open('edit').setData(item)
+					if(item.mqttType == 1){
+						this.$refs.saveDialog.open('edit').setData(item)
+					}else {
+						this.$refs.saveDialog.open('edit').setData(item)
+					}
+
 				})
 			},
 			del(item){

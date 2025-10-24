@@ -1,4 +1,4 @@
-package com.sana.abutment.initializer.proties;
+package com.sana.abutment.initializer.proties.mqttserve;
 
 import lombok.Data;
 

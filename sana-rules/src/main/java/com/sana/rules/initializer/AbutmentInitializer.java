@@ -4,7 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.googlecode.aviator.AviatorEvaluator;
 import com.googlecode.aviator.Expression;
-import com.sana.abutment.initializer.proties.ProtocolsMqttProperties;
+import com.sana.abutment.initializer.proties.mqttclient.ProtocolsMqttClientProperties;
+import com.sana.abutment.initializer.proties.mqttserve.ProtocolsMqttProperties;
 import com.sana.abutment.service.ProtocolsMqttService;
 import com.sana.base.cache.caffeine.CaffeineCacheManager;
 import com.sana.base.cache.redis.CacheKeyBuilder;
@@ -41,6 +42,8 @@ import java.util.concurrent.TimeUnit;
 public class AbutmentInitializer {
     @Resource
     private ProtocolsMqttProperties protocolsMqttProperties;
+    @Resource
+    private ProtocolsMqttClientProperties protocolsMqttClientProperties;
     @Resource
     private ProtocolsMqttService protocolsMqttService;
     @Resource
@@ -89,6 +92,8 @@ public class AbutmentInitializer {
     // 初始化 MQTT 配置
     private void initMqttConfig() {
         protocolsMqttService.initializeMqtt(protocolsMqttProperties);
+
+        protocolsMqttService.initializeMqttClient(protocolsMqttClientProperties);
         log.info("MQTT配置初始化完毕");
     }
 

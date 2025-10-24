@@ -70,7 +70,7 @@ public class RulesItemController {
 /*  @PostMapping("/updateAndSave")
     @Operation(summary = "新增/修改")
     @OptLog(type = OperateTypeEnum.UPDATE)
-    //@PreAuthorize("hasAuthority('rules:rulesItem:save')")
+    //@SaCheckPermission("rules:rulesItem:save")
     public SanaResult updateAndSaveRulesItem(@RequestBody @Valid RulesItemUpdate updateVO) {
         rulesItemService.updateAndSaveRulesItem(updateVO);
         return SanaResult.ok();
@@ -82,7 +82,7 @@ public class RulesItemController {
 /*    @PostMapping("/getRules")
     @Operation(summary = "获取规则信息")
     @OptLog(type = OperateTypeEnum.QUERY)
-    //@PreAuthorize("hasAuthority('rules:rulesItem:save')")
+    //@SaCheckPermission("rules:rulesItem:save")
     public SanaResult<RulesItemResult> getRules(@RequestBody @Valid RulesItemQuery queryVO) {
         return SanaResult.ok(rulesItemService.getRules(queryVO));
     }*/
@@ -93,7 +93,7 @@ public class RulesItemController {
 /*    @PostMapping("/roleSeting")
     @Operation(summary = "规则信息设置")
     @OptLog(type = OperateTypeEnum.INSERT)
-    //@PreAuthorize("hasAuthority('rules:rulesItem:save')")
+    //@SaCheckPermission("rules:rulesItem:save")
     public SanaResult saveRulesItemNodeSave(@RequestBody @Valid RulesItemNodeSave saveRulesItemNodeSaveVO) {
         rulesItemService.saveRulesItemNodeSave(saveRulesItemNodeSaveVO);
         return SanaResult.ok();
@@ -101,7 +101,7 @@ public class RulesItemController {
     @PostMapping("/getRulesItem")
     @Operation(summary = "获取规则详情")
     @OptLog(type = OperateTypeEnum.QUERY)
-    //@PreAuthorize("hasAuthority('rules:rulesItem:save')")
+    //@SaCheckPermission("rules:rulesItem:save")
     public SanaResult<RulesItemNodeQuert> getRulesItemDetail(@RequestBody @Valid RulesItemNodeQuery queryVO) {
         RulesItemNodeQuert rulesItemNodeQuert = rulesItemService.getRulesItemDetail(queryVO);
         if(rulesItemNodeQuert!=null){

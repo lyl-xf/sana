@@ -37,7 +37,7 @@ public class DeviceProductTypeController {
     @GetMapping("/list")
     @Operation(summary = "列表")
     @OptLog(type = OperateTypeEnum.QUERY)
-    //@PreAuthorize("hasAuthority('devices:deviceProductType:list')")
+    //@SaCheckPermission("devices:deviceProductType:list")
     public SanaResult<List<DeviceProductTypeResult>> list(@ParameterObject @Valid DeviceProductTypeQuery query) {
         List<DeviceProductTypeResult> list = deviceProductTypeService.getList(query);
 

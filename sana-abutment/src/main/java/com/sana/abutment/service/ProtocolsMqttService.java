@@ -6,8 +6,10 @@ import com.sana.abutment.entity.result.ProtocolsMqttResult;
 import com.sana.abutment.entity.result.RuleProtocolsMqttResult;
 import com.sana.abutment.entity.save.ProtocolsMqttSave;
 import com.sana.abutment.entity.update.ProtocolsMqttUpdate;
-import com.sana.abutment.initializer.proties.ProtocolsMqttProperties;
+import com.sana.abutment.initializer.proties.mqttclient.ProtocolsMqttClientProperties;
+import com.sana.abutment.initializer.proties.mqttserve.ProtocolsMqttProperties;
 import com.sana.base.mybatis.service.BaseService;
+import jakarta.annotation.Resource;
 
 import java.util.List;
 
@@ -33,5 +35,7 @@ public interface ProtocolsMqttService extends BaseService<ProtocolsMqttEntity> {
 
     ProtocolsMqttResult getMqttBroker();
 
+    void initializeMqttClient(ProtocolsMqttClientProperties protocolsMqttClientProperties);
 
+    ProtocolsMqttClientProperties getProtocolsMqttClientProperties();
 }
