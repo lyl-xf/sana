@@ -34,4 +34,5 @@ public interface ProtocolsMqttDao extends BaseDao<ProtocolsMqttEntity> {
 
     ProtocolsMqttResult getMqttBroker();
 
+    Integer getMttpType(long deivceId);
 }

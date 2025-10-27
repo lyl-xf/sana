@@ -110,6 +110,7 @@ export default {
 			};*/
 			//请求数据
 			let reqData = {
+				deviceId: item.deviceItemId,
 				topic: "/SB" + item.deviceItemId,
 				pushData: JSON.stringify({ [item.controlMode]: item.controlDefultValue }) // 转为字符串
 			}

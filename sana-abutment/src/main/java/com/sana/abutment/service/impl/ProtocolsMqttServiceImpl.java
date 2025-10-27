@@ -180,6 +180,11 @@ public class ProtocolsMqttServiceImpl extends BaseServiceImpl<ProtocolsMqttDao, 
     }
 
     @Override
+    public Integer getMttpType(String deviceId) {
+        return baseMapper.getMttpType(Long.parseLong(deviceId));
+    }
+
+    @Override
     public void initializeCache() {
         List<DeviceItemModeCacheSave> deviceModeListSave = baseMapper.getDevicveeModeList();
         for (DeviceItemModeCacheSave deviceItemModeCacheSave : deviceModeListSave){

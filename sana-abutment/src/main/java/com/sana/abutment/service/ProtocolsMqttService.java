@@ -38,4 +38,6 @@ public interface ProtocolsMqttService extends BaseService<ProtocolsMqttEntity> {
     void initializeMqttClient(ProtocolsMqttClientProperties protocolsMqttClientProperties);
 
     ProtocolsMqttClientProperties getProtocolsMqttClientProperties();
+
+    Integer getMttpType(String deviceId);
 }

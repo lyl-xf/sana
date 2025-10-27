@@ -43,7 +43,7 @@ public class SysAuthController {
      */
     @PostMapping("/login")
     @Operation(summary = "账号密码登录")
-    @OptLog(type = OperateTypeEnum.QUERY)
+    //@OptLog(type = OperateTypeEnum.QUERY)
     //@SaCheckPermission("")
     public SanaResult<SysUserAuthDataResult> login(@RequestBody SysAccountLoginQuery login) {
         // 通过账号服务进行账号密码登录，返回用户令牌

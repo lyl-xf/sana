@@ -159,9 +159,9 @@
 				<el-descriptions-item label="订阅mqtt认证密码">{{this.protocol.password}}</el-descriptions-item>
 				<el-descriptions-item label="订阅mqtt端口">{{this.protocol.port}}</el-descriptions-item>
 
-				<el-descriptions-item label="订阅前缀">{{this.protocol.proxyPrefix}}</el-descriptions-item>
+				<el-descriptions-item label="订阅主题信息(#号代表着所有)">{{this.protocol.proxyPrefix}}</el-descriptions-item>
 				<el-descriptions-item label="订阅设备上下线监听主题">{{this.protocol.proxyStatusPrefix}}</el-descriptions-item>
-				<el-descriptions-item label="全局订阅的 topic">{{this.protocol.globalSubscribe}}</el-descriptions-item>
+<!--				<el-descriptions-item label="全局订阅的 topic">{{this.protocol.globalSubscribe}}</el-descriptions-item>-->
 				<el-descriptions-item label="订阅mqtt客户端id">{{this.protocol.clientId}}</el-descriptions-item>
 				<el-descriptions-item label="是否重连">{{this.protocol.reconnect}}</el-descriptions-item>
 				<el-descriptions-item label="重连时间">{{this.protocol.reInterval}}</el-descriptions-item>

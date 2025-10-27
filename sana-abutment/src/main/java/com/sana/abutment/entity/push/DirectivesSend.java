@@ -17,4 +17,7 @@ public class DirectivesSend {
     @Schema(description = "发送数据")
     private String pushData;
 
+    @Schema(description = "设备id")
+    private String deviceId;
+
 }

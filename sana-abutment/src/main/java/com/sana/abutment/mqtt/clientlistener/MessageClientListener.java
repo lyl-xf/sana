@@ -35,8 +35,8 @@ public class MessageClientListener {
     @Resource
     private MqttClientTemplate client;
 
-/*    @Value("${mqtt.client.proxy-prefix}")
-    private static final String proxyPrefix = "/SB";*/
+//    @Value("${mqtt.client.proxy-prefix}")
+//    private String proxyPrefix;
 
     @Value("${sana.rule-action.queue-type}")
     private String queueType;
@@ -52,28 +52,14 @@ public class MessageClientListener {
 
     @MqttClientSubscribe(value ="/SB/#")
     public void thingSubRegister(String topic, byte[] payload) {
-        // 1.3.8 开始支持，@MqttClientSubscribe 注解支持 ${} 变量替换，会默认替换成 +
-        // 注意：mica-mqtt 会先从 Spring boot 配置中替换参数 ${}，如果存在配置会优先被替换。
-        log.info("topic:{} payload:{}", topic, new String(payload, StandardCharsets.UTF_8));
-    }
-
-
- /*   public boolean sub() {
-            client.subQos0(proxyPrefix, (context, topic, message, payload) -> {
-                log.info("topicaaaaa:{} payload:{}", topic, new String(payload, StandardCharsets.UTF_8));
-            });
-            return true;
-
-        client.subQos0("/SB/#", (context, topic, message, payload) -> {
-            log.info(topic + '\t' + new String(payload, StandardCharsets.UTF_8));
 
             try {
                 // todo redis队列会有丢失的问题，所以这里也需要支持kafka
                 if ("REDIS".equalsIgnoreCase(queueType)) {
                     //拼接测试数据
                     HashMap<String, Object> streamMap = new HashMap<>(2);
-                    streamMap.put("deviceId", topic.substring(3));
-                    streamMap.put("data", JsonUtils.parseObject(new String(message.getPayload(), StandardCharsets.UTF_8), JSONObject.class));
+                    streamMap.put("deviceId", topic.substring(4));
+                    streamMap.put("data", JsonUtils.parseObject(new String(payload, StandardCharsets.UTF_8), JSONObject.class));
                     //查询这个设备是否是属于定时规则的，如果是就往定时流中发送，如果不是就往监听流中
                     Object timingData = redisCacheOps.get(CacheKeyBuilder.deviceIdRuleJon(topic.substring(1)));
                     // 生成随机数决定发送到哪个流
@@ -111,9 +97,6 @@ public class MessageClientListener {
                 log.error("MQTT消息处理异常", e);
                 //e.printStackTrace();
             }
-
-        });
-        return true;
-    }*/
+    }
 
 }
