@@ -42,6 +42,13 @@ export default {
 				return await http.get(this.url, params);
 			}
 		},
+		getMqttProxyClientMessage: {
+			url: `${config.API_URL}/abutment/mqtt/getMqttProxyClientMessage`,
+			name: "查询mqtt代理客户端消息",
+			get: async function(params){
+				return await http.get(this.url, params);
+			}
+		},
 
 	},
 	edges:{

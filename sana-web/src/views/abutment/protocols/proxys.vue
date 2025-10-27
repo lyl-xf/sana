@@ -3,8 +3,8 @@
 		<el-form  v-show="mode != 'show'" :model="protocol" :rules="rules"  ref="dialogForm" label-width="100px" label-position="left">
 			<el-row :gutter="16" >
 				<el-col :span="12">
-					<el-form-item label="名称" prop="mqttName">
-						<el-input v-model="protocol.mqttName" placeholder="请输入mqtt连接名称" clearable style="width: 100%;"></el-input>
+					<el-form-item label="名称" prop="name">
+						<el-input v-model="protocol.name" placeholder="请输入mqtt连接名称" clearable style="width: 100%;"></el-input>
 					</el-form-item>
 					<el-form-item label="IP地址" prop="ip">
 						<el-input v-model="protocol.ip" placeholder="请输入mqtt连接地址"  clearable style="width: 100%;"></el-input>
@@ -147,50 +147,32 @@
 		<el-alert v-if="mode =='show'" title="系统 mqtt 配置均来自于 application-*.yml 中的 mqtt 的配置信息，如果要修改请修改yml配置文件，页面上做修改不会生效。 这里仅做展示使用，方便快速接入" type="warning" show-icon :closable="false"/>
 		<el-card shadow="never"  v-show="mode == 'show'">
 			<el-descriptions :column="2" border size="small" style="margin-top: 15px;">
-				<el-descriptions-item label="mqtt名称" :width="200">{{this.protocol.mqttName}}</el-descriptions-item>
-				<el-descriptions-item label="mqtt IP地址(缺省ip为当前运行环境ip地址)" :width="200">{{this.protocol.ip}}</el-descriptions-item>
-				<el-descriptions-item label="mqtt是否启用" :width="200">
-					<el-tag v-if="this.protocol.mqttEnabled==1" size="small" >启用</el-tag>
-					<el-tag v-if="this.protocol.mqttEnabled==0" size="small" type="info">未启用</el-tag>
+				<el-descriptions-item label="mqtt名称" :width="200">{{this.protocol.name}}</el-descriptions-item>
+				<el-descriptions-item label="mqtt订阅地址" :width="200">{{this.protocol.ip}}</el-descriptions-item>
+				<el-descriptions-item label="mqtt订阅是否启用" :width="200">
+					<el-tag v-if="this.protocol.enabled==true" size="small" >启用</el-tag>
+					<el-tag v-if="this.protocol.enabled==false" size="small" type="info">未启用</el-tag>
 				</el-descriptions-item>
 
-				<el-descriptions-item label="mqtt类型">{{ this.protocol.mqttType == 1 ? '系统mqtt' : '其他代理mqtt' }}</el-descriptions-item>
-				<el-descriptions-item label="mqtt端口">{{this.protocol.tcpPort}}</el-descriptions-item>
-				<el-descriptions-item label="mqtt是否开启认证">
-					<el-tag v-if="this.protocol.authEnable==1" size="small">启用</el-tag>
-					<el-tag v-if="this.protocol.authEnable==0" size="small" type="info">未启用</el-tag>
-				</el-descriptions-item>
-				<el-descriptions-item label="mqtt认证用户名">{{this.protocol.username}}</el-descriptions-item>
-				<el-descriptions-item label="mqtt认证密码">{{this.protocol.password}}</el-descriptions-item>
-				<el-descriptions-item label="http、websocket端口">{{this.protocol.websocketPort}} (websocket认证与mqtt认证一致)</el-descriptions-item>
-				<el-descriptions-item label="http-api是否开启">
-					<el-tag v-if="this.protocol.httpEnable==1" size="small">启用</el-tag>
-					<el-tag v-if="this.protocol.httpEnable==0" size="small" type="info">未启用</el-tag>
-				</el-descriptions-item>
-				<el-descriptions-item label="http-api认证是否开启">
-					<el-tag v-if="this.protocol.httpBasicAuth==1" size="small">启用</el-tag>
-					<el-tag v-if="this.protocol.httpBasicAuth==0" size="small" type="info">未启用</el-tag>
-				</el-descriptions-item>
-				<el-descriptions-item label="http-api认证用户名">{{this.protocol.httpBasicUsername}}</el-descriptions-item>
-				<el-descriptions-item label="http-api认证密码">{{this.protocol.httpBasicPassword}}</el-descriptions-item>
-				<el-descriptions-item label="是否开启 ssl">
-					<el-tag v-if="this.protocol.sslEnabled==1" size="small">启用</el-tag>
-					<el-tag v-if="this.protocol.sslEnabled==0" size="small" type="info">未启用</el-tag>
-				</el-descriptions-item>
-				<el-descriptions-item label="ssl keystore 目录">{{this.protocol.keystorePath}}</el-descriptions-item>
-				<el-descriptions-item label="ssl keystore 密码">{{this.protocol.keystorePass}}</el-descriptions-item>
-				<el-descriptions-item label="是否需要客户端认证（双向认证）,默认：NONE">{{this.protocol.clientAuth}}</el-descriptions-item>
-				<el-descriptions-item label="ssl 双向认证 truststore 目录">{{this.protocol.truststorePath}}</el-descriptions-item>
-				<el-descriptions-item label="ssl 双向认证 truststore 密码">{{this.protocol.truststorePass}}</el-descriptions-item>
-				<el-descriptions-item label="接入方式">
-					<el-tag v-if="this.protocol.linkType==2" size="small" >mq队列转发</el-tag>
-					<el-tag v-if="this.protocol.linkType==1" size="small" >http接口连接</el-tag>
-					<el-tag v-if="this.protocol.linkType==0" size="small" >mqtt监听</el-tag>
-				</el-descriptions-item>
-				<el-descriptions-item label="创建时间">{{this.protocol.createTime}}</el-descriptions-item>
-				<el-descriptions-item label="修改时间">{{this.protocol.updateTime}}</el-descriptions-item>
-				<el-descriptions-item label="创建人">{{this.protocol.creatorName}}</el-descriptions-item>
-				<el-descriptions-item label="修改人">{{this.protocol.updaterName}}</el-descriptions-item>
+				<el-descriptions-item label="mqtt类型">{{ this.protocol.mqttType == 2 ? '系统mqtt' : '其他代理mqtt' }}</el-descriptions-item>
+				<el-descriptions-item label="订阅mqtt认证用户名">{{this.protocol.userName}}</el-descriptions-item>
+				<el-descriptions-item label="订阅mqtt认证密码">{{this.protocol.password}}</el-descriptions-item>
+				<el-descriptions-item label="订阅mqtt端口">{{this.protocol.port}}</el-descriptions-item>
+
+				<el-descriptions-item label="订阅前缀">{{this.protocol.proxyPrefix}}</el-descriptions-item>
+				<el-descriptions-item label="订阅设备上下线监听主题">{{this.protocol.proxyStatusPrefix}}</el-descriptions-item>
+				<el-descriptions-item label="全局订阅的 topic">{{this.protocol.globalSubscribe}}</el-descriptions-item>
+				<el-descriptions-item label="订阅mqtt客户端id">{{this.protocol.clientId}}</el-descriptions-item>
+				<el-descriptions-item label="是否重连">{{this.protocol.reconnect}}</el-descriptions-item>
+				<el-descriptions-item label="重连时间">{{this.protocol.reInterval}}</el-descriptions-item>
+				<el-descriptions-item label="订阅mqtt客户端版本">{{this.protocol.version}}</el-descriptions-item>
+				<el-descriptions-item label="接受buffer size大小">{{this.protocol.readBufferSize}}</el-descriptions-item>
+				<el-descriptions-item label="消息解析最大 bytes 长度">{{this.protocol.maxBytesInMessage}}</el-descriptions-item>
+
+				<el-descriptions-item label="心跳模式">{{this.protocol.heartbeatMode}}</el-descriptions-item>
+				<el-descriptions-item label="工作线程数">{{this.protocol.bizThreadPoolSize}}</el-descriptions-item>
+				<el-descriptions-item label="心跳超时策略">{{this.protocol.heartbeatTimeoutStrategy}}</el-descriptions-item>
+
 			</el-descriptions>
 		</el-card>
 				<template #footer>
@@ -214,7 +196,7 @@ export default {
 			titleMap: {
 				add: '新增mqtt',
 				edit: '修改mqtt',
-				show: '查看mqtt'
+				show: 'mqtt-client-proxy信息'
 			},
 			visible: false,
 			isSaveing: false,
@@ -322,6 +304,7 @@ export default {
 	},
 
 	mounted() {
+		this.getMqttClientProxy();
 
 	},
 	methods: {
@@ -355,6 +338,12 @@ export default {
 			this.mode = mode;
 			this.visible = true;
 			return this
+		},
+		async getMqttClientProxy(){
+			var res = await this.$API.abutment.protocols.getMqttProxyClientMessage.get();
+			if(res.code == 200) {
+				this.protocol = res.data;
+			}
 		},
 
 		setData(data){

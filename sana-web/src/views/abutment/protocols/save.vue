@@ -214,7 +214,7 @@ export default {
 			titleMap: {
 				add: '新增mqtt',
 				edit: '修改mqtt',
-				show: '查看mqtt'
+				show: 'mqtt-broker信息'
 			},
 			visible: false,
 			isSaveing: false,

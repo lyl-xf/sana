@@ -23,7 +23,7 @@ public enum GeneralPrefixEnum {
     /**
      * 设备主题前缀
      */
-    DEVICE_TOPIC_PREFIX("/SB"),
+    DEVICE_TOPIC_PREFIX("/SB/"),
     /**
      * 边缘计算前缀
      */
@@ -31,7 +31,7 @@ public enum GeneralPrefixEnum {
     /**
      * 边缘计算主题前缀
      */
-    EDGE_TOPIC_PREFIX("/BY"),
+    EDGE_TOPIC_PREFIX("/BY/"),
 
     /**
      * 脚本后缀

@@ -46,7 +46,7 @@ public class ProtocolsMqttController {
 
 
     @GetMapping("/getMqttProxyClientMessage")
-    @Operation(summary = "查询")
+    @Operation(summary = "查询mqtt客户端代理")
     @OptLog(type = OperateTypeEnum.QUERY)
     public SanaResult<ProtocolsMqttClientProperties> getMqttProxyClientMessage() {
         return SanaResult.ok(protocolsMqttService.getProtocolsMqttClientProperties());

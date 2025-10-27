@@ -16,3 +16,13 @@
 ![img_1.png](doc%2Fimg%2Fimg_1.png)
 ![img_2.png](doc%2Fimg%2Fimg_2.png)
 
+
+## 强制要求
+### 使用自带的mqtt-broker需要遵循以下要求
+1、设备客户端clientID默认为GeneralPrefixEnum.TABLE_PREFIX
+
+如：sb42（sb是前缀，42为设备id）
+
+2、设备上报客户端topic默认为GeneralPrefixEnum.DEVICE_TOPIC_PREFIX
+
+如：/SB42（/SB是topic前缀，42为设备id）

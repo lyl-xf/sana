@@ -57,7 +57,7 @@
 
 	<save-dialog v-if="dialog.save" ref="saveDialog" @success="handleSuccess" @closed="dialog.save=false"></save-dialog>
 
-	<proxys-dialog v-if="dialog.proxys" ref="mqttProxyDialog" @success="handleSuccess" @closed="dialog.proxys=false"></proxys-dialog>
+	<proxys-dialog v-if="dialog.proxys" ref="proxysDialog" @success="handleSuccess" @closed="dialog.proxys=false"></proxys-dialog>
 
 	<el-drawer title="日志" v-model="dialog.logsVisible" :size="600" direction="rtl" destroy-on-close>
 		<logs></logs>
@@ -154,7 +154,7 @@
 				}else {
 					this.dialog.proxys = true
 					this.$nextTick(() => {
-						this.$refs.proxysDialog.open('show').setData(item)
+						this.$refs.proxysDialog.open('show')
 					})
 			}
 
