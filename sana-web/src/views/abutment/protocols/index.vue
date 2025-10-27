@@ -12,8 +12,8 @@
 						</li>
 						<li>
 							<h3>协议来源</h3>
-							<p v-if="item.mqttType==1">系统 mqtt</p>
-							<p v-if="item.mqttType==2">其他代理 mqtt</p>
+							<p v-if="item.mqttType==1">系统 mqtt-broker</p>
+							<p v-if="item.mqttType==2">其他 mqtt-broker</p>
 						</li>
 					</ul>
 					<div class="bottom" @click.stop>
