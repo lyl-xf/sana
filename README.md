@@ -40,15 +40,3 @@
 ![img_2.png](doc%2Fimg%2Fimg_2.png)
 
 
-## 使用自带的mqtt-broker的一些小要求。
-1、设备客户端clientID默认为GeneralPrefixEnum.TABLE_PREFIX
-
-如：sb42（sb是前缀，42为设备id）
-
-2、设备上报客户端topic默认为GeneralPrefixEnum.DEVICE_TOPIC_PREFIX
-
-如：/SB42（/SB是topic前缀，42为设备id）
-
-注意：以上主题中的SB、sb，统一为设备的拼音首字母的简称。
-
-可以在配置文件中修改前缀。
