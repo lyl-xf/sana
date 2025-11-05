@@ -95,7 +95,7 @@
 					key: this.form.key
 				}
 				//获取token
-				var user = await this.$API.auth.token.post(data)
+				var user = await this.$API.system.token.post(data)
 				if(user.code == 200){
 					// todo 后续做token刷新机制，不在做具体的时间限制
 					this.$TOOL.cookie.set("TOKEN", user.data.token, {
@@ -139,7 +139,7 @@
 				this.islogin = false
 			},
 			async getCaptcha(){
-				var res = await this.$API.auth.captcha.get()
+				var res = await this.$API.system.captcha.get()
 				if(res.code == 200){
 						this.form.captchaEnabled = res.data.captchaEnabled
 						this.form.captchaData = res.data.image

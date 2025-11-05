@@ -25,6 +25,11 @@
             <artifactId>sana-devices</artifactId>
             <version>${revision}</version>
         </dependency>
+        <dependency>
+            <groupId>com.sana</groupId>
+            <artifactId>sana-camera</artifactId>
+            <version>${revision}</version>
+        </dependency>
 
     </dependencies>
 

@@ -103,7 +103,7 @@ export default {
 			this.loading = true;
 /*			//展示数据
 			let showReqData = {
-				topic: "/SB" + item.deviceItemId,
+				topic: "/SB/" + item.deviceItemId,
 				pushData: {
 					[item.controlMode]: item.controlDefultValue
 				}
@@ -111,7 +111,7 @@ export default {
 			//请求数据
 			let reqData = {
 				deviceId: item.deviceItemId,
-				topic: "/SB" + item.deviceItemId,
+				topic: "/SB/" + item.deviceItemId,
 				pushData: JSON.stringify({ [item.controlMode]: item.controlDefultValue }) // 转为字符串
 			}
 			this.serveData.dataTypeDic.reqData =  JSON.stringify(reqData, null, 2);

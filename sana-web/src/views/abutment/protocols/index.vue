@@ -11,7 +11,7 @@
 							<p>{{item.mqttName}}</p>
 						</li>
 						<li>
-							<h3>协议来源</h3>
+							<h3>服务来源</h3>
 							<p v-if="item.mqttType==1">系统 mqtt-broker</p>
 							<p v-if="item.mqttType==2">其他 mqtt-broker</p>
 						</li>
@@ -125,10 +125,9 @@
 		methods: {
 			//获取协议列表
 			async getProtocols(){
-				this.showGrouploading = true;
+
 				var res = await this.$API.abutment.protocols.list.get();
 				if(res.code == 200){
-					this.showGrouploading = false;
 					this.list = res.data;
 				}else{
 					this.$alert(res.msg, "提示", {type: 'error'})

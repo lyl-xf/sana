@@ -2,32 +2,32 @@ import config from "@/config"
 import http from "@/utils/request"
 
 export default {
-	token: {
-		url: `${config.API_URL}/sys/auth/login`,
-		name: "登录获取TOKEN",
-		post: async function(data={}){
-			return await http.post(this.url, data);
-		}
-	},
 
-	logout: {
-		url: `${config.API_URL}/sys/auth/logout`,
-		post: async function(){
-			return await http.post(this.url);
-		}
-	},
+	/**
+	 * 菜单
+	 */
+	settings: {
+		list: {
+			url: `${config.API_URL}/camera/settings/getZLMSetting`,
+			name: "获取流媒体节点列表",
+			get: async function(){
+				return await http.get(this.url);
+			}
+		},
+		getZLMServerConfig: {
+			url: `${config.API_URL}/camera/settings/getZLMServerConfig`,
+			name: "获取流媒体节点列表",
+			post: async function(data){
+				return await http.post(this.url, data, {});
+			}
+		},
 
-	captcha: {
-		url: `${config.API_URL}/sys/captcha/getCaptcha`,
-		get: async function(){
-			return await http.get(this.url);
-		}
-	},
-
-	captchaEnabled: {
-		url: `${config.API_URL}/sys/captcha/enabled`,
-		get: async function(){
-			return await http.get(this.url);
+		updateZLMServerConfig: {
+			url: `${config.API_URL}/camera/settings/updateZLMServerConfig`,
+			name: "获取流媒体节点列表",
+			post: async function(data){
+				return await http.post(this.url, data, {});
+			}
 		}
 	}
 

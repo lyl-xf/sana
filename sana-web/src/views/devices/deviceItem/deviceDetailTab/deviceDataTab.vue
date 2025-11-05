@@ -100,7 +100,7 @@ export default {
 			console.log('url:', url);
 			const hostWithPort = url.hostname;
 			console.log('hostWithPort:', hostWithPort);
-			const topic = `/SB${this.deviceItemId}`; // 订阅主题
+			const topic = `/SB/${this.deviceItemId}`; // 订阅主题
 			const brokerUrl = `ws://${hostWithPort}:${this.websocketPort}`; // 订阅主题
 			console.log('brokerUrl:', brokerUrl);
 			// 连接 MQTT 服务器（请替换为你的地址）

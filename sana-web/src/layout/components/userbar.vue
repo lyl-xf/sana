@@ -156,7 +156,7 @@
 						confirmButtonClass: 'el-button--danger'
 					}).then(async () => {
 						//调用退出接口
-						var logout = await this.$API.auth.logout.post()
+						var logout = await this.$API.system.logout.post()
 						if(logout.code == 200){
 							this.$router.replace({path: '/login'});
 						}

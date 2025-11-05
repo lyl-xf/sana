@@ -50,6 +50,15 @@ public class SwaggerConfig {
     }
 
     @Bean
+    public GroupedOpenApi cameraApi() {
+        return GroupedOpenApi.builder()
+                .group("摄像头管理")
+                .pathsToMatch("/camera/**")
+                .packagesToScan("com.sana.camera")
+                .build();
+    }
+
+    @Bean
     public OpenAPI customOpenAPI() {
         Contact contact = new Contact();
         contact.setName("lyl-xf");
