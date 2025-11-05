@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sana.base.syshandle.exception.SanaException;
 import com.sana.base.syshandle.result.SanaResult;
 import com.sana.base.utils.HttpClientUtils;
 import com.sana.camera.entity.query.ZLMediaKitQuery;
@@ -35,17 +36,26 @@ public class CameraSettingsServiceImpl implements CameraSettingsService {
     @Override
     public JSONObject getZLMServerConfig(ZLMediaKitQuery query) {
 
-        String secret = null;
-        for (Nodes node : zLMediaKit.getNodes()){
-            if (node.getHost().equals(query.getHost()) && node.getServerId().equals(query.getServerId())){
-                secret = node.getSecret();
+        try {
+            String secret = null;
+            for (Nodes node : zLMediaKit.getNodes()){
+                if (node.getHost().equals(query.getHost()) && node.getServerId().equals(query.getServerId())){
+                    secret = node.getSecret();
+                }
             }
-        }
-        String urls = "http://" + query.getHost() +"/index/api/getServerConfig?secret="+secret;
-        String path = HttpClientUtils.doGet(urls);
-        JSONObject datas = JSONObject.parseObject(String.valueOf(path), JSONObject.class);
+            String urls = "http://" + query.getHost() +"/index/api/getServerConfig?secret="+secret;
+            String path = HttpClientUtils.doGet(urls);
+            JSONObject datas = JSONObject.parseObject(String.valueOf(path), JSONObject.class);
+            if(datas!=null){
+                return datas;
+            }else {
+                throw new SanaException("获取ZLMServerConfig失败,请检查ZLMServerConfi相关配置");
+            }
 
-        return datas;
+        }catch (Exception e){
+            log.error("获取ZLMServerConfig失败：{}", e.getMessage());
+            throw new SanaException("获取ZLMServerConfig失败："+e.getMessage());
+        }
     }
 
     @Override
