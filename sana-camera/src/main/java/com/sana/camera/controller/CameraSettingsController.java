@@ -43,7 +43,7 @@ public class CameraSettingsController {
 
     @PostMapping("/getZLMServerConfig")
     @Operation(summary = "获取ZLM服务器配置")
-    @OptLog(type = OperateTypeEnum.QUERY)
+    //@OptLog(type = OperateTypeEnum.QUERY)
     public SanaResult<JSONObject> getZLMServerConfig(@RequestBody ZLMediaKitQuery query) {
 
         JSONObject zLMediaKitConfig = cameraSettingsService.getZLMServerConfig(query);
