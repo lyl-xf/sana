@@ -1,7 +1,7 @@
 <template>
 	<sc-dialog :title="titleMap[mode]" v-model="visible" :width="1400" :close-on-click-modal="false" destroy-on-close @closed="$emit('closed')">
 			<!--	展示内容	-->
-		<el-alert v-if="mode =='show'" title="配置均来自于 application-*.yml 中的 zlm 中的配置信息，根据不同节点的配置信息访问ZLMediaKit。针对于以下配置信息均来自于ZLMediaKit，修改完记得重启" type="warning" show-icon :closable="false"/>
+		<el-alert v-if="mode =='show'" title="以下信息均来自于ZLMediaKit节点的配置信息，项目启动的时候会根据application-*.yml中的ZLM节点的配置信息自动调用/setServerConfig修改替换！" type="warning" show-icon :closable="false"/>
 		<el-card shadow="never"  v-show="mode == 'show'">
 
 			<el-descriptions title="api信息：" :column="3" border size="small" style="margin-top: 15px;">
@@ -290,6 +290,7 @@ export default {
 	}
 }
 </script>
+
 
 <style>
 .custom-margin-top{

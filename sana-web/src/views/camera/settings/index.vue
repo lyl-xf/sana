@@ -3,7 +3,7 @@
 	<el-main>
 		<el-row :gutter="15">
 			<el-col :xl="6" :lg="6" :md="8" :sm="12" :xs="24" v-for="item in list" :key="item.id">
-				<el-card class="task task-item" shadow="hover"  @click="show(item)">
+				<el-card class="task task-item" shadow="hover" >
 					<h2>{{item.title}}</h2>
 					<ul>
 						<li>
@@ -30,13 +30,15 @@
 								<el-button type="primary" icon="el-icon-more" circle plain></el-button>
 								<template #dropdown>
 									<el-dropdown-menu>
-										<el-dropdown-item  v-if="item.mqttType !=1" @click="edit(item)">编辑</el-dropdown-item>
-<!--										<div v-auth="'abutment:protocols:logs'">
-											<el-dropdown-item  @click="logs(item)">日志</el-dropdown-item>
-										</div>
-										<div v-auth="'abutment:protocols:del'">
-											<el-dropdown-item  @click="del(item)" divided>删除</el-dropdown-item>
-										</div>-->
+										<el-dropdown-item  v-if="item.mqttType !=1" @click="edit(item)">服务器配置</el-dropdown-item>
+
+										<el-dropdown-item  v-if="item.mqttType !=1" @click="edit(item)">Rtp服务</el-dropdown-item>
+
+										<el-dropdown-item  v-if="item.mqttType !=1" @click="edit(item)">ffmpeg推拉流</el-dropdown-item>
+
+										<el-dropdown-item  v-if="item.mqttType !=1" @click="edit(item)">推流代理</el-dropdown-item>
+
+										<el-dropdown-item  v-if="item.mqttType !=1" @click="edit(item)">拉流代理</el-dropdown-item>
 
 									</el-dropdown-menu>
 								</template>
@@ -49,7 +51,6 @@
 	</el-main>
 
 
-	<info-dialog v-if="dialog.info" ref="infoDialog" @success="handleSuccess" @closed="dialog.info=false"></info-dialog>
 	<edit-dialog v-if="dialog.edit" ref="editDialog" @success="handleSuccess" @closed="dialog.edit=false"></edit-dialog>
 
 
@@ -58,13 +59,11 @@
 <script>
 
 
-import infoDialog from "./info";
 import editDialog from "./edit";
 
 export default {
 	name: 'task',
 	components: {
-		infoDialog,
 		editDialog
 	},
 
@@ -105,7 +104,7 @@ export default {
 			if(item.enabled ==  true) {
 				this.dialog.edit = true
 				this.$nextTick(() => {
-					this.$refs.editDialog.open('show').setData(item)
+					this.$refs.editDialog.open('edit').setData(item)
 				})
 			}else {
 				this.$message.error("该节点未启动,请在配置文件中开启之后开始编辑")
