@@ -290,8 +290,6 @@ export default {
 	}
 }
 </script>
-
-
 <style>
 .custom-margin-top{
 	margin-top: 20px;

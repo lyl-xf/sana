@@ -14,7 +14,7 @@ public interface CameraSettingsService {
 
     ZLMediaKit getZLMediaKit();
 
-    JSONObject getZLMServerConfig(ZLMediaKitQuery query);
+    SanaResult<JSONObject> getZLMServerConfig(ZLMediaKitQuery query);
 
     SanaResult updateZLMServerConfig(ServerConfigUpdate jsonOject);
 }

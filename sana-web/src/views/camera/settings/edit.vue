@@ -104,6 +104,8 @@
 				<el-form :inline="true" class="custom-margin-top">
 					<el-form-item label="API设置：" >
 					</el-form-item>
+					<el-alert title="如果要修改secret参数，请注意，后端配置文件中application-*.yml 中 zlm对应的节点的secret也要修改，不然会导致API调用失败" type="warning" style="margin-bottom: 15px;"></el-alert>
+
 				</el-form>
 				<el-form :model="serverConfig" :rules="rules"  label-width="150px" class="custom-form">
 					<el-row :gutter="24">
@@ -363,6 +365,81 @@
 						<el-col :span="12">
 							<el-form-item label="播放未找到流事件" v-if="serverConfig['hook.enable'] == '1'" prop="hook.on_stream_not_found">
 								<el-input v-model="serverConfig['hook.on_stream_not_found']" placeholder="播放未找到流事件" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+				</el-form>
+
+				<el-form :inline="true" class="custom-margin-top">
+					<el-form-item label="组播设置：" >
+					</el-form-item>
+				</el-form>
+				<el-form :model="serverConfig" :rules="rules"  label-width="150px" class="custom-form">
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="组播udp ttl" prop="multicast.udpTTL">
+								<el-input v-model="serverConfig['multicast.udpTTL']" placeholder="组播udp ttl" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="rtp组播起始地址" prop="multicast.addrMin">
+								<el-input v-model="serverConfig['multicast.addrMin']" placeholder="rtp组播起始地址" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="rtp组播截止地址" prop="multicast.addrMax">
+								<el-input v-model="serverConfig['multicast.addrMax']" placeholder="rtp组播截止地址" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+				</el-form>
+
+				<el-form :inline="true" class="custom-margin-top">
+					<el-form-item label="RECORD设置：" >
+					</el-form-item>
+				</el-form>
+				<el-form :model="serverConfig" :rules="rules"  label-width="150px" class="custom-form">
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="应用名" prop="record.appName">
+								<el-input v-model="serverConfig['record.appName']" placeholder="应用名" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="启用Fmp4" prop="record.enableFmp4">
+								<el-select  v-model="serverConfig['record.enableFmp4']" placeholder="启用Fmp4"  class="custom-width">
+									<el-option v-for="item in configOption.general.yesNo" :key="item.value" :label="item.label" :value="item.value"/>
+								</el-select >
+							</el-form-item>
+						</el-col>
+					</el-row>
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="fastStart" prop="record.fastStart">
+								<el-select  v-model="serverConfig['record.fastStart']" placeholder="fastStart"  class="custom-width">
+									<el-option v-for="item in configOption.general.yesNo" :key="item.value" :label="item.label" :value="item.value"/>
+								</el-select >
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="文件缓存大小" prop="record.fileBufSize">
+								<el-input v-model="serverConfig['record.fileBufSize']" placeholder="文件缓存大小" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="fileRepeat" prop="record.fileRepeat">
+								<el-select  v-model="serverConfig['record.fileRepeat']" placeholder="fileRepeat"  class="custom-width">
+									<el-option v-for="item in configOption.general.yesNo" :key="item.value" :label="item.label" :value="item.value"/>
+								</el-select >
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="MP4点播每次流化数据量" prop="record.sampleMS">
+								<el-input v-model="serverConfig['record.sampleMS']" placeholder="MP4点播每次流化数据量" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
 							</el-form-item>
 						</el-col>
 					</el-row>
@@ -720,10 +797,513 @@
 
 			</el-tab-pane>
 
+			<!--	protocol设置		-->
+			<el-tab-pane  label="RTSP/RTMP" class="custom-padding-left">
+				<el-form :inline="true" class="custom-margin-top">
+					<el-form-item label="RTSP设置：" >
+					</el-form-item>
+				</el-form>
+				<el-form :model="serverConfig" :rules="rules"  label-width="150px" class="custom-form">
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="端口"  prop="rtsp.port">
+								<el-input v-model="serverConfig['rtsp.port']" placeholder="端口" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="SSL端口"  prop="rtsp.sslport">
+								<el-input v-model="serverConfig['rtsp.sslport']" placeholder="SSL端口" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
 
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="握手超时(s)"  prop="rtsp.handshakeSecond">
+								<el-input v-model="serverConfig['rtsp.handshakeSecond']" placeholder="握手超时(s)" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="心跳超时(s)"  prop="rtsp.keepAliveSecond">
+								<el-input v-model="serverConfig['rtsp.keepAliveSecond']" placeholder="心跳超时(s)" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="低延迟模式"  prop="rtsp.lowLatency">
+								<el-select  v-model="serverConfig['rtsp.lowLatency']" placeholder="低延迟模式"  class="custom-width">
+									<el-option v-for="item in configOption.general.yesNo" :key="item.value" :label="item.label" :value="item.value"/>
+								</el-select >
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="直接代理模式"  prop="rtsp.directProxy">
+								<el-select  v-model="serverConfig['rtsp.directProxy']" placeholder="直接代理模式"  class="custom-width">
+									<el-option v-for="item in configOption.general.yesNo" :key="item.value" :label="item.label" :value="item.value"/>
+								</el-select >
+							</el-form-item>
+						</el-col>
+					</el-row>
+
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="rtsp专有鉴权"  prop="rtsp.authBasic">
+								<el-input v-model="serverConfig['rtsp.authBasic']" placeholder="rtsp专有鉴权" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+				</el-form>
+
+				<el-form :inline="true" class="custom-margin-top">
+					<el-form-item label="RTMP设置：" >
+					</el-form-item>
+				</el-form>
+				<el-form :model="serverConfig" :rules="rules"  label-width="150px" class="custom-form">
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="端口"  prop="rtmp.port">
+								<el-input v-model="serverConfig['rtmp.port']" placeholder="端口" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="SSL端口"  prop="rtmp.sslport">
+								<el-input v-model="serverConfig['rtmp.sslport']" placeholder="SSL端口" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="握手超时(s)"  prop="rtmp.handshakeSecond">
+								<el-input v-model="serverConfig['rtmp.handshakeSecond']" placeholder="握手超时(s)" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="心跳超时(s)"  prop="rtmp.keepAliveSecond">
+								<el-input v-model="serverConfig['rtmp.keepAliveSecond']" placeholder="心跳超时(s)" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="直接代理模式"  prop="rtmp.directProxy">
+								<el-select  v-model="serverConfig['rtmp.directProxy']" placeholder="直接代理模式"  class="custom-width">
+									<el-option v-for="item in configOption.general.yesNo" :key="item.value" :label="item.label" :value="item.value"/>
+								</el-select >
+							</el-form-item>
+						</el-col>
+					</el-row>
+				</el-form>
+			</el-tab-pane>
+
+
+
+			<!--	RTP		-->
+			<el-tab-pane  label="RTP" class="custom-padding-left">
+				<el-form :inline="true" class="custom-margin-top">
+					<el-form-item label="RTP设置：" >
+					</el-form-item>
+				</el-form>
+				<el-form :model="serverConfig" :rules="rules"  label-width="150px" class="custom-form">
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="音频mtu大小"  prop="rtp.audioMtuSize">
+								<el-input v-model="serverConfig['rtp.audioMtuSize']" placeholder="音频mtu大小" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="视频mtu大小"  prop="rtp.videoMtuSize">
+								<el-input v-model="serverConfig['rtp.videoMtuSize']" placeholder="视频mtu大小" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="低延迟开关"  prop="rtp.lowLatency">
+								<el-select  v-model="serverConfig['rtp.lowLatency']" placeholder="低延迟开关"  class="custom-width">
+									<el-option v-for="item in configOption.general.yesNo" :key="item.value" :label="item.label" :value="item.value"/>
+								</el-select >
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="rtp包长度限制"  prop="rtp.rtpMaxSize">
+								<el-input v-model="serverConfig['rtp.rtpMaxSize']" placeholder="rtp包长度限制" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="采用stap-a模式"  prop="rtp.h264_stap_a">
+								<el-select  v-model="serverConfig['rtp.h264_stap_a']" placeholder="采用stap-a模式"  class="custom-width">
+									<el-option v-for="item in configOption.general.yesNo" :key="item.value" :label="item.label" :value="item.value"/>
+								</el-select >
+							</el-form-item>
+						</el-col>
+					</el-row>
+				</el-form>
+
+
+				<el-form :inline="true" class="custom-margin-top">
+					<el-form-item label="rtp_proxy设置：" >
+					</el-form-item>
+				</el-form>
+				<el-form :model="serverConfig" :rules="rules"  label-width="180px" class="custom-form">
+
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="调试输出目录"  prop="rtp_proxy.dumpDir">
+								<el-input v-model="serverConfig['rtp_proxy.dumpDir']" placeholder="调试输出目录(包括rtp/ps/h264)" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="udp和tcp代理服务端口"  prop="rtp_proxy.port">
+								<el-input v-model="serverConfig['rtp_proxy.port']" placeholder="udp和tcp代理服务端口" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="端口范围"  prop="rtp_proxy.port_range">
+								<el-input v-model="serverConfig['rtp_proxy.port_range']" placeholder="端口范围" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="UDP接收缓冲区"  prop="rtp_proxy.udp_recv_socket_buffer">
+								<el-input v-model="serverConfig['rtp_proxy.udp_recv_socket_buffer']" placeholder="UDP接收缓冲区" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="开启gop缓存优化"  prop="rtp_proxy.gop_cache">
+								<el-input v-model="serverConfig['rtp_proxy.gop_cache']" placeholder="开启gop缓存优化" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="单包封装数据ms"  prop="rtp_proxy.rtp_g711_dur_ms">
+								<el-input v-model="serverConfig['rtp_proxy.rtp_g711_dur_ms']" placeholder="每个RTP包封装100ms的G.711音频数据" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="合并帧"  prop="rtp_proxy.merge_frame">
+								<el-input v-model="serverConfig['rtp_proxy.merge_frame']" placeholder="合并帧" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="h264载荷类型"  prop="rtp_proxy.h264_pt">
+								<el-input v-model="serverConfig['rtp_proxy.h264_pt']" placeholder="h264载荷类型" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="h265载荷类型"  prop="rtp_proxy.h265_pt">
+								<el-input v-model="serverConfig['rtp_proxy.h265_pt']" placeholder="h265载荷类型" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="opus载荷类型"  prop="rtp_proxy.opus_pt">
+								<el-input v-model="serverConfig['rtp_proxy.opus_pt']" placeholder="opus载荷类型" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="ps载荷类型"  prop="rtp_proxy.ps_pt">
+								<el-input v-model="serverConfig['rtp_proxy.ps_pt']" placeholder="ps载荷类型" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="超时时间"  prop="rtp_proxy.timeoutSec">
+								<el-input v-model="serverConfig['rtp_proxy.timeoutSec']" placeholder="超时时间" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+				</el-form>
+			</el-tab-pane>
+
+
+			<!--	RTC		-->
+			<el-tab-pane  label="RTC" class="custom-padding-left">
+				<el-form :inline="true" class="custom-margin-top">
+					<el-form-item label="RTC设置：" >
+					</el-form-item>
+				</el-form>
+				<el-form :model="serverConfig" :rules="rules"  label-width="200px" class="custom-form">
+					<el-row :gutter="24">
+
+						<el-col :span="12">
+							<el-form-item label="公网 IP"  prop="rtc.externIP">
+								<el-input v-model="serverConfig['rtc.externIP']" placeholder="公网 IP" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+
+						<el-col :span="12">
+							<el-form-item label="ICE的UDP端口"  prop="rtc.icePort">
+								<el-input v-model="serverConfig['rtc.icePort']" placeholder="ICE 使用的 UDP 端口（默认 3478）" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+
+
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="ICE 使用的 TCP 端口"  prop="rtc.iceTcpPort">
+								<el-input v-model="serverConfig['rtc.iceTcpPort']" placeholder="ICE 使用的 TCP 端口（Nat 类型很差时可用）" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="使用 TURN 中继"  prop="rtc.enableTurn">
+								<el-select  v-model="serverConfig['rtc.enableTurn']" placeholder="是否允许使用 TURN 中继（启用适用于 NAT 穿透失败时）"  class="custom-width">
+									<el-option v-for="item in configOption.general.yesNo" :key="item.value" :label="item.label" :value="item.value"/>
+								</el-select >
+							</el-form-item>
+						</el-col>
+					</el-row>
+
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="ICE 认证密码"  prop="rtc.icePwd">
+								<el-input v-model="serverConfig['rtc.icePwd']" placeholder="ICE 认证密码（WebRTC 连接时使用）" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="ICE 传输策略"  prop="rtc.iceTransportPolicy">
+								<el-select  v-model="serverConfig['rtc.iceTransportPolicy']" placeholder="ICE 传输策略"  class="custom-width">
+									<el-option v-for="item in configOption.general.iceTransportPolicy" :key="item.value" :label="item.label" :value="item.value"/>
+								</el-select >
+							</el-form-item>
+						</el-col>
+					</el-row>
+
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="帧过滤开关"  prop="rtc.bfilter">
+
+								<el-select  v-model="serverConfig['rtc.bfilter']" placeholder="帧过滤开关"  class="custom-width">
+									<el-option v-for="item in configOption.general.noOff" :key="item.value" :label="item.label" :value="item.value"/>
+								</el-select >
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="DataChannel回显测试开关"  prop="rtc.datachannel_echo">
+								<el-select  v-model="serverConfig['rtc.datachannel_echo']" placeholder="DataChannel回显测试开关"  class="custom-width">
+									<el-option v-for="item in configOption.general.noOff" :key="item.value" :label="item.label" :value="item.value"/>
+								</el-select >
+							</el-form-item>
+						</el-col>
+					</el-row>
+
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="ICE 用户凭证"  prop="rtc.iceUfrag">
+								<el-input v-model="serverConfig['rtc.iceUfrag']" placeholder="ICE 用户凭证（WebRTC 握手时使用）" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="指定网络接口"  prop="rtc.interfaces">
+								<el-input v-model="serverConfig['rtc.interfaces']" placeholder="指定网络接口（如 eth0,wlan0），默认空表示自动选择" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="允许的最大码率"  prop="rtc.max_bitrate">
+								<el-input v-model="serverConfig['rtc.max_bitrate']" placeholder="允许的最大码率（0 表示不限）" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="STUN 请求最大重试次数"  prop="rtc.max_stun_retry">
+								<el-input v-model="serverConfig['rtc.max_stun_retry']" placeholder="STUN 请求最大重试次数" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="RTP 最大缓存时长"  prop="rtc.maxRtpCacheMS">
+								<el-input v-model="serverConfig['rtc.maxRtpCacheMS']" placeholder="RTP 最大缓存时长（毫秒），用于乱序或丢包处理" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="RTP 缓存最大数量"  prop="rtc.maxRtpCacheSize">
+								<el-input v-model="serverConfig['rtc.maxRtpCacheSize']" placeholder="RTP 缓存最大数量（包数量）" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="允许的最小码率"  prop="rtc.min_bitrate">
+								<el-input v-model="serverConfig['rtc.min_bitrate']" placeholder="允许的最小码率" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="NACK 重传间隔比例"  prop="rtc.nackIntervalRatio">
+								<el-input v-model="serverConfig['rtc.nackIntervalRatio']" placeholder="NACK 重传间隔比例（越大重传越慢）" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="一次最大 NACK 数量"  prop="rtc.nackMaxCount">
+								<el-input v-model="serverConfig['rtc.nackMaxCount']" placeholder="一次最大 NACK 数量" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="NACK请求的最大时间范围"  prop="rtc.nackMaxMS">
+								<el-input v-model="serverConfig['rtc.nackMaxMS']" placeholder="NACK 请求的最大时间范围（ms）" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="NACK 队列最大容量"  prop="rtc.nackMaxSize">
+								<el-input v-model="serverConfig['rtc.nackMaxSize']" placeholder="NACK 队列最大容量" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="NACK 可请求的最大 RTP 包大小"  prop="rtc.nackRtpSize">
+								<el-input v-model="serverConfig['rtc.nackRtpSize']" placeholder="NACK 可请求的最大 RTP 包大小" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="WebRTC 使用的 UDP 端口"  prop="rtc.port">
+								<el-input v-model="serverConfig['rtc.port']" placeholder="WebRTC 使用的 UDP 端口" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="WebRTC TCP 媒体端口"  prop="rtc.tcpPort">
+								<el-input v-model="serverConfig['rtc.tcpPort']" placeholder="WebRTC TCP 媒体端口" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="WebRTC 动态 RTP 端口范围"  prop="rtc.portRange">
+								<el-input v-model="serverConfig['rtc.portRange']" placeholder="WebRTC 动态 RTP 端口范围" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="WebRTC 连接超时时间"  prop="rtc.timeoutSec">
+								<el-input v-model="serverConfig['rtc.timeoutSec']" placeholder="WebRTC 连接超时时间" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="优先使用的音频编码"  prop="rtc.preferredCodecA">
+								<el-input v-model="serverConfig['rtc.preferredCodecA']" placeholder="优先使用的音频编码（Opus/PCMA/PCMU 等）" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="优先使用的视频编码"  prop="rtc.preferredCodecV">
+								<el-input v-model="serverConfig['rtc.preferredCodecV']" placeholder="优先使用的视频编码（H264,H265,VP8,VP9 等）" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="REMB 限制码率"  prop="rtc.rembBitRate">
+								<el-input v-model="serverConfig['rtc.rembBitRate']" placeholder="REMB 限制码率" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="WebRTC 信令端口"  prop="rtc.signalingPort">
+								<el-input v-model="serverConfig['rtc.signalingPort']" placeholder="WebRTC 信令端口（HTTP/WebSocket）" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="WebRTC 信令 SSL 端口"  prop="rtc.signalingSslPort">
+								<el-input v-model="serverConfig['rtc.signalingSslPort']" placeholder="WebRTC 信令 SSL 端口" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="起始码率"  prop="rtc.start_bitrate">
+								<el-input v-model="serverConfig['rtc.start_bitrate']" placeholder="起始码率" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+				</el-form>
+			</el-tab-pane>
+
+			<!--	SRT		-->
+			<el-tab-pane  label="SHELL/SRT" class="custom-padding-left">
+				<el-form :inline="true" class="custom-margin-top">
+					<el-form-item label="SHELL设置：" >
+					</el-form-item>
+				</el-form>
+				<el-form :model="serverConfig" :rules="rules"  label-width="150px" class="custom-form">
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="端口"  prop="shell.port">
+								<el-input v-model="serverConfig['shell.port']" placeholder="端口" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="最大请求大小"  prop="shell.maxReqSize">
+								<el-input v-model="serverConfig['shell.maxReqSize']" placeholder="最大请求大小" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+				</el-form>
+
+				<el-form :inline="true" class="custom-margin-top">
+					<el-form-item label="SRT设置：" >
+					</el-form-item>
+				</el-form>
+				<el-form :model="serverConfig" :rules="rules"  label-width="150px" class="custom-form">
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="延迟估算参数"  prop="srt.latencyMul">
+								<el-input v-model="serverConfig['srt.latencyMul']" placeholder="延迟估算参数" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="包缓存大小"  prop="srt.pktBufSize">
+								<el-input v-model="serverConfig['srt.pktBufSize']" placeholder="包缓存大小" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+
+					<el-row :gutter="24">
+						<el-col :span="12">
+							<el-form-item label="端口"  prop="srt.port">
+								<el-input v-model="serverConfig['srt.port']" placeholder="端口" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item label="会话超时(s)"  prop="srt.timeoutSec">
+								<el-input v-model="serverConfig['srt.timeoutSec']" placeholder="会话超时(s)" :props="groupsProps" :show-all-levels="false" class="custom-width" clearable ></el-input>
+							</el-form-item>
+						</el-col>
+					</el-row>
+
+				</el-form>
+			</el-tab-pane>
 
 		</el-tabs>
 		<template #footer>
+			<el-button type="primary" :loading="isSaveing" @click="submit()">保 存</el-button>
 			<el-button @click="visible=false" >关 闭</el-button>
 		</template>
 	</sc-dialog>
@@ -740,7 +1320,7 @@ export default {
 		return {
 			mode: "edit",
 			titleMap: {
-				edit: 'ZLMediaKitServe服务器配置',
+				edit: 'ZLMediaKit服务器配置',
 			},
 			visible: false,
 			configOption:{
@@ -764,11 +1344,33 @@ export default {
 							label: 'GB2312',
 							value: 'GB2312'
 						},
+					],
+					iceTransportPolicy:[
+						{
+							label: '任意',
+							value: '0'
+						},
+						{
+							label: '仅 TURN',
+							value: '1'
+						},
+					],
+					noOff:[
+						{
+							label: '关',
+							value: "0"
+						},
+						{
+							label: '开',
+							value: "1"
+						},
 					]
 				},
 			},
 
 			serverConfig:{
+			},
+			serverConfigOld:{
 			},
 			cameraZLMNode:{
 			},
@@ -792,12 +1394,62 @@ export default {
 			var res = await this.$API.auth.settings.getZLMServerConfig.post(data);
 			if(res.code == 200){
 				this.serverConfig = res.data.data[0];
-				console.log(this.serverConfig)
+				this.serverConfigOld = JSON.parse(JSON.stringify(this.serverConfig));
 			}else{
 				this.$alert(res.msg, "提示", {type: 'error'})
 
 			}
 		},
+
+		//表单提交方法
+		async submit() {
+			// 对比旧数据,将修改的字段与修改的值，封装进一个新的对象中，传递给后端
+			const changedData = {};
+
+			// 确保 serverConfigOld 存在且不为 undefined
+			if (!this.serverConfigOld) {
+				this.serverConfigOld = {};
+			}
+
+			// 获取所有需要比较的键
+			const currentKeys = Object.keys(this.serverConfig);
+			const oldKeys = Object.keys(this.serverConfigOld);
+			const allKeys = new Set([...currentKeys, ...oldKeys]);
+
+			// 遍历所有键，比较值的变化
+			for (const key of allKeys) {
+				const oldValue = this.serverConfigOld[key];
+				const newValue = this.serverConfig[key];
+
+				// 处理 undefined 和 null 的情况，统一转换为字符串比较
+				const oldStr = oldValue === undefined || oldValue === null ? '' : String(oldValue);
+				const newStr = newValue === undefined || newValue === null ? '' : String(newValue);
+
+				// 比较字符串形式的值
+				if (oldStr !== newStr) {
+					changedData[key] = newValue;
+				}
+			}
+			//添加标识符
+			changedData.zlmNodeHosts = this.cameraZLMNode.host;
+			changedData.zlmNodeServerId = this.cameraZLMNode.serverId;
+			// 如果有变化的数据则提交
+			if (Object.keys(changedData).length > 0) {
+				console.log('变化的配置项:', changedData);
+				var res = await this.$API.auth.settings.updateZLMServerConfig.post({"serverConfig":JSON.stringify(changedData)});
+				if (res.code == 200) {
+					this.$message.success("操作成功");
+					// 更新旧配置数据
+					this.getZLMServerConfig(this.cameraZLMNode);
+					//this.serverConfigOld = JSON.parse(JSON.stringify(this.serverConfig));
+				} else {
+					this.$alert(res.msg, "提示", {type: 'error'});
+				}
+			} else {
+				this.$message.info("没有修改任何配置");
+				console.log('没有检测到配置变化');
+			}
+		}
 	}
 }
 </script>
