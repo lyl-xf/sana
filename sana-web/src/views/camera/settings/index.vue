@@ -3,7 +3,7 @@
 	<el-main>
 		<el-row :gutter="15">
 			<el-col :xl="6" :lg="6" :md="8" :sm="12" :xs="24" v-for="item in list" :key="item.id">
-				<el-card class="task task-item" shadow="hover" >
+				<el-card class="task task-item" shadow="hover" @click="edit(item)">
 					<h2>{{item.title}}</h2>
 					<ul>
 						<li>
@@ -30,8 +30,9 @@
 								<el-button type="primary" icon="el-icon-more" circle plain></el-button>
 								<template #dropdown>
 									<el-dropdown-menu>
-										<el-dropdown-item  v-if="item.mqttType !=1" @click="edit(item)">服务器配置</el-dropdown-item>
+										<el-dropdown-item  v-if="item.mqttType !=1" @click="rebootzlm(item)">重启</el-dropdown-item>
 
+<!--
 										<el-dropdown-item  v-if="item.mqttType !=1" @click="edit(item)">Rtp服务</el-dropdown-item>
 
 										<el-dropdown-item  v-if="item.mqttType !=1" @click="edit(item)">ffmpeg推拉流</el-dropdown-item>
@@ -39,6 +40,7 @@
 										<el-dropdown-item  v-if="item.mqttType !=1" @click="edit(item)">推流代理</el-dropdown-item>
 
 										<el-dropdown-item  v-if="item.mqttType !=1" @click="edit(item)">拉流代理</el-dropdown-item>
+-->
 
 									</el-dropdown-menu>
 								</template>
@@ -111,11 +113,24 @@ export default {
 			}
 		},
 
-		logs(){
-			this.dialog.logsVisible = true
-		},
-		run(task){
-			this.$message.success(`已成功执行计划任务：${task.title}`)
+		rebootzlm(item){
+			if(item.enabled ==  true) {
+				this.$confirm('这只有Daemon方式才能重启，否则是直接关闭！确定重启吗？？','提示', {
+					type: 'warning',
+					confirmButtonText: '确定',
+					confirmButtonClass: 'el-button--danger'
+				}).then(async () => {
+					//调用退出接口
+					var res = await this.$API.auth.settings.restartServer.post(item);
+					if(res.code == 200){
+						this.$message.info("服务器将在一秒后自动重启")
+					}
+				}).catch(() => {
+					//取消退出
+				})
+			}else {
+				this.$message.error("该节点未启动,请在配置文件中开启之后开始编辑")
+			}
 		},
 		//本地更新数据
 		handleSuccess(){

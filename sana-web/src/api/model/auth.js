@@ -28,6 +28,42 @@ export default {
 			post: async function(data){
 				return await http.post(this.url, data, {});
 			}
+		},
+		restartServer: {
+			url: `${config.API_URL}/camera/settings/restartServer`,
+			name: "重启zlm服务",
+			post: async function(data){
+				return await http.post(this.url, data, {});
+			}
+		},
+		addStreamProxy: {
+			url: `${config.API_URL}/camera/settings/addStreamProxy`,
+			name: "增加zlm服务",
+			post: async function(data){
+				return await http.post(this.url, data, {});
+			}
+		},
+
+		updateStreamProxy: {
+			url: `${config.API_URL}/camera/settings/updateStreamProxy`,
+			name: "修改zlm服务",
+			post: async function(data){
+				return await http.post(this.url, data, {});
+			}
+		},
+		getPage: {
+			url: `${config.API_URL}/camera/settings/page`,
+			name: "查询代理设备列表",
+			get: async function(params){
+				return await http.get(this.url, params);
+			}
+		},
+		delStreamProxy: {
+			url: `${config.API_URL}/camera/settings/delStreamProxy`,
+			name: "删除代理设备列表",
+			get: async function(params){
+				return await http.get(this.url, params);
+			}
 		}
 	}
 

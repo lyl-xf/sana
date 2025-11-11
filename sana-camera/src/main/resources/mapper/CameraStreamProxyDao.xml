@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sana.camera.dao.CameraStreamProxyDao">
+
+
+    <select id="getStreamProxyPage" resultType="com.sana.camera.entity.result.CameraStreamProxyResult">
+        select * from camera_stream_proxy csp
+        where csp.deleted = 0
+        <if test="model.name != null and model.name.trim() != ''">
+            and csp.name like concat('%',#{model.name},'%')
+        </if>
+        and csp.deleted = 0
+        order by csp.create_time DESC
+    </select>
+</mapper>
