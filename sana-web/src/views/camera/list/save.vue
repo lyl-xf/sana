@@ -346,7 +346,7 @@
 					enableAudio: true,
 					addMuteAudio: true,
 					mp4AsPlayer: false,
-					autoClose: true
+					autoClose: false
 
 				},
 				value2: true,

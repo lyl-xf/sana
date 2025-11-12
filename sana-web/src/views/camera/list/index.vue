@@ -25,7 +25,7 @@
 				<el-table-column label="操作" fixed="right" align="center" width="250">
 					<template #default="scope">
 						<el-button-group>
-							<el-button text type="primary" size="small"  @click="showCamera(scope.row)">查看视频</el-button>
+							<el-button text type="primary" size="small"  @click="showCamera(scope.row)">预览</el-button>
 							<el-button text type="primary" size="small"  @click="table_edit(scope.row, scope.$index)">编辑</el-button>
 							<el-popconfirm title="确定删除吗？"  @confirm="table_del(scope.row, scope.$index)">
 								<template #reference>
@@ -40,25 +40,25 @@
 	</el-container>
 
 	<save-dialog v-if="dialog.save" ref="saveDialog" @success="handleSaveSuccess" @closed="dialog.save=false"></save-dialog>
-<!--	<rules-detail v-if="dialog.rule" ref="rulesDetail" @success="handleSaveSuccess" :rules-id="rulesId" @closed="dialog.rule=false"></rules-detail>-->
+	<player-dialog v-if="dialog.player" ref="playerDialog" @success="handleSaveSuccess" @closed="dialog.player=false"></player-dialog>
 
 </template>
 
 <script>
 	import saveDialog from './save'
-	/*	import rulesDetail from './rules.vue'*/
+	import playerDialog from './player.vue'
 	export default {
 		name: 'role',
 		components: {
 			saveDialog,
-			/*		rulesDetail*/
+			playerDialog
 		},
 		data() {
 			return {
 				rulesId: Number,
 				dialog: {
 					save: false,
-					rule: false,
+					player: false,
 					permission: false
 				},
 				apiObj: this.$API.auth.settings.getPage,
@@ -83,9 +83,15 @@
 					this.$refs.saveDialog.open('edit').setData(row)
 				})
 			},
-			showCamera(){
-				//播放视频
 
+			//
+
+			showCamera(row){
+				//播放视频
+				this.dialog.player = true
+				this.$nextTick(() => {
+					this.$refs.playerDialog.open('show').setData(row)
+				})
 			},
 			//删除
 			async table_del(row){
