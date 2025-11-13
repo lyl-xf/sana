@@ -1,5 +1,7 @@
 # sana 轻量级的IOT设备管理平台
 
+[使用说明看这里！](https://lyl-xf.github.io/)
+
 ## 项目介绍
 1、sana是一个轻量级的IOT设备云管理平台，后端springboot3.3开发，前端基于scui进行修改开发、前后端分离的、单体的项目。
 
