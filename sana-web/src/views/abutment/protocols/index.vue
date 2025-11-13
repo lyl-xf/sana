@@ -142,7 +142,7 @@
 					this.$refs.saveDialog.open()
 				})*/
 				/*this.$alert("初版暂不支持添加代理接入协议", "提示", {type: 'warning'})*/
-				this.$message.error("目前版本客户端代理仅支持订阅一个mqtt-broker，如果需要修改，请前往后端配置文件中进行修改mqtt.client的配置");
+				this.$message.error("目前版本客户端代理仅支持订阅一个mqtt-broker，以及一个订阅客户端，如果需要修改，请前往后端配置文件中进行修改mqtt.client的配置");
 			},
 			show(item){
 				if(item.mqttType == 1) {
