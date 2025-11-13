@@ -267,6 +267,18 @@ export default {
 			}
 		},
 
+	},
+	/**
+	 * 设备历史数据
+	 */
+	historyData: {
+		page: {
+			url: `${config.API_URL}/devices/deviceItem/historyData`,
+			name: "获取设备列表",
+			get: async function (params) {
+				return await http.get(this.url, params);
+			}
+		}
 	}
 
 }

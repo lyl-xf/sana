@@ -1,6 +1,7 @@
 package com.sana.devices.controller;
 
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import com.sana.base.syshandle.enums.OperateTypeEnum;
 import com.sana.base.syshandle.operatelog.OptLog;
@@ -84,6 +85,7 @@ public class DeviceGroupController {
     @PostMapping("/saveBindingDevice")
     @Operation(summary = "保存绑定的设备")
     @OptLog(type = OperateTypeEnum.UPDATE)
+    @SaCheckPermission("devices:deviceGroup:bindSava")
     public SanaResult<String> saveBindingDevice(@RequestBody @Valid SaveGroupDevice saveVO) {
         deviceGroupService.saveBindingDevice(saveVO);
         return SanaResult.ok();
@@ -92,6 +94,7 @@ public class DeviceGroupController {
     @PostMapping("/deleteBindingDevice")
     @Operation(summary = "解除绑定的设备")
     @OptLog(type = OperateTypeEnum.UPDATE)
+    @SaCheckPermission("devices:deviceGroup:unbind")
     public SanaResult<String> deleteBindingDevice(@RequestBody @Valid GroupDevicedate updateVo) {
         deviceGroupService.deleteBindingDevice(updateVo);
         return SanaResult.ok();
@@ -100,6 +103,7 @@ public class DeviceGroupController {
     @PostMapping("/save")
     @Operation(summary = "保存")
     @OptLog(type = OperateTypeEnum.INSERT)
+    @SaCheckPermission("devices:deviceGroup:save")
     public SanaResult saveDeviceGroup(@RequestBody @Valid DeviceGroupSave saveVO) {
         deviceGroupService.saveDeviceGroup(saveVO);
         return SanaResult.ok();
@@ -108,6 +112,7 @@ public class DeviceGroupController {
     @PostMapping("/update")
     @Operation(summary = "修改")
     @OptLog(type = OperateTypeEnum.UPDATE)
+    @SaCheckPermission("devices:deviceGroup:update")
     public SanaResult<String> updateDeviceGroup(@RequestBody @Valid DeviceGroupUpdate updateVo) {
         deviceGroupService.updateDeviceGroup(updateVo);
         return SanaResult.ok();
@@ -116,6 +121,7 @@ public class DeviceGroupController {
     @GetMapping("/delete")
     @Operation(summary = "删除")
     @OptLog(type = OperateTypeEnum.DELETE)
+    @SaCheckPermission("devices:deviceGroup:delete")
     public SanaResult<String> deleteDeviceGroup(@RequestParam("id") List<Long> idList) {
         deviceGroupService.deleteDeviceGroup(idList);
         return SanaResult.ok();

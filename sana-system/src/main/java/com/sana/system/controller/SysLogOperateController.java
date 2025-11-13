@@ -1,5 +1,6 @@
 package com.sana.system.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.sana.base.syshandle.entity.JobInfoEntity;
 import com.sana.base.syshandle.enums.OperateTypeEnum;
 import com.sana.base.syshandle.enums.QuartzEnum;
@@ -96,12 +97,14 @@ public class SysLogOperateController {
     @PostMapping("/updateLogJob")
     @Operation(summary = "新增日志存储定时任务")
     //@OptLog(type = OperateTypeEnum.UPDATE)
+    @SaCheckPermission("sys:dict:updateLogJob")
     public SanaResult updateLogJob(@RequestBody JobInfoEntity jobInfo) {
         return SanaResult.ok( sysLogOperateService.updateLogJob(jobInfo.getJobName(), jobInfo.getCron(),jobInfo.getJobGroup(),jobInfo.getTriggerGroup(),  QuartzEnum.LOGS_CLASS_NAME.getValue()));
     }
 
     @PostMapping("/updateDeviceJob")
     @Operation(summary = "新增设备数据存储定时任务")
+    @SaCheckPermission("sys:dict:updateDeviceJob")
     //@OptLog(type = OperateTypeEnum.UPDATE)
     public SanaResult updateDeviceJob(@RequestBody JobInfoEntity jobInfo) {
         return SanaResult.ok( sysLogOperateService.updateDeviceJob(jobInfo.getJobName(), jobInfo.getCron(),jobInfo.getJobGroup(),jobInfo.getTriggerGroup(),  QuartzEnum.DEVICE_CLASS_NAME.getValue()));

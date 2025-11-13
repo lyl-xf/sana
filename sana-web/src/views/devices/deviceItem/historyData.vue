@@ -1,7 +1,7 @@
 <template >
 	<sc-dialog :title="titleMap[mode]" v-model="visible" :width="1400" :close-on-click-modal="false" destroy-on-close @closed="$emit('closed')">
 		<el-container>
-<!--			<el-alert title="最大只能查看三个月的数据" type="warning" show-icon :closable="false"/>-->
+			<!--			<el-alert title="最大只能查看三个月的数据" type="warning" show-icon :closable="false"/>-->
 			<el-header>
 				<div class="left-panel">
 					<el-date-picker
@@ -66,8 +66,8 @@ export default {
 	},
 
 	methods: {
-		setData(data){
-			this.columns=[]
+		setData(data) {
+			this.columns = []
 			this.listApiParams = {
 				deviceId: data.id,
 				startTime: this.search.date[0],
@@ -78,7 +78,7 @@ export default {
 
 		},
 		//显示
-		open(mode='show'){
+		open(mode = 'show') {
 			this.mode = mode;
 			this.visible = true;
 			return this
@@ -110,7 +110,7 @@ export default {
 			return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 		},
 		datePickerOptions: {
-			onPick: ({ maxDate, minDate }) => {
+			onPick: ({maxDate, minDate}) => {
 				if (minDate && maxDate) {
 					const timeDiff = Math.abs(maxDate.getTime() - minDate.getTime());
 					const threeMonthsInMs = 120 * 24 * 60 * 60 * 1000; // 90天的毫秒数
@@ -127,14 +127,14 @@ export default {
 			}
 		},
 		//查询历史数据
-		async gteDeviceMode(deviceId){
-			var res = await this.$API.device.deviceItem.getDeviceModeMap.get({'deviceId':deviceId});
-			if(res.code == 200) {
+		async gteDeviceMode(deviceId) {
+			var res = await this.$API.device.deviceItem.getDeviceModeMap.get({'deviceId': deviceId});
+			if (res.code == 200) {
 				this.columns = res.data;
-				this.$nextTick(()=>{
-				this.listApi = this.$API.device.historyData.page;
+				this.$nextTick(() => {
+					this.listApi = this.$API.device.historyData.page;
 				})
-			}else{
+			} else {
 				this.$alert(res.msg, "提示", {type: 'error'})
 			}
 		}

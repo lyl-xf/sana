@@ -36,6 +36,7 @@ public class SysRoleController {
     @GetMapping("/page")
     @Operation(summary = "分页")
     @OptLog(type = OperateTypeEnum.QUERY)
+    @SaCheckPermission("sys:role:page")
     public SanaResult<SanaPage<SysRoleResult>> page(@ParameterObject @Valid SysRoleQuery query) {
         SanaPage<SysRoleResult> rolePage = sysRoleService.pageRole(query);
         return SanaResult.ok(rolePage);

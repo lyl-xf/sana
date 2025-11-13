@@ -73,7 +73,6 @@
 
 <script>
 	import saveDialog from './save.vue'
-
 	import detailDialog from './detail.vue'
 	import historyDataDialog from './historyData.vue'
 

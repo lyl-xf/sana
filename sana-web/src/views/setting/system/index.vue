@@ -27,7 +27,7 @@
 							<el-input v-model="syslog.triggerGroup" disabled></el-input>
 						</el-form-item>
 						<el-form-item>
-							<el-button type="primary" style="margin-top: 50px" @click="SaveConfig(1)">保存</el-button>
+							<el-button type="primary" style="margin-top: 50px" v-auth="'sys:dict:updateLogJob'" @click="SaveConfig(1)">保存</el-button>
 						</el-form-item>
 					</el-form>
 				</el-tab-pane>
@@ -55,7 +55,7 @@
 							<el-input v-model="devicelog.triggerGroup" disabled></el-input>
 						</el-form-item>
 						<el-form-item>
-							<el-button type="primary" style="margin-top: 50px" @click="SaveConfig(2)">保存</el-button>
+							<el-button type="primary" style="margin-top: 50px" v-auth="'sys:dict:updateDeviceJob'" @click="SaveConfig(2)">保存</el-button>
 						</el-form-item>
 					</el-form>
 				</el-tab-pane>

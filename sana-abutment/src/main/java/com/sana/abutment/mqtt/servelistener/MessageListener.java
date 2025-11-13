@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.sana.base.cache.redis.CacheKeyBuilder;
 import com.sana.base.cache.redis.RedisUtils;
 import com.sana.base.cache.redis.stream.RedisStreamConfigProperties;
+import com.sana.base.syshandle.enums.GeneralPrefixEnum;
 import com.sana.base.utils.JsonUtils;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -56,7 +57,7 @@ public class MessageListener implements IMqttMessageListener {
                 if ("REDIS".equalsIgnoreCase(queueType)) {
                     //拼接测试数据
                     HashMap<String, Object> streamMap = new HashMap<>(2);
-                    streamMap.put("deviceId", topic.substring(3));
+                    streamMap.put("deviceId", topic.substring(GeneralPrefixEnum.DEVICE_TOPIC_PREFIX.getValue().length()));
                     streamMap.put("data", JsonUtils.parseObject(new String(message.getPayload(), StandardCharsets.UTF_8), JSONObject.class));
                     //查询这个设备是否是属于定时规则的，如果是就往定时流中发送，如果不是就往监听流中
                     Object timingData = redisCacheOps.get(CacheKeyBuilder.deviceIdRuleJon(topic.substring(1)));

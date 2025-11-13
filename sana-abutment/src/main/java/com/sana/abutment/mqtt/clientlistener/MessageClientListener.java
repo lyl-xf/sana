@@ -58,6 +58,7 @@ public class MessageClientListener {
                 if ("REDIS".equalsIgnoreCase(queueType)) {
                     //拼接测试数据
                     HashMap<String, Object> streamMap = new HashMap<>(2);
+                    // todo 监听主题修改了，这里的截取长度也要修改
                     streamMap.put("deviceId", topic.substring(4));
                     streamMap.put("data", JsonUtils.parseObject(new String(payload, StandardCharsets.UTF_8), JSONObject.class));
                     //查询这个设备是否是属于定时规则的，如果是就往定时流中发送，如果不是就往监听流中

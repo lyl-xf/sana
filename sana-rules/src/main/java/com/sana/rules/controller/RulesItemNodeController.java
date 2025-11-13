@@ -1,5 +1,6 @@
 package com.sana.rules.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 
 import com.sana.base.syshandle.enums.OperateTypeEnum;
@@ -36,6 +37,7 @@ public class RulesItemNodeController {
     @Operation(summary = "规则信息设置")
     // todo 默认去除修改规则的日志，如果有需要则放开，不过需要注意数据的长度
     /*@OptLog(type = OperateTypeEnum.INSERT)*/
+    @SaCheckPermission("rules:rules:updateAndSave")
     public SanaResult saveRulesItemNodeSave(@RequestBody @Valid RulesItemNodeSave saveRulesItemNodeSaveVO) {
         return rulesItemNodeService.SaveAndUpdate(saveRulesItemNodeSaveVO);
     }

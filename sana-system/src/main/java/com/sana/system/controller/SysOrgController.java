@@ -35,7 +35,7 @@ public class SysOrgController {
     @GetMapping("/list")
     @Operation(summary = "列表")
     @OptLog(type = OperateTypeEnum.QUERY)
-    //@SaCheckPermission("sys:org:list")
+    @SaCheckPermission("sys:org:list")
     public SanaResult<List<SysOrgResult>> list(@ParameterObject @Valid SysOrgQuery query) {
         List<SysOrgResult> list = sysOrgService.getList(query);
 

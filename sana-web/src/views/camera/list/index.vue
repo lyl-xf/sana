@@ -2,7 +2,7 @@
 	<el-container>
 		<el-header>
 			<div class="left-panel">
-				<el-button type="primary" icon="el-icon-plus" v-auth="'rules:rules:save'" @click="add">新增设备</el-button>
+				<el-button type="primary" icon="el-icon-plus" v-auth="'camera:settings:addStreamProxy'"  @click="add">新增设备</el-button>
 			</div>
 			<div class="right-panel">
 				<div class="right-panel-search">
@@ -25,11 +25,11 @@
 				<el-table-column label="操作" fixed="right" align="center" width="250">
 					<template #default="scope">
 						<el-button-group>
-							<el-button text type="primary" size="small"  @click="showCamera(scope.row)">预览</el-button>
-							<el-button text type="primary" size="small"  @click="table_edit(scope.row, scope.$index)">编辑</el-button>
+							<el-button text type="primary" size="small" v-auth="'camera:settings:preview'"  @click="showCamera(scope.row)">预览</el-button>
+							<el-button text type="primary" size="small" v-auth="'camera:settings:updateStreamProxy'"  @click="table_edit(scope.row, scope.$index)">编辑</el-button>
 							<el-popconfirm title="确定删除吗？"  @confirm="table_del(scope.row, scope.$index)">
 								<template #reference>
-									<el-button text type="primary" size="small">删除</el-button>
+									<el-button text type="primary" v-auth="'camera:settings:delStreamProxy'" size="small">删除</el-button>
 								</template>
 							</el-popconfirm>
 						</el-button-group>

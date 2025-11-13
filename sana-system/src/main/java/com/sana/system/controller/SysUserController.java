@@ -47,7 +47,7 @@ public class SysUserController {
     @GetMapping("/page")
     @Operation(summary = "分页")
     @OptLog(type = OperateTypeEnum.QUERY)
-    //@SaCheckPermission("sys:user:page")
+    @SaCheckPermission("sys:user:page")
     public SanaResult<SanaPage<SysUserResult>> page(@ParameterObject @Valid SysUserQuery query) {
         SanaPage<SysUserResult> sanaPage = sysUserService.page(query);
         return SanaResult.ok(sanaPage);
@@ -65,6 +65,7 @@ public class SysUserController {
     @PostMapping("/resetPassword")
     @Operation(summary = "重置为默认密码")
     @OptLog(type = OperateTypeEnum.UPDATE)
+    @SaCheckPermission("sys:user:password")
     public SanaResult resetPassword(@RequestBody @Valid SysUserPasswordResult vo) {
         sysUserService.resetPassword(vo);
         return SanaResult.ok();
@@ -98,7 +99,7 @@ public class SysUserController {
     @PostMapping("/updateMySelf")
     @Operation(summary = "修改个人用户信息")
     @OptLog(type = OperateTypeEnum.UPDATE)
-    @SaCheckPermission("sys:user:save")
+    @SaCheckPermission("sys:user:updateMySelf")
     public SanaResult updateMySelf(@RequestBody @Valid SysUserUpdate sysUserUpdate) {
         sysUserService.updateMySelf(sysUserUpdate);
         return SanaResult.ok();
@@ -107,6 +108,7 @@ public class SysUserController {
     @PostMapping("/updateMySelfPassword")
     @Operation(summary = "修改个人密码")
     @OptLog(type = OperateTypeEnum.UPDATE)
+    @SaCheckPermission("sys:user:updateMySelfPassword")
     public SanaResult<String> password(@RequestBody @Valid SysUserPasswordUpdate sysUserPasswordUpdate) {
         // 修改密码
         String result = sysUserService.updateMySelfPassword(sysUserPasswordUpdate);

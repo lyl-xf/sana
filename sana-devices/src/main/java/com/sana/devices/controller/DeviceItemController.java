@@ -1,6 +1,7 @@
 package com.sana.devices.controller;
 
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import com.sana.base.syshandle.enums.OperateTypeEnum;
 import com.sana.base.syshandle.operatelog.OptLog;
@@ -50,13 +51,10 @@ public class DeviceItemController {
     }
 
 
-
-
-    // todo 项目启动的时候，需要将物模型的数据初始化在redis中
-
     @PostMapping("/save")
     @Operation(summary = "保存")
     @OptLog(type = OperateTypeEnum.INSERT)
+    @SaCheckPermission("devices:deviceItem:save")
     public SanaResult saveDeviceItem(@RequestBody @Valid DeviceItemSave vo) {
         deviceItemService.saveDeviceItem(vo);
         return SanaResult.ok();
@@ -65,6 +63,7 @@ public class DeviceItemController {
     @PostMapping("/update")
     @Operation(summary = "修改")
     @OptLog(type = OperateTypeEnum.UPDATE)
+    @SaCheckPermission("devices:deviceItem:update")
     public SanaResult update(@RequestBody @Valid DeviceItemUpdate vo) {
         deviceItemService.updateByUserId(vo);
         return SanaResult.ok();
@@ -74,6 +73,7 @@ public class DeviceItemController {
     @PostMapping("/delete")
     @Operation(summary = "删除")
     @OptLog(type = OperateTypeEnum.DELETE)
+    @SaCheckPermission("devices:deviceItem:delete")
     public SanaResult<String> delete(@RequestBody List<Long> idList) {
         deviceItemService.deleteDeviceItem(idList);
         return SanaResult.ok();
@@ -82,6 +82,7 @@ public class DeviceItemController {
     @GetMapping("/historyData")
     @Operation(summary = "历史数据查询")
     @OptLog(type = OperateTypeEnum.QUERY)
+    @SaCheckPermission("devices:deviceItem:historyData")
     public SanaResult<SanaPage<Map<String, Object>>> historyData(@ParameterObject @Valid DeviceHistoryQuery query) {
         SanaPage<Map<String, Object>> sanaPage = deviceItemService.historyData(query);
         return SanaResult.ok(sanaPage);

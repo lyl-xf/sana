@@ -1,6 +1,7 @@
 package com.sana.devices.controller;
 
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 
 import com.sana.base.syshandle.enums.OperateTypeEnum;
@@ -50,6 +51,7 @@ public class DeviceControlDataController {
     @PostMapping("/saveOrUpdate")
     @Operation(summary = "设备功能-保存/修改")
     @OptLog(type = OperateTypeEnum.INSERT)
+    @SaCheckPermission("devices:deviceDetail:serveAdd")
     public SanaResult<DeviceControlDataEntity> save(@RequestBody @Valid DeviceControlDataSave saveVO) {
         return SanaResult.ok(deviceControlDataService.saveDeviceControl(saveVO));
     }
@@ -70,6 +72,7 @@ public class DeviceControlDataController {
     @GetMapping("/delete")
     @Operation(summary = "设备功能-删除")
     @OptLog(type = OperateTypeEnum.DELETE)
+    @SaCheckPermission("devices:deviceDetail:serveDel")
     public SanaResult delete(@RequestParam("id") Long id) {
         deviceControlDataService.deleteDeviceControlData(id);
         return SanaResult.ok();

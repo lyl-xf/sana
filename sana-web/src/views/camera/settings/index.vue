@@ -30,7 +30,7 @@
 								<el-button type="primary" icon="el-icon-more" circle plain></el-button>
 								<template #dropdown>
 									<el-dropdown-menu>
-										<el-dropdown-item  v-if="item.mqttType !=1" @click="rebootzlm(item)">重启</el-dropdown-item>
+										<el-dropdown-item  v-if="item.mqttType !=1" v-auth="'camera:settings:restartServer'" @click="rebootzlm(item)">重启</el-dropdown-item>
 
 <!--
 										<el-dropdown-item  v-if="item.mqttType !=1" @click="edit(item)">Rtp服务</el-dropdown-item>

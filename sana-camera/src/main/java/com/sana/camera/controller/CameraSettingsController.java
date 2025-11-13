@@ -1,5 +1,6 @@
 package com.sana.camera.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.alibaba.fastjson.JSONObject;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import com.sana.base.syshandle.enums.OperateTypeEnum;
@@ -70,6 +71,7 @@ public class CameraSettingsController {
     @PostMapping("/updateZLMServerConfig")
     @Operation(summary = "修改ZLM服务器配置")
     @OptLog(type = OperateTypeEnum.UPDATE)
+    @SaCheckPermission("camera:settings:updateZLMServerConfig")
     public SanaResult updateZLMServerConfig(@RequestBody ServerConfigUpdate jsonOject) {
         return cameraSettingsService.updateZLMServerConfig(jsonOject);
     }
@@ -78,6 +80,7 @@ public class CameraSettingsController {
     @PostMapping("/restartServer")
     @Operation(summary = "重启ZLM服务器")
     @OptLog(type = OperateTypeEnum.UPDATE)
+    @SaCheckPermission("camera:settings:restartServer")
     public SanaResult restartServer(@RequestBody ZLMediaKitQuery jsonOject) {
         return cameraSettingsService.restartServer(jsonOject);
     }
@@ -87,6 +90,7 @@ public class CameraSettingsController {
     @PostMapping("/addStreamProxy")
     @Operation(summary = "新增拉流代理")
     @OptLog(type = OperateTypeEnum.INSERT)
+    @SaCheckPermission("camera:settings:addStreamProxy")
     public SanaResult addStreamProxy(@RequestBody CameraStreamProxyEntity cameraStreamProxy) {
         return cameraSettingsService.addStreamProxy(cameraStreamProxy);
     }
@@ -95,6 +99,7 @@ public class CameraSettingsController {
     @PostMapping("/updateStreamProxy")
     @Operation(summary = "修改拉流代理")
     @OptLog(type = OperateTypeEnum.UPDATE)
+    @SaCheckPermission("camera:settings:updateStreamProxy")
     public SanaResult updateStreamProxy(@RequestBody CameraStreamProxyEntity cameraStreamProxy) {
         return cameraSettingsService.updateStreamProxy(cameraStreamProxy);
     }
@@ -103,6 +108,7 @@ public class CameraSettingsController {
     @GetMapping("/delStreamProxy")
     @Operation(summary = "删除代理节点")
     @OptLog(type = OperateTypeEnum.DELETE)
+    @SaCheckPermission("camera:settings:delStreamProxy")
     public SanaResult<ZLMediaKit> delStreamProxy(@RequestParam String id ) {
 
         return cameraSettingsService.delStreamProxy(id);

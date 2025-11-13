@@ -1,5 +1,6 @@
 package com.sana.rules.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 
 import com.sana.base.syshandle.enums.OperateTypeEnum;
@@ -41,6 +42,7 @@ public class RulesItemController {
     @PostMapping("/save")
     @Operation(summary = "规则实例新增")
     @OptLog(type = OperateTypeEnum.INSERT)
+    @SaCheckPermission("rules:rules:save")
     public SanaResult saveRulesItem(@RequestBody @Valid RulesItemSave saveVO) {
         rulesItemService.saveRulesItem(saveVO);
         return SanaResult.ok();
@@ -49,6 +51,7 @@ public class RulesItemController {
     @PostMapping("/update")
     @Operation(summary = "规则实例修改")
     @OptLog(type = OperateTypeEnum.UPDATE)
+    @SaCheckPermission("rules:rules:update")
     public SanaResult updateRulesItem(@RequestBody @Valid RulesItemUpdate updateVO) {
         rulesItemService.updateRulesItem(updateVO);
         return SanaResult.ok();
@@ -57,6 +60,7 @@ public class RulesItemController {
     @GetMapping("/delete")
     @Operation(summary = "规则实例删除")
     @OptLog(type = OperateTypeEnum.DELETE)
+    @SaCheckPermission("rules:rules:delete")
     public SanaResult deleteRulesItem(@RequestParam("id") Long id) {
         rulesItemService.deleteRulesItem(id);
         return SanaResult.ok();

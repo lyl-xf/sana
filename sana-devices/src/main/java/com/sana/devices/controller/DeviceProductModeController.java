@@ -1,6 +1,7 @@
 package com.sana.devices.controller;
 
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import com.sana.base.syshandle.enums.OperateTypeEnum;
 import com.sana.base.syshandle.operatelog.OptLog;
@@ -45,6 +46,7 @@ public class DeviceProductModeController {
     @PostMapping("/save")
     @Operation(summary = "保存")
     @OptLog(type = OperateTypeEnum.INSERT)
+    @SaCheckPermission("devices:deviceProductType:modelSave")
     public SanaResult saveProductModePage(@RequestBody @Valid DeviceProductModeSave saveVO) {
         deviceProductModeService.saveDeviceGroup(saveVO);
         return SanaResult.ok();

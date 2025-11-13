@@ -1,6 +1,7 @@
 package com.sana.devices.controller;
 
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import com.sana.base.syshandle.enums.OperateTypeEnum;
 import com.sana.base.syshandle.operatelog.OptLog;
@@ -47,6 +48,7 @@ public class DeviceProductTypeController {
     @PostMapping("/save")
     @Operation(summary = "保存")
     @OptLog(type = OperateTypeEnum.INSERT)
+    @SaCheckPermission("devices:deviceProductType:save")
     public SanaResult<String> save(@RequestBody @Valid DeviceProductTypeSave saveVO) {
         deviceProductTypeService.saveDeviceProductType(saveVO);
         return SanaResult.ok();
@@ -55,6 +57,7 @@ public class DeviceProductTypeController {
     @PostMapping("/update")
     @Operation(summary = "修改")
     @OptLog(type = OperateTypeEnum.UPDATE)
+    @SaCheckPermission("devices:deviceProductType:update")
     public SanaResult<String> update(@RequestBody @Valid DeviceProductTypeUpdate updateVO) {
         deviceProductTypeService.updateDeviceProductType(updateVO);
 
@@ -64,6 +67,7 @@ public class DeviceProductTypeController {
     @GetMapping("/delete")
     @Operation(summary = "删除")
     @OptLog(type = OperateTypeEnum.DELETE)
+    @SaCheckPermission("devices:deviceProductType:delete")
     public SanaResult<String> delete(@RequestParam("id") Long id) {
         deviceProductTypeService.deleteDeviceProductType(id);
 
@@ -84,6 +88,7 @@ public class DeviceProductTypeController {
     @PostMapping("/saveDeviceProtocolsMode")
     @Operation(summary = "保存")
     @OptLog(type = OperateTypeEnum.INSERT)
+    @SaCheckPermission("devices:deviceProductType:abutment")
     public SanaResult saveDeviceProtocolsMode(@RequestBody @Valid SaveDeviceAbutmentSave saveVO) {
         //作为产品与接入配置的关联关系表，先增在删
         deviceProductTypeService.saveDeviceProtocolsMode(saveVO);

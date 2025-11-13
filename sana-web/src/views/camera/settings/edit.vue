@@ -1303,7 +1303,7 @@
 
 		</el-tabs>
 		<template #footer>
-			<el-button type="primary" :loading="isSaveing" @click="submit()">保 存</el-button>
+			<el-button type="primary" :loading="isSaveing" v-auth="'camera:settings:updateZLMServerConfig'"  @click="submit()">保 存</el-button>
 			<el-button @click="visible=false" >关 闭</el-button>
 		</template>
 	</sc-dialog>
