@@ -1,17 +1,7 @@
 /*
- Navicat Premium Dump SQL
-
- Source Server         : ali-lana
- Source Server Type    : MySQL
- Source Server Version : 80033 (8.0.33)
- Source Host           : 8.139.4.114:23306
- Source Schema         : sana
-
  Target Server Type    : MySQL
  Target Server Version : 80033 (8.0.33)
  File Encoding         : 65001
-
- Date: 13/11/2025 17:42:50
 */
 
 SET NAMES utf8mb4;
@@ -94,7 +84,7 @@ CREATE TABLE `QRTZ_FIRED_TRIGGERS`  (
 -- ----------------------------
 -- Records of QRTZ_FIRED_TRIGGERS
 -- ----------------------------
-INSERT INTO `QRTZ_FIRED_TRIGGERS` VALUES ('SanaScheduler', 'NON_CLUSTERED1763022244258', 'Trigger_device_deviceDataSave', '1748522', 'NON_CLUSTERED', 1763026961749, 1763026980000, 5, 'ACQUIRED', NULL, NULL, '0', '0');
+INSERT INTO `QRTZ_FIRED_TRIGGERS` VALUES ('SanaScheduler', 'NON_CLUSTERED1763082356068', 'Trigger_device_deviceDataSave', '1748522', 'NON_CLUSTERED', 1763084542272, 1763084560000, 5, 'ACQUIRED', NULL, NULL, '0', '0');
 
 -- ----------------------------
 -- Table structure for QRTZ_JOB_DETAILS
@@ -241,9 +231,9 @@ CREATE TABLE `QRTZ_TRIGGERS`  (
 -- ----------------------------
 -- Records of QRTZ_TRIGGERS
 -- ----------------------------
-INSERT INTO `QRTZ_TRIGGERS` VALUES ('SanaScheduler', 'Trigger_device_deviceDataSave', '1748522', 'deviceDataSave', '1748522', NULL, 1763026980000, 1763026960000, 5, 'ACQUIRED', 'CRON', 1760403978000, 0, NULL, 0, '');
-INSERT INTO `QRTZ_TRIGGERS` VALUES ('SanaScheduler', 'Trigger_log_logsDataSave', '1748511', 'logsDataSave', '1748511', NULL, 1763026980000, 1763026960000, 5, 'WAITING', 'CRON', 1760403912000, 0, NULL, 0, '');
-INSERT INTO `QRTZ_TRIGGERS` VALUES ('SanaScheduler', 'Trigger_开始16', '1762222789764', '开始16', '1762222789764', NULL, 1763028000000, 1763024400000, 5, 'WAITING', 'CRON', 1762222790000, 0, NULL, 0, '');
+INSERT INTO `QRTZ_TRIGGERS` VALUES ('SanaScheduler', 'Trigger_device_deviceDataSave', '1748522', 'deviceDataSave', '1748522', NULL, 1763084560000, 1763084540000, 5, 'ACQUIRED', 'CRON', 1760403978000, 0, NULL, 0, '');
+INSERT INTO `QRTZ_TRIGGERS` VALUES ('SanaScheduler', 'Trigger_log_logsDataSave', '1748511', 'logsDataSave', '1748511', NULL, 1763084560000, 1763084540000, 5, 'WAITING', 'CRON', 1760403912000, 0, NULL, 0, '');
+INSERT INTO `QRTZ_TRIGGERS` VALUES ('SanaScheduler', 'Trigger_开始16', '1762222789764', '开始16', '1762222789764', NULL, 1763085600000, 1763082361509, 5, 'WAITING', 'CRON', 1762222790000, 0, NULL, 0, '');
 
 -- ----------------------------
 -- Table structure for camera_stream_proxy
@@ -670,7 +660,7 @@ CREATE TABLE `protocols_mqtt`  (
 -- ----------------------------
 -- Records of protocols_mqtt
 -- ----------------------------
-INSERT INTO `protocols_mqtt` VALUES (1, '0.0.0.0', 'Mqtt-broker(测试环境不开放端口)', 1, '1884', '8084', 1, 'root', 'MqttNB!%#...', 1, 1, 'root', 'MqttNB!%#...', 0, '', '', 'none', '', '', 1, '1', 0, 1, '2025-11-13 16:24:04', 1, '2025-11-13 16:24:04', '系统初始化', '系统初始化');
+INSERT INTO `protocols_mqtt` VALUES (1, '0.0.0.0', 'Mqtt-broker(测试环境不开放端口)', 1, '1884', '8084', 1, 'root', 'MqttNB!%#...', 1, 1, 'root', 'MqttNB!%#...', 0, '', '', 'none', '', '', 1, '1', 0, 1, '2025-11-14 09:05:56', 1, '2025-11-14 09:05:56', '系统初始化', '系统初始化');
 INSERT INTO `protocols_mqtt` VALUES (2, '8.139.4.114', 'Mqtt-client(作为代理服务器的 代理监听客户端)', 2, '1883', NULL, NULL, 'admin', 'admin1234!@#$', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2', 0, 1, NULL, 1, NULL, NULL, NULL);
 
 -- ----------------------------
@@ -942,7 +932,7 @@ CREATE TABLE `sys_log_operate`  (
   `real_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '操作人',
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3960 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '操作日志' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3967 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '操作日志' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_log_operate
@@ -2043,6 +2033,13 @@ INSERT INTO `sys_log_operate` VALUES (3956, '设备功能', '分页查询', '/sa
 INSERT INTO `sys_log_operate` VALUES (3957, '设备功能', '流媒体节点列表', '/sana/camera/settings/getZLMSetting', 'GET', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 1, 0, NULL, 1, '超级管理员', '2025-11-13 09:26:40');
 INSERT INTO `sys_log_operate` VALUES (3958, '设备功能', '流媒体节点列表', '/sana/camera/settings/getZLMSetting', 'GET', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 1, 0, NULL, 1, '超级管理员', '2025-11-13 09:30:00');
 INSERT INTO `sys_log_operate` VALUES (3959, '设备功能', '修改拉流代理', '/sana/camera/settings/updateStreamProxy', 'POST', '[{\"id\":3,\"creator\":1,\"createTime\":1762854536000,\"updater\":1,\"updateTime\":1762854739000,\"deleted\":null,\"creatorName\":\"[超级管理员:admin]\",\"updaterName\":\"[超级管理员:admin]\",\"name\":\"测试摄像头\",\"nodeNameId\":\"zlm-node-1\",\"nodeIp\":\"127.0.0.1\",\"app\":\"live\",\"params\":\"\",\"stream\":\"test\",\"vhost\":\"__defaultVhost__\",\"url\":\"rtsp://admin:lhxx2019@192.168.3.21:554/h264/ch1/main\",\"retryCount\":-1,\"modifyStamp\":0,\"rtpType\":0,\"timeoutSec\":5,\"enableHls\":false,\"enableHlsFmp4\":false,\"enableMp4\":false,\"enableRtsp\":true,\"enableRtmp\":true,\"enableTs\":true,\"enableFmp4\":true,\"hlsDemand\":false,\"rtspDemand\":false,\"rtmpDemand\":false,\"tsDemand\":false,\"fmp4Demand\":false,\"enableAudio\":true,\"addMuteAudio\":true,\"mp4AsPlayer\":false,\"autoClose\":false,\"mp4SavePath\":\"\",\"mp4MaxSecond\":10,\"hlsSavePath\":\"\",\"node\":null}]', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 3, 0, NULL, 1, '超级管理员', '2025-11-13 09:30:40');
+INSERT INTO `sys_log_operate` VALUES (3960, '机构管理', '列表', '/sana/sys/org/list', 'GET', '[{\"name\":null}]', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 1, 0, NULL, 1, '超级管理员', '2025-11-14 01:39:40');
+INSERT INTO `sys_log_operate` VALUES (3961, '用户管理', '分页', '/sana/sys/user/page', 'GET', '[{\"page\":1,\"pageSize\":20,\"order\":null,\"asc\":false,\"name\":null,\"groupId\":null}]', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 1, 0, NULL, 1, '超级管理员', '2025-11-14 01:39:40');
+INSERT INTO `sys_log_operate` VALUES (3962, '用户管理', '修改个人密码', '/sana/sys/user/updateMySelfPassword', 'POST', '[{\"username\":\"admin\",\"password\":\"HHAZJ1314...\",\"newPassword\":\"admin123456\"}]', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 3, 0, NULL, 1, '超级管理员', '2025-11-14 01:40:01');
+INSERT INTO `sys_log_operate` VALUES (3963, '菜单管理', '菜单导航', '/sana/sys/menus/nav', 'GET', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 1, 0, NULL, 1, '超级管理员', '2025-11-14 01:40:21');
+INSERT INTO `sys_log_operate` VALUES (3964, '用户管理', '分页', '/sana/sys/user/page', 'GET', '[{\"page\":1,\"pageSize\":20,\"order\":null,\"asc\":false,\"name\":null,\"groupId\":null}]', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 1, 0, NULL, 1, '超级管理员', '2025-11-14 01:41:41');
+INSERT INTO `sys_log_operate` VALUES (3965, '机构管理', '列表', '/sana/sys/org/list', 'GET', '[{\"name\":null}]', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 1, 0, NULL, 1, '超级管理员', '2025-11-14 01:41:41');
+INSERT INTO `sys_log_operate` VALUES (3966, '菜单管理', '菜单导航', '/sana/sys/menus/nav', 'GET', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 1, 0, NULL, 1, '超级管理员', '2025-11-14 01:42:21');
 
 -- ----------------------------
 -- Table structure for sys_menus
@@ -2346,7 +2343,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$2qeepLfB9q5M.rsd/pn5c.JfaEDeJRXrG7Q/jWRxtIooURy49oz3a', '超级管理员', 'http://8.139.4.114:9000/dev/20250527/1748330038908_54870.jpg', 1, 'lyl@163.com', '13245677645', '三月来百草开 盈香满袖万物苏\n虫鸣和着欢笑 心事舒', 1, 1, 0, 10000, '2024-01-10 06:13:37', 1, '2025-05-27 15:14:33', '[超级管理员:admin]', '[超级管理员:admin]');
+INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$ApblX1QLILSBztFt.H7My.O57.Gcr7c5TSN7zeb/xfIoGai0vnxuG', '超级管理员', 'http://8.139.4.114:9000/dev/20250527/1748330038908_54870.jpg', 1, 'lyl@163.com', '13245677645', '三月来百草开 盈香满袖万物苏\n虫鸣和着欢笑 心事舒', 1, 1, 0, 10000, '2024-01-10 06:13:37', 1, '2025-05-27 15:14:33', '[超级管理员:admin]', '[超级管理员:admin]');
 INSERT INTO `sys_user` VALUES (2, 'sana', '$2a$10$Pgui./Sz9ytsAzTtir3L5uZkcSMeiUswYoa6WWr/KgxZQljuXLY4K', 'lana0101', 'http://8.139.4.114:9000/dev/20250527/1748330038908_54853.jpg', 2, 'lyl@163.com', '13245677656', '牛马干活\\韭菜施肥\\蘸料上色', 0, 1, 0, 10000, '2024-07-22 09:49:43', 1, '2025-05-27 15:33:27', '[超级管理员:admin]', '[超级管理员:admin]');
 
 -- ----------------------------
