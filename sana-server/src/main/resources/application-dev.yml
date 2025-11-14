@@ -152,7 +152,7 @@ mqtt:
     ip: 127.0.0.1               # 连接的服务端 ip（这里的ip为emqx，或者是其他第三方的mqtt-broker） ，默认：127.0.0.1
     port: 1883                  # 端口：默认：1883
     name: Mqtt-client(作为代理服务器的 代理监听客户端)      # 名称，默认：Mica-Mqtt-Client
-    client-id: lana-mqttClient           # 客户端Id（非常重要，一般为设备 sn，不可重复）
+    client-id: mqttClient-sana           # 客户端Id（非常重要，一般为设备 sn，不可重复）
     user-name: admin            # 认证的用户名
     password: 123456     # 认证的密码
     global-subscribe:           # 全局订阅的 topic，可被全局监听到，保留 session 停机重启，依然可以接受到消息。（2.2.9开始支持）
