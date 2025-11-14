@@ -90,7 +90,7 @@ spring:
           #url: jdbc:TAOS://127.0.0.1:6041/sana?charset=UTF-8&locale=en_US.UTF-8&timezone=UTC-8
           #REST 连接
           driver-class-name: com.taosdata.jdbc.rs.RestfulDriver
-          url: jdbc:TAOS-RS://127.0.0.1:6041/lana?charset=UTF-8&locale=en_US.UTF-8&timezone=UTC-8
+          url: jdbc:TAOS-RS://127.0.0.1:6041/sana?charset=UTF-8&locale=en_US.UTF-8&timezone=UTC-8
           username: root
           password: 123456
 
