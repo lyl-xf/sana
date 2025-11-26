@@ -59,6 +59,15 @@ public class SwaggerConfig {
     }
 
     @Bean
+    public GroupedOpenApi combinationApi() {
+        return GroupedOpenApi.builder()
+                .group("大屏管理")
+                .pathsToMatch("/api/goview/**")
+                .packagesToScan("com.sana.combination")
+                .build();
+    }
+
+    @Bean
     public OpenAPI customOpenAPI() {
         Contact contact = new Contact();
         contact.setName("lyl-xf");

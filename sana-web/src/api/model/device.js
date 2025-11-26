@@ -279,6 +279,20 @@ export default {
 				return await http.get(this.url, params);
 			}
 		}
+	},
+
+
+	/**
+	 * 大屏
+	 */
+	combination: {
+		page: {
+			url: `${config.API_URL}/api/goview/page`,
+			name: "获取大屏列表",
+			get: async function (params) {
+				return await http.get(this.url, params);
+			}
+		}
 	}
 
 }

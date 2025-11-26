@@ -4,6 +4,7 @@ import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.exception.NotPermissionException;
 import cn.dev33.satoken.util.SaResult;
 import com.sana.base.syshandle.result.SanaResult;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * @create 2025/7/12
  */
 @Slf4j
+@Hidden
 @RestControllerAdvice
 public class SanaExceptionHandler {
     /**

@@ -26,6 +26,7 @@
         <module>sana-devices</module>
         <module>sana-rules</module>
         <module>sana-camera</module>
+        <module>sana-combination</module>
     </modules>
 
     <!--基础版本-->
@@ -38,7 +39,7 @@
         <java.version>17</java.version>
         <mybatisplus.version>3.5.5</mybatisplus.version>
         <mybatis.spring.version>3.0.3</mybatis.spring.version>
-        <knife4j.version>4.3.0</knife4j.version>
+        <knife4j.version>4.5.0</knife4j.version>
         <caffeine.version>3.1.8</caffeine.version>
         <taosdata.version>3.2.5</taosdata.version>
         <hutool.version>5.7.14</hutool.version>

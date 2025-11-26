@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sana.combination.dao.GoViewServiceDao">
+	<insert id="uploadFile" parameterType="com.sana.combination.entity.GoviewFileEntity">
+		insert into goview_file(id,fileurl,file_name,file_size,file_suffix,md5,virtual_key,relative_path,absolute_path,create_time)
+		values(#{id},#{fileurl},#{fileName},#{fileSize},#{fileSuffix},null,#{virtualKey},#{relativePath},#{absolutePath},#{createTime})
+	</insert>
+
+	<select id="getPage" resultType="com.sana.combination.entity.GoviewEntity">
+		select * from goview_project where deleted = 0 order by update_time desc limit #{page},#{limit}
+	</select>
+	<select id="countData" resultType="java.lang.Integer">
+		select count(*) from goview_project where deleted = 0
+	</select>
+	<select id="goviewPage" resultType="com.sana.combination.entity.GoviewEntity">
+		select * from goview_project where deleted = 0 and state = 1
+	</select>
+</mapper>

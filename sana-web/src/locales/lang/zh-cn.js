@@ -5,7 +5,7 @@ export default {
 		signInTitle: '用户登录',
 		accountLogin: '账号登录',
 		mobileLogin: '手机号登录',
-		rememberMe: '24小时免登录',
+		rememberMe: '7天免登录',
 		forgetPassword: '忘记密码',
 		signIn: '登录',
 		signInOther: '其他登录方式',

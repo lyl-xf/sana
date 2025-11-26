@@ -99,7 +99,7 @@
 				if(user.code == 200){
 					// todo 后续做token刷新机制，不在做具体的时间限制
 					this.$TOOL.cookie.set("TOKEN", user.data.token, {
-						expires: this.form.autologin? 24*60*60 : 0
+						expires: this.form.autologin? 24*60*60*7 : 0
 					})
 					this.$TOOL.data.set("USER_INFO", user.data.userInfo)
 				}else{
