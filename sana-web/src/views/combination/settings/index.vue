@@ -1,8 +1,9 @@
 <template>
-  <el-empty image="img/404.png" :image-size="280" description="请检查自身权限，如果没有问题，点击下方按钮让我们进入大屏页面开始新的旅程吧！如果没有权限，则进不去哦。当然，本页面不建议给普通用户使用">
-	  <div class="button-container">
+
+  <el-empty image="img/ver.svg" :image-size="280" description="如果弹出失败，也可以点击下方按钮哦！">
+	  <div class="button-container" >
 		  <button class="fancy-button" @click="navigateToDashboard">
-			  <span class="button-text">点击进入大屏页面</span>
+			  <span class="button-text">点击进入大屏设计系统</span>
 			  <el-icon class="button-icon"><ArrowRight /></el-icon>
 		  </button>
 	  </div>
@@ -10,15 +11,20 @@
 
 </template>
 
-<script setup>
-import { ArrowRight } from '@element-plus/icons-vue'
-import tool from '@/utils/tool';
+<script>
+	import tool from '@/utils/tool';
+	export default {
 
-const navigateToDashboard = () => {
-	/*const url = new URL(process.env.GOVIEW_API_BASEURL);*/
-	const goviewUrl = process.env.VUE_APP_GOVIEW_BASEURL + '/#/project/items?token='+tool.cookie.get("TOKEN")
-	window.open(goviewUrl, '_blank')
-}
+		mounted() {
+			this.navigateToDashboard();
+		},
+		methods: {
+			navigateToDashboard(){
+			const goviewUrl = process.env.VUE_APP_GOVIEW_BASEURL + '/#/project/items?token='+tool.cookie.get("TOKEN")
+			window.open(goviewUrl, '_blank')
+		}
+		}
+	}
 </script>
 
 <style scoped>

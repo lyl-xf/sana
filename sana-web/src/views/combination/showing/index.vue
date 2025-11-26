@@ -3,15 +3,15 @@
 		<el-main class="nopadding">
 			<scTable ref="table" :apiObj="apiObj" row-key="id" @selection-change="selectionChange" stripe>
 				<el-table-column type="selection" width="50"></el-table-column>
-				<el-table-column label="#" type="index" width="100"></el-table-column>
-				<el-table-column label="图片" width="120" >
+				<el-table-column label="#" type="index" width="50"></el-table-column>
+				<el-table-column label="图片" width="70" >
 					<template #default="scope">
 						<el-avatar :src="scope.row.indexImage" size="small"></el-avatar>
 					</template>
 				</el-table-column>
-				<el-table-column label="大屏名称" prop="projectName" width="250"></el-table-column>
-				<el-table-column label="大屏备注信息" prop="remarks" width="250"></el-table-column>
-				<el-table-column label="创建时间" prop="createTime" width="200">
+				<el-table-column label="大屏名称" prop="projectName" width="200"></el-table-column>
+				<el-table-column label="大屏备注信息" prop="remarks" width="180"></el-table-column>
+				<el-table-column label="创建时间" prop="createTime" width="180">
 					<template #default="scope">
 						{{ scope.row.createTime ? new Date(scope.row.createTime).toLocaleString('zh-CN') : '' }}
 					</template>
