@@ -21,11 +21,13 @@
 | sana-abutment | 接入管理模块    |
 | sana-base     | 基础功能模块    |
 | sana-camera   | 摄像头、流媒体模块 |
+|sana-combination|大屏管理|
 | sana-devices  | 设备管理模块    |
 | sana-rules    | 规则、情景模式模块 |
 | sana-server   | 运行服务模块    |           |
 | sana-system   | 系统基础功能模块  |
 | sana-web      | 前端项目      |
+
 
 ## 技术栈
 
