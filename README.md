@@ -37,8 +37,4 @@
 | 3  | 前端技术栈 | Vue3 + Element-Plus（由[scui](https://gitee.com/lolicode/scui)项目进行修改开发）                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | 4  | 登录信息 | 数据库初始超级管理员用户名/密码(切记，是数据库初始化之后默认的登录信息，不是演示环境的登录信息哦！)：admin/admin123456                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 
-## 图片一览
-![img.png](doc%2Fimg%2Fimg.png)
-![img_1.png](doc%2Fimg%2Fimg_1.png)
-
 
