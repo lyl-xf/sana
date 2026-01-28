@@ -1,11 +1,11 @@
 package com.sana.system.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sana.base.mybatis.service.impl.BaseServiceImpl;
 import com.sana.base.syshandle.exception.SanaException;
 import com.sana.base.utils.TreeUtils;
-import com.sana.system.convert.SysOrgConvert;
 import com.sana.system.dao.SysOrgDao;
 import com.sana.system.dao.SysUserDao;
 import com.sana.system.entity.SysOrgEntity;
@@ -66,13 +66,15 @@ public class SysOrgServiceImpl extends BaseServiceImpl<SysOrgDao, SysOrgEntity> 
 
     @Override
     public void saveOrg(SysOrgSave saveVO) {
-        SysOrgEntity entity = SysOrgConvert.INSTANCE.convert(saveVO);
+        SysOrgEntity entity = new SysOrgEntity();
+        BeanUtil.copyProperties(saveVO, entity);
         baseMapper.insert(entity);
     }
 
     @Override
     public void updateOrg(SysOrgUpdate updateVO) {
-        SysOrgEntity entity = SysOrgConvert.INSTANCE.convert(updateVO);
+        SysOrgEntity entity = new SysOrgEntity();
+        BeanUtil.copyProperties(updateVO, entity);
         // 上级机构不能为自身
         if (entity.getId().equals(entity.getPid())) {
             throw new SanaException("上级机构不能为自身");

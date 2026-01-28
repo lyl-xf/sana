@@ -23,7 +23,6 @@ public class DeviceProductTypeSave{
      * 机构名称
      */
     @Schema(description = "机构名称")
-    @NotBlank(message = "机构名称不能为空")
     private String label;
     /**
      * 排序

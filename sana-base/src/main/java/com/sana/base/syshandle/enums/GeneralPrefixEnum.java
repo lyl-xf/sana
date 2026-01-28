@@ -13,17 +13,18 @@ public enum GeneralPrefixEnum {
 
 
     /**
-     * 表名前缀,客户端id前缀，缓存相关前缀
+     * 暂不使用
      */
-    TABLE_PREFIX("sb"),
+    //TABLE_PREFIX("sb"),
+    /**
+     * 暂不使用
+     */
+    //DEVICE_TOPIC_PREFIX("/SB/"),
     /**
      * 规则前缀
      */
     RULE_PREFIX("rule"),
-    /**
-     * 设备主题前缀
-     */
-    DEVICE_TOPIC_PREFIX("/SB/"),
+
     /**
      * 边缘计算前缀
      */

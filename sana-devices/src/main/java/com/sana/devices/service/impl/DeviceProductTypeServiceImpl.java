@@ -1,10 +1,10 @@
 package com.sana.devices.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sana.base.mybatis.service.impl.BaseServiceImpl;
 import com.sana.base.syshandle.exception.SanaException;
 import com.sana.base.utils.TreeUtils;
-import com.sana.devices.convert.DeviceProductTypeConvert;
 import com.sana.devices.dao.DeviceProductTypeDao;
 import com.sana.devices.entity.DeviceAbutmentEntity;
 import com.sana.devices.entity.DeviceProductTypeEntity;
@@ -40,20 +40,23 @@ public class DeviceProductTypeServiceImpl extends BaseServiceImpl<DeviceProductT
 
     @Override
     public List<DeviceProductTypeResult> getList(DeviceProductTypeQuery query) {
-        // 机构列表
+        //
         List<DeviceProductTypeResult> entityList = baseMapper.getList(query,true);
         return TreeUtils.build(entityList);
     }
 
     @Override
     public void saveDeviceProductType(DeviceProductTypeSave saveVO) {
-        DeviceProductTypeEntity entity = DeviceProductTypeConvert.INSTANCE.convert(saveVO);
+        DeviceProductTypeEntity entity = new DeviceProductTypeEntity();
+        BeanUtil.copyProperties(saveVO, entity);
+        log.info("保存产品类型：{}", entity);
         baseMapper.insert(entity);
     }
 
     @Override
     public void updateDeviceProductType(DeviceProductTypeUpdate updateVO) {
-        DeviceProductTypeEntity entity = DeviceProductTypeConvert.INSTANCE.convert(updateVO);
+        DeviceProductTypeEntity entity = new DeviceProductTypeEntity();
+        BeanUtil.copyProperties(updateVO, entity);
         // 上级不能为自身
         if (entity.getId().equals(entity.getPid())) {
             throw new SanaException("上级类型不能为自身");

@@ -1,10 +1,10 @@
 package com.sana.devices.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.sana.base.mybatis.service.impl.BaseServiceImpl;
 import com.sana.base.syshandle.page.SanaPage;
-import com.sana.devices.convert.DeviceEdgesItemConvert;
 import com.sana.devices.dao.DeviceEdgesItemDao;
 import com.sana.devices.entity.DeviceEdgesItemEntity;
 import com.sana.devices.entity.vo.query.DeviceEdgesQuery;
@@ -37,14 +37,16 @@ public class DeviceEdgesItemServiceImpl  extends BaseServiceImpl<DeviceEdgesItem
     @Override
     public DeviceEdgesItemEntity saveDeviceEdgesItem(DeviceEdgesItemSave saveVo) {
         baseMapper.delEdgesItem(saveVo.getEdgeProductTypeId());
-        DeviceEdgesItemEntity deviceEdgesItemEntity = DeviceEdgesItemConvert.INSTANCE.convert(saveVo);
+        DeviceEdgesItemEntity deviceEdgesItemEntity = new DeviceEdgesItemEntity();
+        BeanUtil.copyProperties(saveVo, deviceEdgesItemEntity);
         baseMapper.insert(deviceEdgesItemEntity);
         return deviceEdgesItemEntity;
     }
 
     @Override
     public DeviceEdgesItemEntity updateDeviceEdgesItem(DeviceEdgesItemUpdate updateVo) {
-        DeviceEdgesItemEntity deviceEdgesItemEntity = DeviceEdgesItemConvert.INSTANCE.convert(updateVo);
+        DeviceEdgesItemEntity deviceEdgesItemEntity = new DeviceEdgesItemEntity();
+        BeanUtil.copyProperties(updateVo, deviceEdgesItemEntity);
         baseMapper.updateById(deviceEdgesItemEntity);
         return deviceEdgesItemEntity;
     }
@@ -52,7 +54,8 @@ public class DeviceEdgesItemServiceImpl  extends BaseServiceImpl<DeviceEdgesItem
     @Override
     public DeviceEdgesItemResult getEdgesItemByProductTypeId(Long id) {
         DeviceEdgesItemEntity deviceEdgesItemEntity = baseMapper.selectOne(new QueryWrapper<DeviceEdgesItemEntity>().eq("edge_product_type_id", id).eq("deleted",0));
-        DeviceEdgesItemResult deviceEdgesItemResult = DeviceEdgesItemConvert.INSTANCE.convert(deviceEdgesItemEntity);
+        DeviceEdgesItemResult deviceEdgesItemResult = new DeviceEdgesItemResult();
+        BeanUtil.copyProperties(deviceEdgesItemEntity, deviceEdgesItemResult);
         return deviceEdgesItemResult;
     }
 

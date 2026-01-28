@@ -3,6 +3,7 @@ package com.sana.devices.service.impl;
 
 import com.sana.base.cache.redis.CacheKeyBuilder;
 import com.sana.base.mybatis.service.impl.BaseServiceImpl;
+import com.sana.base.syshandle.entity.GeneralPrefix;
 import com.sana.base.syshandle.enums.GeneralPrefixEnum;
 import com.sana.devices.dao.DeviceModeDao;
 import com.sana.devices.entity.DeviceModeEntity;
@@ -33,6 +34,9 @@ public class DeviceModeServiceImpl extends BaseServiceImpl<DeviceModeDao, Device
 
     @Resource
     private RedisUtils redisUtils;
+
+    @Resource
+    private GeneralPrefix generalPrefix;
     @Override
     public void saveDeviceMode(List<DeviceProductModeResult> productModeList, Long id) {
         baseMapper.saveDeviceMode(productModeList,id);
@@ -46,14 +50,14 @@ public class DeviceModeServiceImpl extends BaseServiceImpl<DeviceModeDao, Device
             baseMapper.saveDeviceModes(saveVO);
             //检索是否有这个表
             //删除td子表数据
-            String tableExists = baseMapper.getTableExists("SHOW TABLES LIKE '"+GeneralPrefixEnum.TABLE_PREFIX.getValue()+saveVO.getDeviceItemId()+"';");
+            String tableExists = baseMapper.getTableExists("SHOW TABLES LIKE '"+generalPrefix.getTablePrefix()+saveVO.getDeviceItemId()+"';");
             if(tableExists!=null){
-                    baseMapper.deltTable("DROP TABLE "+GeneralPrefixEnum.TABLE_PREFIX.getValue()+saveVO.getDeviceItemId()+";");
+                    baseMapper.deltTable("DROP TABLE "+generalPrefix.getTablePrefix()+saveVO.getDeviceItemId()+";");
             }
             //创建td子表
             String sql = assembleTheSQL(saveVO.getDeviceModeListSave(),saveVO.getDeviceItemId());
             baseMapper.createTdTable(sql);
-            String key = CacheKeyBuilder.deviceMode(GeneralPrefixEnum.TABLE_PREFIX.getValue()+saveVO.getDeviceItemId());
+            String key = CacheKeyBuilder.deviceMode(generalPrefix.getTablePrefix()+saveVO.getDeviceItemId());
             Object data = redisUtils.get(key);
             //物模型加入缓存中
             ArrayList<String> objects = new ArrayList<>();
@@ -80,7 +84,7 @@ public class DeviceModeServiceImpl extends BaseServiceImpl<DeviceModeDao, Device
         //组装普通表sql
         StringBuilder sb = new StringBuilder();
         sb.append("CREATE TABLE ");
-        sb.append(GeneralPrefixEnum.TABLE_PREFIX.getValue());
+        sb.append(generalPrefix.getTablePrefix());
         sb.append(deviceId);
         sb.append("(ts timestamp,");
         for (int i = 0; i < deviceModeListSave.size(); i++) {

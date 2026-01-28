@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.sana.base.cache.redis.CacheKeyBuilder;
 import com.sana.base.cache.redis.RedisUtils;
 import com.sana.base.mybatis.service.impl.BaseServiceImpl;
+import com.sana.base.syshandle.entity.GeneralPrefix;
 import com.sana.base.syshandle.enums.GeneralPrefixEnum;
 import com.sana.base.syshandle.page.SanaPage;
 import com.sana.devices.dao.DeviceItemDao;
@@ -43,10 +44,11 @@ public class DeviceItemServiceImpl extends BaseServiceImpl<DeviceItemDao, Device
     private DeviceModeService deviceModeService;
     @Resource
     private RedisUtils redisUtils;
-
+    @Resource
+    private GeneralPrefix generalPrefix;
     @Override
     public SanaPage<DeviceItemResult> getDeviceItemPage(DeviceItemQuery query) {
-        String prefixs = GeneralPrefixEnum.DEVICE_TOPIC_PREFIX.getValue();
+        String prefixs = generalPrefix.getDeviceTopicPrefix();
         IPage<DeviceItemGetResult> page = baseMapper.getDeviceItemPage(getPage(query),query,true);
         List<DeviceItemResult> deviceItemResults = page.getRecords().stream()
                 .map(dto -> {
@@ -80,7 +82,7 @@ public class DeviceItemServiceImpl extends BaseServiceImpl<DeviceItemDao, Device
     @Override
     public SanaPage<Map<String, Object>> historyData(DeviceHistoryQuery query) {
 
-        IPage<Map<String, Object>> page = baseMapper.getHistoryData(getPageMap(query),query,GeneralPrefixEnum.TABLE_PREFIX.getValue()+query.getDeviceId());
+        IPage<Map<String, Object>> page = baseMapper.getHistoryData(getPageMap(query),query,generalPrefix.getTablePrefix()+query.getDeviceId());
         //数据处理
         return new SanaPage<>(page.getRecords(), page.getTotal(),page.getPages(),page.getSize());
 
@@ -119,7 +121,7 @@ public class DeviceItemServiceImpl extends BaseServiceImpl<DeviceItemDao, Device
                 String sql = assembleTheSQL(productModeList,deviceItem.getId());
                 //创建子表
                 baseMapper.createTdTable(sql);
-                String key = CacheKeyBuilder.deviceMode(GeneralPrefixEnum.TABLE_PREFIX.getValue() + deviceItem.getId());
+                String key = CacheKeyBuilder.deviceMode(generalPrefix.getTablePrefix() + deviceItem.getId());
                 //创建物模型数据结构
                 Object data = redisUtils.get(key);
                 List<String> objects = new ArrayList<>();

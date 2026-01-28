@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.sana.abutment.mqtt.servepublish.MessagePublish;
 import com.sana.base.cache.redis.CacheKeyBuilder;
 import com.sana.base.cache.redis.RedisUtils;
+import com.sana.base.syshandle.entity.GeneralPrefix;
 import com.sana.base.syshandle.enums.GeneralPrefixEnum;
 import com.sana.base.syshandle.enums.OperateTypeEnum;
 import com.sana.base.syshandle.operatelog.OptLogEntity;
@@ -36,6 +37,8 @@ public class RulesActionHandler {
     private DataAnalysisService dataAnalysisService;
     @Resource
     private MessagePublish messagePublish;
+    @Resource
+    private GeneralPrefix generalPrefix;
 
 
 
@@ -97,7 +100,7 @@ public class RulesActionHandler {
                     for (DeviceControlEntity deviceControlEntity : DeviceControlList){
                         JSONObject pushData = new JSONObject();
                         pushData.put(deviceControlEntity.getControlMode(),deviceControlEntity.getControlDefultValue());
-                        messagePublish.publishTopic(GeneralPrefixEnum.DEVICE_TOPIC_PREFIX.getValue()+deviceControlEntity.getDeviceItemId(), JsonUtils.toJsonString(pushData));
+                        messagePublish.publishTopic(generalPrefix.getDeviceTopicPrefix()+deviceControlEntity.getDeviceItemId(), JsonUtils.toJsonString(pushData));
 
                         StringBuffer actionLog = new StringBuffer();
                         actionLog.append("设备：");

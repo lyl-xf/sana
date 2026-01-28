@@ -1,9 +1,9 @@
 package com.sana.devices.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.sana.base.mybatis.service.impl.BaseServiceImpl;
 import com.sana.base.syshandle.page.SanaPage;
-import com.sana.devices.convert.DeviceGroupConvert;
 import com.sana.devices.dao.DeviceGroupDao;
 import com.sana.devices.entity.DeviceGroupEntity;
 import com.sana.devices.entity.vo.query.DeviceGroupQuery;
@@ -37,13 +37,15 @@ public class DeviceGroupServiceImpl extends BaseServiceImpl<DeviceGroupDao, Devi
 
     @Override
     public void saveDeviceGroup(DeviceGroupSave saveVO) {
-        DeviceGroupEntity entity = DeviceGroupConvert.INSTANCE.convert(saveVO);
+        DeviceGroupEntity entity = new DeviceGroupEntity();
+        BeanUtil.copyProperties(saveVO, entity);
         baseMapper.insert(entity);
     }
 
     @Override
     public void updateDeviceGroup(DeviceGroupUpdate updateVo) {
-        DeviceGroupEntity entity = DeviceGroupConvert.INSTANCE.convert(updateVo);
+        DeviceGroupEntity entity = new DeviceGroupEntity();
+        BeanUtil.copyProperties(updateVo, entity);
         baseMapper.updateById(entity);
     }
 

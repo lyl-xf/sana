@@ -1,5 +1,6 @@
 package com.sana.rules.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -11,6 +12,7 @@ import com.sana.base.cache.caffeine.CaffeineCacheManager;
 import com.sana.base.cache.redis.CacheKeyBuilder;
 import com.sana.base.cache.redis.RedisUtils;
 import com.sana.base.mybatis.service.impl.BaseServiceImpl;
+import com.sana.base.syshandle.entity.GeneralPrefix;
 import com.sana.base.syshandle.enums.GeneralPrefixEnum;
 import com.sana.base.syshandle.enums.HandleTypeEnum;
 import com.sana.base.syshandle.enums.QuartzEnum;
@@ -18,7 +20,6 @@ import com.sana.base.syshandle.enums.RuleValueEnum;
 import com.sana.base.syshandle.exception.SanaException;
 import com.sana.base.syshandle.result.SanaResult;
 import com.sana.base.utils.AviatorScriptGeneratorUtils;
-import com.sana.rules.convert.RulesItemNodeConvert;
 import com.sana.rules.dao.RulesItemDao;
 import com.sana.rules.dao.RulesItemNodeDao;
 import com.sana.rules.entity.RulesItemEntity;
@@ -69,7 +70,8 @@ public class RulesItemNodeServiceIpml extends BaseServiceImpl<RulesItemNodeDao, 
     @Resource
     private RulesItemService rulesItemService;
 
-
+    @Resource
+    private GeneralPrefix generalPrefix;
 
 
 
@@ -116,7 +118,8 @@ public class RulesItemNodeServiceIpml extends BaseServiceImpl<RulesItemNodeDao, 
                     HandleRulesNode(jsonObject, saveRulesItemNodeSaveVO.getRulesId(),HandleTypeEnum.MODIFICATION.getValue());
                 }
             }else {
-                RulesItemNodeEntity rulesItemNode = RulesItemNodeConvert.INSTANCE.convert(saveRulesItemNodeSaveVO);
+                RulesItemNodeEntity rulesItemNode = new RulesItemNodeEntity();
+                BeanUtil.copyProperties(saveRulesItemNodeSaveVO, rulesItemNode);
                 baseMapper.insert(rulesItemNode);
                 JSONObject jsonObject = JSONObject.parseObject(saveRulesItemNodeSaveVO.getNodeConfig());
                 if (jsonObject!=null) {
@@ -246,7 +249,7 @@ public class RulesItemNodeServiceIpml extends BaseServiceImpl<RulesItemNodeDao, 
                     BigInteger id = nodeDeviceList.getJSONObject(i).getBigInteger("id");
                     timeDeviceIdList.add(id);
                     //设备--规则关联关系
-                    String key = CacheKeyBuilder.deviceIdRule(GeneralPrefixEnum.TABLE_PREFIX.getValue()+id);
+                    String key = CacheKeyBuilder.deviceIdRule(generalPrefix.getTablePrefix()+id);
                     Object data = redisCacheOps.get(key);
                     if(data!=null){
                         redisCacheOps.delete(key);
@@ -357,7 +360,7 @@ public class RulesItemNodeServiceIpml extends BaseServiceImpl<RulesItemNodeDao, 
                                         // todo 考虑将定时规则与设备之间的关联关系实例化
                                         if (setType == RuleValueEnum.TRIGGERSCHEDULEDTASKS.getValue()) {
                                             //设备--定时规则关联关系（采集规则），这个设备所属的定时规则
-                                            String key = CacheKeyBuilder.deviceIdRuleJon(GeneralPrefixEnum.TABLE_PREFIX.getValue() + deviceId);
+                                            String key = CacheKeyBuilder.deviceIdRuleJon(generalPrefix.getTablePrefix() + deviceId);
                                             Object data = redisCacheOps.get(key);
                                             if (data != null) {
                                                 redisCacheOps.delete(key);

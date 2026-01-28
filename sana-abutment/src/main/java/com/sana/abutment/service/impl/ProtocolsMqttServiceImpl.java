@@ -1,8 +1,8 @@
 package com.sana.abutment.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.sana.abutment.convert.ProtocolsMqttConvert;
 import com.sana.abutment.dao.ProtocolsMqttDao;
 import com.sana.abutment.entity.InintProtocolsMqttEntity;
 import com.sana.abutment.entity.ProtocolsMqttEntity;
@@ -18,6 +18,7 @@ import com.sana.abutment.service.ProtocolsMqttService;
 import com.sana.base.cache.redis.CacheKeyBuilder;
 import com.sana.base.cache.redis.RedisUtils;
 import com.sana.base.mybatis.service.impl.BaseServiceImpl;
+import com.sana.base.syshandle.entity.GeneralPrefix;
 import com.sana.base.syshandle.enums.GeneralPrefixEnum;
 import com.sana.base.syshandle.exception.SanaException;
 import jakarta.annotation.Resource;
@@ -39,6 +40,9 @@ public class ProtocolsMqttServiceImpl extends BaseServiceImpl<ProtocolsMqttDao, 
     private RedisUtils redisCacheOps;
     @Resource
     private ProtocolsMqttClientProperties protocolsMqttClientProperties;
+
+    @Resource
+    private GeneralPrefix generalPrefix;
     @Override
     public List<ProtocolsMqttResult> getMqttGroupPage(ProtocolsMqttQuery query) {
         List<ProtocolsMqttResult> page = baseMapper.getMqttGroupPage(query);
@@ -65,11 +69,13 @@ public class ProtocolsMqttServiceImpl extends BaseServiceImpl<ProtocolsMqttDao, 
             if(orgCount>0){
                 throw new SanaException("本系统只有一个mqtt-broker，无法进行创建多个");
             }else {
-                ProtocolsMqttEntity entity = ProtocolsMqttConvert.INSTANCE.convert(saveVO);
+                ProtocolsMqttEntity entity = new ProtocolsMqttEntity();
+                BeanUtil.copyProperties(saveVO, entity);
                 baseMapper.insert(entity);
             }
         }else {
-            ProtocolsMqttEntity entity = ProtocolsMqttConvert.INSTANCE.convert(saveVO);
+            ProtocolsMqttEntity entity = new ProtocolsMqttEntity();
+            BeanUtil.copyProperties(saveVO, entity);
             baseMapper.insert(entity);
         }
     }
@@ -81,11 +87,13 @@ public class ProtocolsMqttServiceImpl extends BaseServiceImpl<ProtocolsMqttDao, 
             if(orgCount>0){
                 throw new SanaException("本系统只有一个mqtt-broker，无法进行创建多个");
             }else {
-                ProtocolsMqttEntity entity = ProtocolsMqttConvert.INSTANCE.convert(updateVo);
+                ProtocolsMqttEntity entity = new ProtocolsMqttEntity();
+                BeanUtil.copyProperties(updateVo, entity);
                 baseMapper.updateById(entity);
             }
         }else {
-            ProtocolsMqttEntity entity = ProtocolsMqttConvert.INSTANCE.convert(updateVo);
+            ProtocolsMqttEntity entity = new ProtocolsMqttEntity();
+            BeanUtil.copyProperties(updateVo, entity);
             baseMapper.updateById(entity);
         }
 
@@ -188,7 +196,7 @@ public class ProtocolsMqttServiceImpl extends BaseServiceImpl<ProtocolsMqttDao, 
     public void initializeCache() {
         List<DeviceItemModeCacheSave> deviceModeListSave = baseMapper.getDevicveeModeList();
         for (DeviceItemModeCacheSave deviceItemModeCacheSave : deviceModeListSave){
-            String key = CacheKeyBuilder.deviceMode(GeneralPrefixEnum.TABLE_PREFIX.getValue()+deviceItemModeCacheSave.getDeviceItemId());
+            String key = CacheKeyBuilder.deviceMode(generalPrefix.getTablePrefix()+deviceItemModeCacheSave.getDeviceItemId());
             Object data = redisCacheOps.get(key);
             if(data!=null){
                 //redisCacheOps.delete(key);

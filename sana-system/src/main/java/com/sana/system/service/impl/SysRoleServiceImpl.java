@@ -1,11 +1,11 @@
 package com.sana.system.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.sana.base.mybatis.service.impl.BaseServiceImpl;
 import com.sana.base.syshandle.enums.DataScopeEnum;
 import com.sana.base.syshandle.exception.SanaException;
 import com.sana.base.syshandle.page.SanaPage;
-import com.sana.system.convert.SysRoleConvert;
 import com.sana.system.dao.SysRoleDao;
 import com.sana.system.entity.SysRoleEntity;
 import com.sana.system.entity.SysUserEntity;
@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 本页面的todo，em....前端这块是每次登录将数据进行缓存然后走前端缓存。所以第一版暂时不做更新。设置好了权限退出、重新登录就好了
@@ -107,19 +108,28 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleDao, SysRoleEntit
 
     @Override
     public List<SysRoleResult> getListRole(SysRoleQuery sysRoleQuery) {
-        List<SysRoleEntity> entityList = baseMapper.getListRole(sysRoleQuery,true);
-        return SysRoleConvert.INSTANCE.convertList(entityList);
+        List<SysRoleEntity> entityList = baseMapper.getListRole(sysRoleQuery, true);
+        return entityList.stream()
+                .map(entity -> {
+                    SysRoleResult result = new SysRoleResult();
+                    BeanUtil.copyProperties(entity, result);
+                    return result;
+                })
+                .collect(Collectors.toList());
     }
 
     @Override
     public void saveRole(SysRoleSave saveVO) {
-        SysRoleEntity entity = SysRoleConvert.INSTANCE.convert(saveVO);
+        SysRoleEntity entity = new SysRoleEntity();
+        BeanUtil.copyProperties(saveVO, entity);
+
         baseMapper.insert(entity);
     }
 
     @Override
     public void updateRole(SysRoleUpdate updateVo) {
-        SysRoleEntity entity = SysRoleConvert.INSTANCE.convert(updateVo);
+        SysRoleEntity entity = new SysRoleEntity();
+        BeanUtil.copyProperties(updateVo, entity);
         // 更新角色
         updateById(entity);
     }

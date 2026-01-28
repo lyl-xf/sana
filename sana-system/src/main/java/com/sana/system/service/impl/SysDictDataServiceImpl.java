@@ -1,11 +1,11 @@
 package com.sana.system.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.sana.base.cache.redis.CacheKeyBuilder;
 import com.sana.base.cache.redis.RedisUtils;
 import com.sana.base.mybatis.service.impl.BaseServiceImpl;
 import com.sana.base.syshandle.page.SanaPage;
-import com.sana.system.convert.SysDictDataConvert;
 import com.sana.system.dao.SysDictDataDao;
 import com.sana.system.entity.SysDictDataEntity;
 import com.sana.system.entity.SysDictTypeEntity;
@@ -43,7 +43,8 @@ public class SysDictDataServiceImpl extends BaseServiceImpl<SysDictDataDao, SysD
 
     @Override
     public void saveDicData(SysDictDataSave saveVO) {
-        SysDictDataEntity entity = SysDictDataConvert.INSTANCE.convert(saveVO);
+        SysDictDataEntity entity = new SysDictDataEntity();
+        BeanUtil.copyProperties(saveVO, entity);
 
         SysDictTypeEntity sysDictTypeEntity = sysDictTypeService.getById(entity.getDic());
         String redisKey = CacheKeyBuilder.dictKey(sysDictTypeEntity.getCode());
@@ -65,8 +66,8 @@ public class SysDictDataServiceImpl extends BaseServiceImpl<SysDictDataDao, SysD
 
     @Override
     public void updateDicData(SysDictDataUpdate updateVO) {
-        SysDictDataEntity entity = SysDictDataConvert.INSTANCE.convert(updateVO);
-
+        SysDictDataEntity entity = new SysDictDataEntity();
+        BeanUtil.copyProperties(updateVO, entity);
         updateById(entity);
 
         SysDictTypeEntity sysDictTypeEntity = sysDictTypeService.getById(entity.getDic());

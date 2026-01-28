@@ -15,8 +15,6 @@ import org.springframework.stereotype.Component;
 public class ProtocolsMqttClientProperties {
 
     private Boolean enabled;
-    private String proxyPrefix;
-    private String proxyStatusPrefix;
     private String ip;
     private Integer port;
     private String name;

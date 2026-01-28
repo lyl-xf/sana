@@ -1,13 +1,13 @@
 package com.sana.system.service.impl;
 
 import cn.dev33.satoken.secure.BCrypt;
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.sana.base.mybatis.service.impl.BaseServiceImpl;
 import com.sana.base.syshandle.entity.MyUserDetails;
 import com.sana.base.syshandle.exception.SanaException;
 import com.sana.base.syshandle.page.SanaPage;
 import com.sana.base.syshandle.usercache.UserContextUtil;
-import com.sana.system.convert.SysUserConvert;
 import com.sana.system.dao.SysUserDao;
 import com.sana.system.entity.SysUserEntity;
 import com.sana.system.entity.result.SysUserCopyResult;
@@ -116,7 +116,8 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
     @Override
     public void registerUser(SysUserSave vo) {
         //实体转换
-        SysUserEntity user = SysUserConvert.INSTANCE.convert(vo);
+        SysUserEntity user = new SysUserEntity();
+        BeanUtil.copyProperties(vo, user);
         //保存用户
         baseMapper.insert(user);
     }
@@ -128,7 +129,8 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
             //初始加密密码
             vo.setPassword(vo.getPassword());
             //实体转换
-            SysUserEntity user = SysUserConvert.INSTANCE.convert(vo);
+            SysUserEntity user = new SysUserEntity();
+            BeanUtil.copyProperties(vo, user);
             user.setPassword(BCrypt.hashpw(vo.getPassword()));
             //保存用户
             baseMapper.insert(user);
@@ -157,7 +159,8 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
     public void updateByUserId(SysUserUpdate vo) {
         try {
             //实体转换
-            SysUserEntity user = SysUserConvert.INSTANCE.convert(vo);
+            SysUserEntity user = new SysUserEntity();
+            BeanUtil.copyProperties(vo, user);
             //修改用户
             baseMapper.updateById(user);
             //修改角色

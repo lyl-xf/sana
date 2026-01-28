@@ -6,6 +6,7 @@ import com.sana.base.cache.caffeine.CaffeineCacheManager;
 import com.sana.base.cache.redis.CacheKeyBuilder;
 import com.sana.base.cache.redis.RedisUtils;
 import com.sana.base.cache.redis.stream.RedisStreamConfigProperties;
+import com.sana.base.syshandle.entity.GeneralPrefix;
 import com.sana.base.syshandle.enums.GeneralPrefixEnum;
 import com.sana.base.utils.JsonUtils;
 import com.sana.rules.executes.action.ActionDispatcher;
@@ -41,7 +42,8 @@ public class ConsumerRuleJob implements StreamListener<String, MapRecord<String,
 
     @Resource
     private ActionDispatcher actionDispatcher;
-
+    @Resource
+    private GeneralPrefix generalPrefix;
     /**
      * 构造函数，注入RedisCacheOps。
      *
@@ -65,7 +67,7 @@ public class ConsumerRuleJob implements StreamListener<String, MapRecord<String,
         Map<String, String> map = message.getValue();
         // 打印接收到的消息信息
         String deviceId = map.get("deviceId").replaceAll("^\"|\"$", "");
-        String key = CacheKeyBuilder.deviceIdRule(GeneralPrefixEnum.TABLE_PREFIX.getValue()+deviceId);
+        String key = CacheKeyBuilder.deviceIdRule(generalPrefix.getTablePrefix()+deviceId);
         Integer ruleId = (Integer) redisUtils.get(key);
         JSONObject jsonObject = JsonUtils.parseObject(map.get("data"),  JSONObject.class);
         //如果没有对应的规则，则直接入库。

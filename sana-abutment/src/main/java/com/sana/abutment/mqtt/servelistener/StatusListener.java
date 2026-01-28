@@ -1,6 +1,7 @@
 package com.sana.abutment.mqtt.servelistener;
 
 import com.sana.abutment.dao.DeviceStatusDao;
+import com.sana.base.syshandle.entity.GeneralPrefix;
 import com.sana.base.syshandle.enums.GeneralPrefixEnum;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -19,19 +20,21 @@ public class StatusListener {
 
     @Resource
     private DeviceStatusDao deviceStatusDao;
-
+    @Resource
+    private GeneralPrefix generalPrefix;
     @EventListener
     public void online(MqttClientOnlineEvent event) {
 
-        if( event.getClientId() != null && event.getClientId().startsWith(GeneralPrefixEnum.TABLE_PREFIX.getValue())){
+        if( event.getClientId() != null && event.getClientId().startsWith(generalPrefix.getTablePrefix())){
             log.info("设备上线：{}",event.getClientId());
+            //后续状态修改可以走队列，避免频繁的上下线
             deviceStatusDao.updataStatus(Long.valueOf(event.getClientId().substring(2)),1);
         }
     }
 
     @EventListener
     public void offline(MqttClientOfflineEvent event) {
-        if( event.getClientId() != null && event.getClientId().startsWith(GeneralPrefixEnum.TABLE_PREFIX.getValue())){
+        if( event.getClientId() != null && event.getClientId().startsWith(generalPrefix.getTablePrefix())){
             log.info("设备下线：{}",event.getClientId());
             deviceStatusDao.updataStatus(Long.valueOf(event.getClientId().substring(2)),0);
         }

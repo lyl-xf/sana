@@ -1,9 +1,9 @@
 package com.sana.rules.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.sana.base.mybatis.service.impl.BaseServiceImpl;
 import com.sana.base.syshandle.page.SanaPage;
-import com.sana.rules.convert.RulesItemConvert;
 import com.sana.rules.dao.RulesItemDao;
 import com.sana.rules.entity.RulesItemEntity;
 import com.sana.rules.entity.vo.query.RulesItemPageQuery;
@@ -44,13 +44,15 @@ public class RulesItemServiceIpml extends BaseServiceImpl<RulesItemDao, RulesIte
 
     @Override
     public void saveRulesItem(RulesItemSave saveVO) {
-        RulesItemEntity rulesItemEntity = RulesItemConvert.INSTANCE.convert(saveVO);
+        RulesItemEntity rulesItemEntity = new RulesItemEntity();
+        BeanUtil.copyProperties(saveVO, rulesItemEntity);
         baseMapper.insert(rulesItemEntity);
     }
 
     @Override
     public void updateRulesItem(RulesItemUpdate updateVO) {
-        RulesItemEntity rulesItemEntity = RulesItemConvert.INSTANCE.convert(updateVO);
+        RulesItemEntity rulesItemEntity = new RulesItemEntity();
+        BeanUtil.copyProperties(updateVO, rulesItemEntity);
         baseMapper.updateById(rulesItemEntity);
     }
 

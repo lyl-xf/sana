@@ -1,10 +1,10 @@
 package com.sana.system.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import cn.hutool.core.bean.BeanUtil;
 import com.sana.base.syshandle.enums.OperateTypeEnum;
 import com.sana.base.syshandle.operatelog.OptLog;
 import com.sana.base.syshandle.result.SanaResult;
-import com.sana.system.convert.SysDictTypeConvert;
 import com.sana.system.entity.SysDictTypeEntity;
 import com.sana.system.entity.result.SysDictTypeResult;
 import com.sana.system.entity.save.SysDictTypeSave;
@@ -59,7 +59,8 @@ public class SysDictTypeController {
     @OptLog(type = OperateTypeEnum.UPDATE)
     @SaCheckPermission("sys:dict:update")
     public SanaResult<String> update(@RequestBody @Valid SysDictTypeUpdate uodateVO) {
-        SysDictTypeEntity entity = SysDictTypeConvert.INSTANCE.convert(uodateVO);
+        SysDictTypeEntity entity = new SysDictTypeEntity();
+        BeanUtil.copyProperties(uodateVO, entity);
         sysDictTypeService.updateById(entity);
         return SanaResult.ok();
     }

@@ -1,9 +1,9 @@
 package com.sana.system.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.sana.base.cache.redis.CacheKeyBuilder;
 import com.sana.base.cache.redis.RedisUtils;
 import com.sana.base.mybatis.service.impl.BaseServiceImpl;
-import com.sana.system.convert.SysDictTypeConvert;
 import com.sana.system.dao.SysDictDataDao;
 import com.sana.system.dao.SysDictTypeDao;
 import com.sana.system.entity.SysDictTypeEntity;
@@ -34,7 +34,8 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
 
     @Override
     public void save(SysDictTypeSave saveVO) {
-        SysDictTypeEntity entity = SysDictTypeConvert.INSTANCE.convert(saveVO);
+        SysDictTypeEntity entity = new SysDictTypeEntity();
+        BeanUtil.copyProperties(saveVO, entity);
         String redisKey = CacheKeyBuilder.dictKey(entity.getCode());
         redisUtils.set(redisKey,null);
         baseMapper.insert(entity);

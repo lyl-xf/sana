@@ -1,10 +1,10 @@
 package com.sana.devices.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.sana.base.cache.redis.CacheKeyBuilder;
 import com.sana.base.cache.redis.RedisUtils;
 import com.sana.base.mybatis.service.impl.BaseServiceImpl;
 import com.sana.base.syshandle.entity.DeviceControl;
-import com.sana.devices.convert.DeviceControlDataConvert;
 import com.sana.devices.dao.DeviceControlDataDao;
 import com.sana.devices.entity.DeviceControlDataEntity;
 import com.sana.devices.entity.vo.query.DeviceControlDataQuery;
@@ -52,7 +52,8 @@ public class DeviceControlDataServiceImpl extends BaseServiceImpl<DeviceControlD
         //设备功能存储到redis中，用于后期的指令处理
         Object data = redisCacheOps.get(key);
         //数据库实例化存储
-        DeviceControlDataEntity entity = DeviceControlDataConvert.INSTANCE.convert(saveVO);
+        DeviceControlDataEntity entity = new DeviceControlDataEntity();
+        BeanUtil.copyProperties(saveVO, entity);
         if(saveVO.getId()!=null){
             //缓存处理
             if(data!=null){
@@ -100,7 +101,8 @@ public class DeviceControlDataServiceImpl extends BaseServiceImpl<DeviceControlD
 
     @Override
     public void updateDeviceControlData(DeviceControlDataUpdate updateVO) {
-        DeviceControlDataEntity entity = DeviceControlDataConvert.INSTANCE.convert(updateVO);
+        DeviceControlDataEntity entity = new DeviceControlDataEntity();
+        BeanUtil.copyProperties(updateVO, entity);
         baseMapper.updateById(entity);
     }
 

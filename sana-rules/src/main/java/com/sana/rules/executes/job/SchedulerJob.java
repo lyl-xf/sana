@@ -6,6 +6,7 @@ import com.sana.base.cache.caffeine.CaffeineCacheManager;
 import com.sana.base.cache.redis.CacheKeyBuilder;
 import com.sana.base.cache.redis.RedisUtils;
 import com.sana.base.syshandle.entity.DeviceControl;
+import com.sana.base.syshandle.entity.GeneralPrefix;
 import com.sana.base.syshandle.enums.GeneralPrefixEnum;
 import com.sana.base.syshandle.enums.RuleValueEnum;
 import com.sana.base.utils.JsonUtils;
@@ -44,6 +45,9 @@ public class SchedulerJob implements Job {
     private ActionDispatcher actionDispatcher;
     @Resource
     private RulesActionHandler rulesActionHandler;
+
+    @Resource
+    private GeneralPrefix generalPrefix;
 
 
     @Override
@@ -139,7 +143,7 @@ public class SchedulerJob implements Job {
                                 for (DeviceControl deviceControlItem : deviceControlList){
                                     if(deviceControlItem.getControlType()==RuleValueEnum.ACQUISITIONFUNCTION.getValue()){
                                         pushData.put(deviceControlItem.getControlMode(),deviceControlItem.getControlDefultValue());
-                                        messagePublish.publishTopic(GeneralPrefixEnum.DEVICE_TOPIC_PREFIX.getValue()+deviceControlItem.getDeviceItemId(),JsonUtils.toJsonString(pushData));
+                                        messagePublish.publishTopic(generalPrefix.getDeviceTopicPrefix()+deviceControlItem.getDeviceItemId(),JsonUtils.toJsonString(pushData));
                                         // todo 这里需要记录日志，记录发送成功
                                         log.info("设备{},功能{}发送成功",deviceControlItem.getDeviceItemId(),deviceControlItem.getControlName());
                                     }
@@ -155,7 +159,7 @@ public class SchedulerJob implements Job {
                             for (DeviceControl deviceControlItem : deviceControlList){
                                 if(deviceControlItem.getControlType()==RuleValueEnum.ACQUISITIONFUNCTION.getValue()){
                                     pushData.put(deviceControlItem.getControlMode(),deviceControlItem.getControlDefultValue());
-                                    messagePublish.publishTopic(GeneralPrefixEnum.DEVICE_TOPIC_PREFIX.getValue()+deviceControlItem.getDeviceItemId(),JsonUtils.toJsonString(pushData));
+                                    messagePublish.publishTopic(generalPrefix.getDeviceTopicPrefix()+deviceControlItem.getDeviceItemId(),JsonUtils.toJsonString(pushData));
                                     log.info("设备{},功能{}发送成功",deviceControlItem.getDeviceItemId(),deviceControlItem.getControlName());
                                 }
                             }

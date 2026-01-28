@@ -12,6 +12,7 @@ import com.sana.base.cache.redis.CacheKeyBuilder;
 import com.sana.base.cache.redis.RedisUtils;
 import com.sana.base.cache.redis.stream.RedisStreamConfigProperties;
 import com.sana.base.syshandle.entity.DeviceControl;
+import com.sana.base.syshandle.entity.GeneralPrefix;
 import com.sana.base.syshandle.enums.GeneralPrefixEnum;
 import com.sana.base.syshandle.exception.SanaException;
 import com.sana.rules.dao.RulesItemDao;
@@ -54,6 +55,9 @@ public class AbutmentInitializer {
     private RulesItemDao rulesItemDao;
     @Resource
     private DataAnalysisService dataAnalysisService;
+
+    @Resource
+    private GeneralPrefix generalPrefix;
 
 
     @Value("${sana.aviator-path}")
@@ -212,7 +216,7 @@ public class AbutmentInitializer {
     private void initDeviceIdRuleJobCache() {
         List<RulesJobDeviceIdEntity> rulesJobDeviceIdEntityList = rulesItemDao.getRulesJobDeviceId();
         for (RulesJobDeviceIdEntity rulesJobDeviceIdEntity : rulesJobDeviceIdEntityList) {
-            String RulesJobKey = CacheKeyBuilder.deviceIdRuleJon(GeneralPrefixEnum.TABLE_PREFIX.getValue() + rulesJobDeviceIdEntity.getDeviceId());
+            String RulesJobKey = CacheKeyBuilder.deviceIdRuleJon(generalPrefix.getTablePrefix() + rulesJobDeviceIdEntity.getDeviceId());
             Object RulesJobData = redisUtils.get(RulesJobKey);
             if (RulesJobData != null) {
                 //System.out.println(RulesJobKey+"已经存在，不进行更新");
@@ -228,7 +232,7 @@ public class AbutmentInitializer {
     private void initDeviceIdRuleListenCache() {
         List<RulesListenDeviceIdEntity> rulesListenDeviceIdEntity = rulesItemDao.getRulesListenDeviceIdList();
         for (RulesListenDeviceIdEntity rulesListenDeviceIdEntity1 : rulesListenDeviceIdEntity) {
-            String RulesListenKey = CacheKeyBuilder.deviceIdRule(GeneralPrefixEnum.TABLE_PREFIX.getValue() + rulesListenDeviceIdEntity1.getDeviceId());
+            String RulesListenKey = CacheKeyBuilder.deviceIdRule(generalPrefix.getTablePrefix() + rulesListenDeviceIdEntity1.getDeviceId());
             Object RulesListenData = redisUtils.get(RulesListenKey);
             if (RulesListenData != null) {
                 //System.out.println("deviceIdRule已经存在，不进行更新");

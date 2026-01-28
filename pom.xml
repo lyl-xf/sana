@@ -100,7 +100,7 @@
                 <artifactId>easy-captcha</artifactId>
                 <version>${captcha.version}</version>
             </dependency>
-            <dependency>
+<!--            <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
                 <version>${mapstruct.version}</version>
@@ -109,7 +109,7 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct-processor</artifactId>
                 <version>${mapstruct.version}</version>
-            </dependency>
+            </dependency>-->
             <dependency>
                 <groupId>cn.dev33</groupId>
                 <artifactId>sa-token-jwt</artifactId>

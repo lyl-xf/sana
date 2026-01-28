@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.sana.base.cache.redis.CacheKeyBuilder;
 import com.sana.base.cache.redis.RedisUtils;
 import com.sana.base.cache.redis.stream.RedisStreamConfigProperties;
+import com.sana.base.syshandle.entity.GeneralPrefix;
 import com.sana.base.syshandle.enums.GeneralPrefixEnum;
 import com.sana.base.utils.JsonUtils;
 import jakarta.annotation.Resource;
@@ -32,6 +33,9 @@ public class MessageListener implements IMqttMessageListener {
     @Value("${sana.rule-priority}")
     private String rulePriority;
 
+    @Resource
+    private GeneralPrefix generalPrefix;
+
     @Value("${sana.rule-action.queue-type}")
     private String queueType;
 
@@ -42,22 +46,19 @@ public class MessageListener implements IMqttMessageListener {
 
     @Resource(name = "mqttMessageTaskExecutor")
     private ExecutorService mqttMessageExecutor;
-    /**
-     * 初版默认走mqtt监听
-     */
+
     @Override
     public void onMessage(ChannelContext context, String clientId, String topic, MqttQoS qoS, MqttPublishMessage message) {
         //String payload = new String(message.getPayload(), StandardCharsets.UTF_8);
-        //log.info("clientId:{} message:{} payload:{}", clientId, message, new String(message.getPayload(), StandardCharsets.UTF_8));
+        log.info("clientId:{} message:{} payload:{}", clientId, message, new String(message.getPayload(), StandardCharsets.UTF_8));
         //发送数据
         mqttMessageExecutor.submit(() -> {
 
             try {
-                // todo redis队列会有丢失的问题，所以这里也需要支持kafka
                 if ("REDIS".equalsIgnoreCase(queueType)) {
                     //拼接测试数据
                     HashMap<String, Object> streamMap = new HashMap<>(2);
-                    streamMap.put("deviceId", topic.substring(GeneralPrefixEnum.DEVICE_TOPIC_PREFIX.getValue().length()));
+                    streamMap.put("deviceId", topic.substring(generalPrefix.getDeviceTopicPrefix().length()));
                     streamMap.put("data", JsonUtils.parseObject(new String(message.getPayload(), StandardCharsets.UTF_8), JSONObject.class));
                     //查询这个设备是否是属于定时规则的，如果是就往定时流中发送，如果不是就往监听流中
                     Object timingData = redisCacheOps.get(CacheKeyBuilder.deviceIdRuleJon(topic.substring(1)));

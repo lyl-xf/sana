@@ -5,8 +5,6 @@ import com.sana.base.syshandle.enums.OperateTypeEnum;
 import com.sana.base.syshandle.operatelog.OptLog;
 import com.sana.base.syshandle.page.SanaPage;
 import com.sana.base.syshandle.result.SanaResult;
-import com.sana.system.convert.SysDictDataConvert;
-import com.sana.system.entity.SysDictDataEntity;
 import com.sana.system.entity.query.SysDictDataQuery;
 import com.sana.system.entity.result.SysDictDataResult;
 import com.sana.system.entity.save.SysDictDataSave;
