@@ -56,6 +56,9 @@ public class CameraSettingsServiceImpl extends BaseServiceImpl<CameraStreamProxy
             String path = HttpClientUtils.doGet(urls);
             JSONObject datas = JSONObject.parseObject(String.valueOf(path), JSONObject.class);
             if(datas!=null){
+                if(datas.get("code").toString().equals("-100")){
+                    return SanaResult.error("secret秘钥不对，请检查");
+                }
                 return SanaResult.ok(datas);
             }else {
                 return SanaResult.error("请检查ZLMServerConfi相关配置");
