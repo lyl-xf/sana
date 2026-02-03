@@ -55,8 +55,10 @@ public class ProtocolsMqttServiceImpl extends BaseServiceImpl<ProtocolsMqttDao, 
     }
 
     @Override
-    public ProtocolsMqttResult getMqttBroker() {
-        return baseMapper.getMqttBroker();
+    public ProtocolsMqttResult getMqttBroker(String deviceId) {
+
+
+        return baseMapper.getMqttBroker(Long.parseLong(deviceId));
     }
 
 

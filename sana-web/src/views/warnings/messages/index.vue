@@ -27,7 +27,7 @@
 							<el-table-column label="模块名称" prop="module" width="120"></el-table-column>
 							<el-table-column label="日志类型" prop="name" width="120"></el-table-column>
 							<el-table-column label="执行方式" prop="reqUri" width="150"></el-table-column>
-							<el-table-column label="记录日志时间" prop="ts" width="200"></el-table-column>
+							<el-table-column label="记录日志时间" prop="createTime" width="200"></el-table-column>
 							<el-table-column label="执行结果" prop="status" width="120">
 									<template #default="scope">
 									<el-tag v-if="scope.row.status==1" type="success">成功</el-tag>

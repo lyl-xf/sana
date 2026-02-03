@@ -33,7 +33,7 @@ public interface ProtocolsMqttService extends BaseService<ProtocolsMqttEntity> {
 
     List<RuleProtocolsMqttResult> getMqttGroupList(ProtocolsMqttQuery query);
 
-    ProtocolsMqttResult getMqttBroker();
+    ProtocolsMqttResult getMqttBroker(String deviceId);
 
     void initializeMqttClient(ProtocolsMqttClientProperties protocolsMqttClientProperties);
 

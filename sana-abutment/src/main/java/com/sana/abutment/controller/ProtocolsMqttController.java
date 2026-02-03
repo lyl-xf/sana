@@ -55,8 +55,9 @@ public class ProtocolsMqttController {
     @GetMapping("/getMqttBroker")
     @Operation(summary = "获取mqtt信息")
     @OptLog(type = OperateTypeEnum.QUERY)
-    public SanaResult<ProtocolsMqttResult> getMqttBroker() {
-        ProtocolsMqttResult sanaPage = protocolsMqttService.getMqttBroker();
+    public SanaResult<ProtocolsMqttResult> getMqttBroker(@RequestParam String deviceId) {
+
+        ProtocolsMqttResult sanaPage = protocolsMqttService.getMqttBroker(deviceId);
         return SanaResult.ok(sanaPage);
     }
 

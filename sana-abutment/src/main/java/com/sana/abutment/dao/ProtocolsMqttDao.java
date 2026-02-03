@@ -32,7 +32,7 @@ public interface ProtocolsMqttDao extends BaseDao<ProtocolsMqttEntity> {
 
     List<RuleProtocolsMqttResult> getMqttGroupList(@Param("model") ProtocolsMqttQuery query);
 
-    ProtocolsMqttResult getMqttBroker();
+    ProtocolsMqttResult getMqttBroker(@Param("deivceId")long deivceId);
 
     Integer getMttpType(long deivceId);
 }

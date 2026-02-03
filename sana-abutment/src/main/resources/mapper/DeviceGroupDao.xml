@@ -126,7 +126,16 @@
             device_item_id
     </select>
     <select id="getMqttBroker" resultType="com.sana.abutment.entity.result.ProtocolsMqttResult">
-        select * from protocols_mqtt where mqtt_type = 1 and deleted = 0
+        SELECT
+            mqtt.*
+        FROM
+            protocols_mqtt  mqtt
+                LEFT JOIN device_abutment da ON mqtt.id = da.agreement_id
+                LEFT JOIN device_product_type dpt ON  da.product_id = dpt.id
+                LEFT JOIN device_item di ON  dpt.id = di.product_type_id
+
+        WHERE di.id = #{deivceId}
+          and mqtt.deleted = 0
     </select>
     <select id="getMttpType" resultType="java.lang.Integer">
         select pm.mqtt_type from protocols_mqtt pm

@@ -55,7 +55,7 @@ export default {
 
 	mounted() {
 		this.getDeviceMode(this.deviceItemId);
-		this.getMqttBroker();
+		this.getMqttBroker(this.deviceItemId);
 		setTimeout(() => {
 			this.connectMQTT();
 		}, 2000)
@@ -80,9 +80,9 @@ export default {
 			this.loading = false;
 		},
 
-		async getMqttBroker(){
+		async getMqttBroker(deviceItemId){
 			this.loading = true;
-			var res = await this.$API.abutment.mqttClient.getMqttBroker.get();
+			var res = await this.$API.abutment.mqttClient.getMqttBroker.get({"deviceId":deviceItemId});
 			if (res.code === 200) {
 				this.username = res.data.username;
 				this.password = res.data.password;

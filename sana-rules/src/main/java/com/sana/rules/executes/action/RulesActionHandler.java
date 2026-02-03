@@ -168,8 +168,9 @@ public class RulesActionHandler {
 
             //数据转发
             if(actionMapData.containsKey("sendType")){
+                log.info("结果："+actionMapData.get("sendType").equals(2));
                 //设备预警消息推送
-                if(actionMapData.get("sendType").equals("1")){
+                if(actionMapData.get("sendType").equals(1)){
                     messagePublish.publishTopic(actionMapData.get("pushTopic").toString(),actionMapData.get("pushData").toString());
 
                     StringBuffer pushLog = new StringBuffer();
@@ -186,7 +187,7 @@ public class RulesActionHandler {
                     allLog.append("；触发数据流转-预警执行：");
                     allLog.append(pushLog);
                 //解除预警数据推送
-                }else if(actionMapData.get("sendType").equals("2")){
+                }else if(actionMapData.get("sendType").equals(2)){
                     messagePublish.publishTopic(actionMapData.get("pushTopic").toString(),actionMapData.get("pushData").toString());
 
                     //log.info("设备解除预警数据推送！解除预警数据:{},推送主题:{}",actionMapData.get("pushData").toString(),actionMapData.get("pushTopic").toString());
