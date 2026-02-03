@@ -32,7 +32,7 @@
 						</sc-form-table>
 						<dev  class="custom-margin-top align-right">
 							<el-button @click="resetForm">重置</el-button>
-							<el-button type="primary" v-auth="'devices:deviceProductType:model'" @click="saveProductTypeMode">保存</el-button>
+							<el-button type="primary" v-auth="'devices:deviceProductType:modelSave'" @click="saveProductTypeMode">保存</el-button>
 						</dev>
 					</el-form>
 				</el-card>
