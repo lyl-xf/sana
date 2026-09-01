@@ -3,7 +3,6 @@
 [使用说明看这里！](https://lyl-xf.github.io/)
 请下载最新发布的版本进行使用哦！
 
-ps：只有自己一个人在写，有些会存在问题，请 轻点喷.....
 
 ## 项目介绍
 1、sana是一个轻量级的IOT设备云管理平台，后端springboot3.5开发，前端基于scui进行修改开发、前后端分离的、单体的项目。
@@ -14,7 +13,7 @@ ps：只有自己一个人在写，有些会存在问题，请 轻点喷.....
 3、不包含端到端的设备接入协议
 暂时本程序不考虑以下接入协议，比如西门子、施耐德、三菱的plc协议，亦或者CNC、OPC-UA协议等等，这些都是边缘接入程序或者边缘智能网关要干的活，本程序在设计之初就只做云平台。想做设备接入可以用node-red或者是其他软件项目。
 
-3、边缘智能网关程序简易版：[IoTGataway](https://github.com/lyl-xf/IoTGataway)
+3、边缘网关接入程序，浏览器版：[IoTGataway](https://github.com/lyl-xf/IoTGataway) C端GUI版本：[lana](https://github.com/lyl-xf/lana)，可通过mqtt指定上报、指令接受的运平台。
 
 4、关于云平台的集群方案与边缘采集程序,正在构建中。
 
