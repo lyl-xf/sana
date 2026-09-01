@@ -3,6 +3,13 @@
 [使用说明看这里！](https://lyl-xf.github.io/)
 请下载最新发布的版本进行使用哦！
 
+边缘设备接入：
+
+浏览器版：[IoTGataway](https://github.com/lyl-xf/IoTGataway) 。
+
+C端GUI版本：[lana](https://github.com/lyl-xf/lana)。
+
+均可通过mqtt指定上报、指令接受的运平台。
 
 ## 项目介绍
 1、sana是一个轻量级的IOT设备云管理平台，后端springboot3.5开发，前端基于scui进行修改开发、前后端分离的、单体的项目。
