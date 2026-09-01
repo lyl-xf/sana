@@ -13,7 +13,7 @@
 3、不包含端到端的设备接入协议
 暂时本程序不考虑以下接入协议，比如西门子、施耐德、三菱的plc协议，亦或者CNC、OPC-UA协议等等，这些都是边缘接入程序或者边缘智能网关要干的活，本程序在设计之初就只做云平台。想做设备接入可以用node-red或者是其他软件项目。
 
-3、边缘网关接入程序，浏览器版：[IoTGataway](https://github.com/lyl-xf/IoTGataway) C端GUI版本：[lana](https://github.com/lyl-xf/lana)，可通过mqtt指定上报、指令接受的运平台。
+3、边缘网关接入程序，浏览器版：[IoTGataway](https://github.com/lyl-xf/IoTGataway) ，C端GUI版本：[lana](https://github.com/lyl-xf/lana)，可通过mqtt指定上报、指令接受的运平台。
 
 4、关于云平台的集群方案与边缘采集程序,正在构建中。
 
